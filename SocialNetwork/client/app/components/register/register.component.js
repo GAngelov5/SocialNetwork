@@ -8,9 +8,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var router_1 = require('@angular/router');
-var user_service_1 = require('../../services/user.service');
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = require("@angular/core");
+var router_1 = require("@angular/router");
+var user_service_1 = require("../../services/user.service");
 var RegisterComponent = (function () {
     function RegisterComponent(router, userService) {
         this.router = router;
@@ -25,14 +26,15 @@ var RegisterComponent = (function () {
             _this.router.navigate(['/login']);
         });
     };
-    RegisterComponent = __decorate([
-        core_1.Component({
-            moduleId: module.id,
-            templateUrl: 'register.component.html'
-        }), 
-        __metadata('design:paramtypes', [router_1.Router, user_service_1.UserService])
-    ], RegisterComponent);
     return RegisterComponent;
 }());
+RegisterComponent = __decorate([
+    core_1.Component({
+        moduleId: module.id,
+        templateUrl: 'register.component.html'
+    }),
+    __metadata("design:paramtypes", [router_1.Router,
+        user_service_1.UserService])
+], RegisterComponent);
 exports.RegisterComponent = RegisterComponent;
 //# sourceMappingURL=register.component.js.map

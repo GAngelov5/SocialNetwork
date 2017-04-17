@@ -8,9 +8,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var router_1 = require('@angular/router');
-var articles_service_1 = require('../../services/articles.service');
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = require("@angular/core");
+var router_1 = require("@angular/router");
+var articles_service_1 = require("../../services/articles.service");
 var ProfilePublicationsComponent = (function () {
     function ProfilePublicationsComponent(route, router, articleService) {
         this.route = route;
@@ -27,15 +28,17 @@ var ProfilePublicationsComponent = (function () {
         this.articleService.getArticlesForUser(userId)
             .subscribe(function (publications) { return _this.publications = publications; });
     };
-    ProfilePublicationsComponent = __decorate([
-        core_1.Component({
-            moduleId: module.id,
-            selector: "profile-publications",
-            templateUrl: "profile-publications.component.html"
-        }), 
-        __metadata('design:paramtypes', [router_1.ActivatedRoute, router_1.Router, articles_service_1.ArticleService])
-    ], ProfilePublicationsComponent);
     return ProfilePublicationsComponent;
 }());
+ProfilePublicationsComponent = __decorate([
+    core_1.Component({
+        moduleId: module.id,
+        selector: "profile-publications",
+        templateUrl: "profile-publications.component.html"
+    }),
+    __metadata("design:paramtypes", [router_1.ActivatedRoute,
+        router_1.Router,
+        articles_service_1.ArticleService])
+], ProfilePublicationsComponent);
 exports.ProfilePublicationsComponent = ProfilePublicationsComponent;
 //# sourceMappingURL=profile-publications.component.js.map

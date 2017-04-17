@@ -8,8 +8,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var user_service_1 = require('../../services/user.service');
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = require("@angular/core");
+var user_service_1 = require("../../services/user.service");
 var UsersComponent = (function () {
     function UsersComponent(userService) {
         var _this = this;
@@ -19,16 +20,16 @@ var UsersComponent = (function () {
             _this.users = users;
         });
     }
-    UsersComponent = __decorate([
-        core_1.Component({
-            moduleId: module.id,
-            selector: "list-users",
-            templateUrl: "users.component.html"
-        }), 
-        __metadata('design:paramtypes', [user_service_1.UserService])
-    ], UsersComponent);
     return UsersComponent;
 }());
+UsersComponent = __decorate([
+    core_1.Component({
+        moduleId: module.id,
+        selector: "list-users",
+        templateUrl: "users.component.html"
+    }),
+    __metadata("design:paramtypes", [user_service_1.UserService])
+], UsersComponent);
 exports.UsersComponent = UsersComponent;
 // interface User {
 //     _id: string;

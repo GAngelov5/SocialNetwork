@@ -8,23 +8,21 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var authentication_service_1 = require('../../services/authentication.service');
-var user_service_1 = require('../../services/user.service');
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = require("@angular/core");
+var authentication_service_1 = require("../../services/authentication.service");
+var user_service_1 = require("../../services/user.service");
 var NavigationBarComponent = (function () {
     function NavigationBarComponent(authenticationService, userService) {
-        var _this = this;
         this.authenticationService = authenticationService;
         this.userService = userService;
-        this.currentUserId = JSON.parse(localStorage.getItem('currentUser')).userId;
-        this.userService.getUser(this.currentUserId).subscribe(function (user) {
-            if (user) {
-                _this.setLabels(user.firstName, "Logout");
-            }
-            else {
-                _this.setLabels("Guest", "Login");
-            }
-        });
+        // this.userService.getUser(this.currentUserId).subscribe(user => {
+        //     if (user) {
+        //         this.setLabels(user.firstName, "Logout");
+        //     } else {
+        //         this.setLabels("Guest", "Login");
+        //     }
+        // });
     }
     NavigationBarComponent.prototype.logout = function () {
         this.authenticationService.logout();
@@ -33,16 +31,17 @@ var NavigationBarComponent = (function () {
         this.name = name;
         this.loginLabel = loginLabel;
     };
-    NavigationBarComponent = __decorate([
-        core_1.Component({
-            moduleId: module.id,
-            selector: "nav-bar",
-            templateUrl: "navigationbar.component.html",
-            providers: [authentication_service_1.AuthenticationService]
-        }), 
-        __metadata('design:paramtypes', [authentication_service_1.AuthenticationService, user_service_1.UserService])
-    ], NavigationBarComponent);
     return NavigationBarComponent;
 }());
+NavigationBarComponent = __decorate([
+    core_1.Component({
+        moduleId: module.id,
+        selector: "nav-bar",
+        templateUrl: "navigationbar.component.html",
+        providers: [authentication_service_1.AuthenticationService]
+    }),
+    __metadata("design:paramtypes", [authentication_service_1.AuthenticationService,
+        user_service_1.UserService])
+], NavigationBarComponent);
 exports.NavigationBarComponent = NavigationBarComponent;
 //# sourceMappingURL=navigationbar.component.js.map

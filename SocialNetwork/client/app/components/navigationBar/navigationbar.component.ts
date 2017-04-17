@@ -16,14 +16,13 @@ export class NavigationBarComponent {
 
     constructor(private authenticationService:AuthenticationService,
                 private userService: UserService) {
-        this.currentUserId = JSON.parse(localStorage.getItem('currentUser')).userId;
-        this.userService.getUser(this.currentUserId).subscribe(user => {
-            if (user) {
-                this.setLabels(user.firstName, "Logout");
-            } else {
-                this.setLabels("Guest", "Login");
-            }
-        });
+        // this.userService.getUser(this.currentUserId).subscribe(user => {
+        //     if (user) {
+        //         this.setLabels(user.firstName, "Logout");
+        //     } else {
+        //         this.setLabels("Guest", "Login");
+        //     }
+        // });
     }
 
     logout() {

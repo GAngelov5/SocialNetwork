@@ -8,9 +8,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var router_1 = require('@angular/router');
-var user_service_1 = require('../../services/user.service');
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = require("@angular/core");
+var router_1 = require("@angular/router");
+var user_service_1 = require("../../services/user.service");
 var ProfileSettingsComponent = (function () {
     function ProfileSettingsComponent(userService, route, router) {
         this.userService = userService;
@@ -43,15 +44,17 @@ var ProfileSettingsComponent = (function () {
         this.user.newPassword = this.newPassword;
         this.userService.updateUser(this.user);
     };
-    ProfileSettingsComponent = __decorate([
-        core_1.Component({
-            moduleId: module.id,
-            selector: "profile-settings",
-            templateUrl: "profile-settings.component.html"
-        }), 
-        __metadata('design:paramtypes', [user_service_1.UserService, router_1.ActivatedRoute, router_1.Router])
-    ], ProfileSettingsComponent);
     return ProfileSettingsComponent;
 }());
+ProfileSettingsComponent = __decorate([
+    core_1.Component({
+        moduleId: module.id,
+        selector: "profile-settings",
+        templateUrl: "profile-settings.component.html"
+    }),
+    __metadata("design:paramtypes", [user_service_1.UserService,
+        router_1.ActivatedRoute,
+        router_1.Router])
+], ProfileSettingsComponent);
 exports.ProfileSettingsComponent = ProfileSettingsComponent;
 //# sourceMappingURL=profile-settings.component.js.map

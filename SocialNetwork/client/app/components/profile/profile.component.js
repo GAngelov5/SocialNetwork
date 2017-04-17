@@ -8,10 +8,11 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var router_1 = require('@angular/router');
-var user_service_1 = require('../../services/user.service');
-var articles_service_1 = require('../../services/articles.service');
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = require("@angular/core");
+var router_1 = require("@angular/router");
+var user_service_1 = require("../../services/user.service");
+var articles_service_1 = require("../../services/articles.service");
 var ProfileComponent = (function () {
     function ProfileComponent(userService, articlesService, route, router) {
         this.userService = userService;
@@ -67,15 +68,18 @@ var ProfileComponent = (function () {
     ProfileComponent.prototype.onClickPublications = function () {
         this.router.navigate(['publications', { id: this.profileId }], { relativeTo: this.route });
     };
-    ProfileComponent = __decorate([
-        core_1.Component({
-            moduleId: module.id,
-            selector: 'profile',
-            templateUrl: 'profile.component.html'
-        }), 
-        __metadata('design:paramtypes', [user_service_1.UserService, articles_service_1.ArticleService, router_1.ActivatedRoute, router_1.Router])
-    ], ProfileComponent);
     return ProfileComponent;
 }());
+ProfileComponent = __decorate([
+    core_1.Component({
+        moduleId: module.id,
+        selector: 'profile',
+        templateUrl: 'profile.component.html'
+    }),
+    __metadata("design:paramtypes", [user_service_1.UserService,
+        articles_service_1.ArticleService,
+        router_1.ActivatedRoute,
+        router_1.Router])
+], ProfileComponent);
 exports.ProfileComponent = ProfileComponent;
 //# sourceMappingURL=profile.component.js.map

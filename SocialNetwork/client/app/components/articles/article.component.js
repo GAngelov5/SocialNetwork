@@ -8,8 +8,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var articles_service_1 = require('../../services/articles.service');
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = require("@angular/core");
+var articles_service_1 = require("../../services/articles.service");
 var ArticleComponent = (function () {
     function ArticleComponent(articlesService) {
         this.articlesService = articlesService;
@@ -24,15 +25,15 @@ var ArticleComponent = (function () {
             _this.articles = articles;
         });
     };
-    ArticleComponent = __decorate([
-        core_1.Component({
-            moduleId: module.id,
-            selector: "article-list",
-            templateUrl: "article.component.html"
-        }), 
-        __metadata('design:paramtypes', [articles_service_1.ArticleService])
-    ], ArticleComponent);
     return ArticleComponent;
 }());
+ArticleComponent = __decorate([
+    core_1.Component({
+        moduleId: module.id,
+        selector: "article-list",
+        templateUrl: "article.component.html"
+    }),
+    __metadata("design:paramtypes", [articles_service_1.ArticleService])
+], ArticleComponent);
 exports.ArticleComponent = ArticleComponent;
 //# sourceMappingURL=article.component.js.map
