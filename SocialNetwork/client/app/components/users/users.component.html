@@ -1,0 +1,6 @@
+<div>
+    <h3>Authors</h3>
+    <div *ngFor="let user of users">
+        <a [routerLink]="['/profile', user._id]"><span>{{user.username}}</span></a>
+    </div>
+</div>
