@@ -1,0 +1,15 @@
+<div class="container">
+    <h2>{{article.title}}</h2>
+    <h4>Publisher: {{publisher.firstName }} {{publisher.lastName}}</h4>
+    <div>
+        {{article.content}}
+    </div>
+    <div>
+        <span>Rating: {{article.votes}} stars</span>
+        <span *ngIf="!hasVoted">
+            <input type="checkbox" [(ngModel)]="vote">
+            <button class="btn btn-primary" (click)="voteForArticle()">Vote</button>
+        </span>
+    </div>
+    <div>Published on: {{article.published_at | date:'shortDate'}}</div>
+</div>

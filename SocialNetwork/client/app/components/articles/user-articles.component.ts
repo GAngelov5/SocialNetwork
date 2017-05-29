@@ -14,20 +14,8 @@ export class UserArticlesComponent {
                 private router: Router) {
         this.route.data
             .subscribe((data) => {
-                const articles = JSON.parse(data['articles']._body);
-                this.parseArticles(articles);
+                this.articles = JSON.parse(data['articles']._body);
             });
-    }
-
-    parseArticles(articles) {
-        this.articles = articles.map((article) => {
-            const content = article.content.split(". ");
-            if (content.length > 3) {
-                article.content = content.slice(0,3).join(". ");
-                article.content += "..."
-            }
-            return article;
-        })
     }
 
     showArticle(articleId) {

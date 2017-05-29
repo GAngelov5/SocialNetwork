@@ -13,6 +13,8 @@ import { UserArticlesComponent } from './components/articles/user-articles.compo
 
 import { AuthGuard } from './guards/guard.service';
 import { UserArticlesResolver } from './components/articles/user-articles-resolver.service';
+import { ArticleResolver } from './components/articles/article-resolver.service';
+// import { ArticleUserResolver } from './components/articles/article-user-resolver.service';
 
 const appRoutes: Routes = [
     { path: '', component: ArticleComponent, canActivate: [AuthGuard] },
@@ -33,7 +35,11 @@ const appRoutes: Routes = [
     },
     {
         path: 'article/:id',
-        component: ArticleComponent
+        component: ArticleComponent,
+        resolve: {
+            article: ArticleResolver
+            // user: ArticleUserResolver
+        }
     }
 ]
 

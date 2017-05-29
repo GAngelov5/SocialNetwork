@@ -8,6 +8,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { UsersComponent } from './components/users/users.component';
 import { ArticleComponent } from './components/articles/article.component';
+import { ArticlesComponent } from './components/articles/articles.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { ProfileComponent } from './components/profile/profile.component';
@@ -22,7 +23,7 @@ var appRoutes = [
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
     { path: 'logout', component: LoginComponent },
-    { path: 'articles', component: ArticleComponent },
+    { path: 'articles', component: ArticlesComponent },
     { path: 'categories', component: CategoryComponent },
     { path: 'profile/:id', component: ProfileComponent },
     { path: 'addArticle', component: AddArticleComponent },
@@ -32,6 +33,10 @@ var appRoutes = [
         resolve: {
             articles: UserArticlesResolver
         }
+    },
+    {
+        path: 'article/:id',
+        component: ArticleComponent
     }
 ];
 var AppRoutingModule = (function () {

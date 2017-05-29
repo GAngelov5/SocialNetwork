@@ -3,7 +3,7 @@
     <div *ngIf="publications.length > 0">
         <div *ngFor="let article of publications">
             <ul>
-                <li>{{article.title}}</li>
+                <li [routerLink]="['/article', article._id]">{{article.title}}</li>
             </ul>
         </div>
     </div>

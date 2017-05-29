@@ -14,6 +14,7 @@ import { ProfileSettingsComponent } from './profile-settings.component';
 import { ProfilePublicationsComponent } from './profile-publications.component';
 import { UserService } from '../../services/user.service';
 import { ProfileResolver } from './profile-resolver.service';
+import { PublicationsResolver } from './user-publications-resolver.service';
 var ProfileModule = (function () {
     function ProfileModule() {
     }
@@ -33,7 +34,7 @@ ProfileModule = __decorate([
             ProfileSettingsComponent,
             ProfilePublicationsComponent
         ],
-        providers: [UserService, ProfileResolver]
+        providers: [UserService, ProfileResolver, PublicationsResolver]
     })
 ], ProfileModule);
 export { ProfileModule };

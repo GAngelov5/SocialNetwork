@@ -28,11 +28,12 @@ var ProfileComponent = (function () {
     ProfileComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.route.data
-            .subscribe(function (user) {
-            _this.currentUser = JSON.parse(user['currentUser']._body);
+            .subscribe(function (data) {
+            console.log(data);
+            _this.publications = data['userPublications'] ? data['userPublications'] : [];
+            _this.currentUser = JSON.parse(data['currentUser']._body);
         });
         var userId = localStorage.getItem('currentUserId');
-        this.publications = [];
     };
     ProfileComponent.prototype.grantAccess = function () {
         return this.currentUser && this.authService.grantAccess(this.currentUser._id);

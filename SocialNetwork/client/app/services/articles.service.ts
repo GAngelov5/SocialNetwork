@@ -14,6 +14,10 @@ export class ArticleService {
         return this.http.get("http://localhost:3000/api/articles/userArticles/" + userId);
     }
 
+    getArticleById(articleId) {
+        return this.http.get('http://localhost:3000/api/articles/article/' + articleId).map((article) => article.json());
+    }
+
     getArticlesForUser(userId) {
         return this.getArticlesForUserObservable(userId).map(articles => articles.json());
     }

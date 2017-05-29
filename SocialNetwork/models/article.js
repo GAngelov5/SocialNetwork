@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 
 var ArticleSchema = mongoose.Schema({
     title: String,
-    publisher: String,
+    publisher: [{type: String, ref: 'User'}],
     published_at: String,
     content: String,
     vote: Number,
@@ -16,7 +16,7 @@ module.exports.findAllArticles = function(callback) {
 }
 
 module.exports.findArticleById = function(id, callback) {
-    Article.findById(id, callback);
+    Article.findById(id).populate('publisher').exec(callback);
 }
 
 module.exports.findArticleByPublisherId = function(publisherId, callback) {

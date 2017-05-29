@@ -19,6 +19,7 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { NavigationBarComponent } from './components/navigationBar/navigationbar.component';
 import { UsersComponent } from './components/users/users.component';
+import { ArticlesComponent } from './components/articles/articles.component';
 import { ArticleComponent } from './components/articles/article.component';
 import { AddArticleComponent } from './components/articles/add-article.component';
 import { CategoryComponent } from './components/categories/category.component';
@@ -51,6 +52,7 @@ AppModule = __decorate([
             RegisterComponent,
             NavigationBarComponent,
             UsersComponent,
+            ArticlesComponent,
             ArticleComponent,
             AddArticleComponent,
             CategoryComponent,

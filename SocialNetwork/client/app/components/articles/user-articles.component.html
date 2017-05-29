@@ -5,7 +5,7 @@
             <span>Category: {{article.category}} </span>
             <span style="margin-left: 20px"> Rating: {{article.vote}} stars</span>
         </div>
-        <div>{{article.content}}</div>
-        <div><i>Published at: {{article.published_at}}</i></div>
+        <div>{{article.content | sliceArticleContent}}</div>
+        <div><i>Published at: {{article.published_at | date:'shortDate'}}</i></div>
     </div>
 </div>

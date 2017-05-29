@@ -8,16 +8,31 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 var UserArticlesComponent = (function () {
-    function UserArticlesComponent(route) {
+    function UserArticlesComponent(route, router) {
         var _this = this;
         this.route = route;
+        this.router = router;
         this.route.data
             .subscribe(function (data) {
-            _this.articles = JSON.parse(data['articles']._body);
+            var articles = JSON.parse(data['articles']._body);
+            _this.parseArticles(articles);
         });
     }
+    UserArticlesComponent.prototype.parseArticles = function (articles) {
+        this.articles = articles.map(function (article) {
+            var content = article.content.split(". ");
+            if (content.length > 3) {
+                article.content = content.slice(0, 3).join(". ");
+                article.content += "...";
+            }
+            return article;
+        });
+    };
+    UserArticlesComponent.prototype.showArticle = function (articleId) {
+        this.router.navigate(["/article", articleId]);
+    };
     return UserArticlesComponent;
 }());
 UserArticlesComponent = __decorate([
@@ -25,7 +40,8 @@ UserArticlesComponent = __decorate([
         selector: 'user-articles',
         templateUrl: 'user-articles.component.html'
     }),
-    __metadata("design:paramtypes", [ActivatedRoute])
+    __metadata("design:paramtypes", [ActivatedRoute,
+        Router])
 ], UserArticlesComponent);
 export { UserArticlesComponent };
 //# sourceMappingURL=user-articles.component.js.map

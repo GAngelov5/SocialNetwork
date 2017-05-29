@@ -7,6 +7,7 @@ import { ProfileSettingsComponent } from './profile-settings.component';
 import { ProfilePublicationsComponent } from './profile-publications.component';
 
 import { ProfileResolver } from './profile-resolver.service';
+import { PublicationsResolver } from './user-publications-resolver.service';
 
 import { AuthGuard } from '../../guards/guard.service';
 
@@ -15,7 +16,8 @@ const profileRoutes: Routes = [
     path: 'profile/:id',
     component: ProfileComponent,
     resolve: {
-        currentUser: ProfileResolver
+        currentUser: ProfileResolver,
+        userPublications: PublicationsResolver
     } 
   }
 ];

@@ -8,12 +8,14 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ProfileComponent } from './profile.component';
 import { ProfileResolver } from './profile-resolver.service';
+import { PublicationsResolver } from './user-publications-resolver.service';
 var profileRoutes = [
     {
         path: 'profile/:id',
         component: ProfileComponent,
         resolve: {
-            currentUser: ProfileResolver
+            currentUser: ProfileResolver,
+            userPublications: PublicationsResolver
         }
     }
 ];

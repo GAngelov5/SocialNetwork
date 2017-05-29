@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var bcrypt = require('bcrypt'),
+var bcrypt = require('bcryptjs'),
     SALT_WORK_FACTOR = 10;
 var dbConfig = require('../config/db_config');
 
@@ -26,7 +26,6 @@ UserSchema.pre('save', function(next) {
         if (err) return next(err);
         bcrypt.hash(user.password, salt, function(err, hash) {
             if (err) return next(err);
-            console.log(hash);
             user.password = hash;
             next();
         });
@@ -34,10 +33,8 @@ UserSchema.pre('save', function(next) {
 });
 
 module.exports.comparePassword = function(candidatePassword, actualPassword, cb) {
-    console.log(candidatePassword + " -- " + actualPassword);
     bcrypt.compare(candidatePassword, actualPassword, function(err, isMatch) {
         if (err) return cb(err);
-        console.log(isMatch)
         cb(null, isMatch);
     });
 };

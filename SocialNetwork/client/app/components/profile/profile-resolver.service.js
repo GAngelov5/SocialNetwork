@@ -9,7 +9,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Injectable } from '@angular/core';
 import { UserService } from '../../services/user.service';
-import 'rxjs/add/operator/first';
 var ProfileResolver = (function () {
     function ProfileResolver(userService) {
         this.userService = userService;

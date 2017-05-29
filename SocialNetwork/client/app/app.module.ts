@@ -20,11 +20,14 @@ import { AddArticleComponent } from './components/articles/add-article.component
 import { CategoryComponent } from './components/categories/category.component';
 import { UserArticlesComponent } from './components/articles/user-articles.component';
 
+import { ArticleContentPipe } from './components/articles/article.pipe';
+
 import { UserService }  from './services/user.service';
 import { ArticleService }  from './services/articles.service';
 import { AuthenticationService }  from './services/authentication.service';
 import { AuthGuard } from './guards/guard.service';
 import { UserArticlesResolver } from './components/articles/user-articles-resolver.service';
+import { ArticleResolver } from './components/articles/article-resolver.service';
 
 @NgModule({
     imports: [
@@ -47,7 +50,8 @@ import { UserArticlesResolver } from './components/articles/user-articles-resolv
         ArticleComponent,
         AddArticleComponent,
         CategoryComponent,
-        UserArticlesComponent
+        UserArticlesComponent,
+        ArticleContentPipe
     ],
     providers: [
         UserService,
@@ -55,6 +59,7 @@ import { UserArticlesResolver } from './components/articles/user-articles-resolv
         AuthGuard,
         ArticleService,
         UserArticlesResolver,
+        ArticleResolver,
         {provide: LocationStrategy, useClass: HashLocationStrategy}
     ],
     //Components which are mentioned in router configuration will be automatically 

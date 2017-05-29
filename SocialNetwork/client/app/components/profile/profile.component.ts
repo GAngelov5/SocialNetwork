@@ -29,12 +29,13 @@ export class ProfileComponent implements OnInit {
 
     ngOnInit() {
         this.route.data
-            .subscribe((user) => {
-                this.currentUser = JSON.parse(user['currentUser']._body);
+            .subscribe((data) => {
+                console.log(data);
+                this.publications = data['userPublications'] ? data['userPublications'] : [];
+                this.currentUser = JSON.parse(data['currentUser']._body);
             });
         
         let userId = localStorage.getItem('currentUserId');
-        this.publications = [];
     }
 
     grantAccess(): boolean {

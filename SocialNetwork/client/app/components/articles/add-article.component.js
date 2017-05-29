@@ -68,6 +68,7 @@ var AddArticleComponent = (function () {
             contentStatus === 'VALID';
     };
     AddArticleComponent.prototype.myArticles = function () {
+        this.router.navigate(['/articles', JSON.parse(localStorage.getItem("currentUserId"))]);
     };
     return AddArticleComponent;
 }());
