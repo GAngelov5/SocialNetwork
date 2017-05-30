@@ -15,7 +15,8 @@ var UserSchema = mongoose.Schema({
     password: String,
     description: String,
     following: Array,
-    messages: Array
+    messages: Array,
+    imgSrc: String
 });
 var User = module.exports = mongoose.model("User", UserSchema);
 

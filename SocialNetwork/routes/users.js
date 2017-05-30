@@ -2,6 +2,9 @@ var express = require('express');
 var router = express.Router();
 var dbConfig = require('../config/db_config');
 var jwt = require('jsonwebtoken');
+var multer = require('multer');
+var path = require('path');
+var images = path.join(__dirname + '/../');
 
 var User = require('../models/user');
 
@@ -34,6 +37,7 @@ router.post('/user', function(req, res, next) {
         company: '',
         position: '',
         description: '',
+        imgSrc: images + 'uploads/default_user.png'
     };
     User.addNewUser(newUser, (err, user) => {
         if(err) res.sendStatus(404);
@@ -125,13 +129,33 @@ router.put('/user/:id', function(req, res, next) {
             user.phone = updatedUser.phone || user.phone;
             user.company = updatedUser.company || user.company;
             user.position = updatedUser.position || user.position;
-            
+            user.imgSrc = updatedUser.imgSrc || user.imgSrc;
+
             User.updateUser(user, (err, updateUser) => {
                 if (err) res.send(err);
                 return res.json(updateUser);
             })
         }
     });
+});
+
+var storage = multer.diskStorage({
+    destination: (req, file, next) => {
+        next(null, './uploads/')
+    },
+    filename: (req, file, next) => {
+        next(null, file.fieldname + "-" + Date.now() + ".jpg")
+    }
+})
+
+var upload = multer({storage: storage});
+
+router.post('/user/uploadProfileImage', upload.single("file"), function(req, res, next) {
+    console.log(req.file);    
+    if (req.file) {
+        var imgPath = path.join(__dirname + '/../' + req.file.path);
+        res.send({imgSrc: imgPath}) 
+    }
 });
 
 module.exports = router;

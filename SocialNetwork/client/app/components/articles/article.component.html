@@ -5,11 +5,11 @@
         {{article.content}}
     </div>
     <div>
-        <span>Rating: {{article.votes}} stars</span>
-        <span *ngIf="!hasVoted">
-            <input type="checkbox" [(ngModel)]="vote">
-            <button class="btn btn-primary" (click)="voteForArticle()">Vote</button>
-        </span>
+        <span>Rating: {{article.votes.length}} stars. | </span>
+        <span *ngIf="hasVoted">Dislike: </span>
+        <span *ngIf="!hasVoted">Like: </span>        
+        <input type="checkbox" [(ngModel)]="vote">
+        <button class="btn btn-primary" (click)="voteForArticle()">Vote</button>
     </div>
     <div>Published on: {{article.published_at | date:'shortDate'}}</div>
 </div>

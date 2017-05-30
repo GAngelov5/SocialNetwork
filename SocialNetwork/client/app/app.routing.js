@@ -17,8 +17,10 @@ import { AddArticleComponent } from './components/articles/add-article.component
 import { UserArticlesComponent } from './components/articles/user-articles.component';
 import { AuthGuard } from './guards/guard.service';
 import { UserArticlesResolver } from './components/articles/user-articles-resolver.service';
+import { ArticleResolver } from './components/articles/article-resolver.service';
+// import { ArticleUserResolver } from './components/articles/article-user-resolver.service';
 var appRoutes = [
-    { path: '', component: ArticleComponent, canActivate: [AuthGuard] },
+    { path: '', component: ArticlesComponent, canActivate: [AuthGuard] },
     { path: 'users', component: UsersComponent },
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
@@ -36,7 +38,11 @@ var appRoutes = [
     },
     {
         path: 'article/:id',
-        component: ArticleComponent
+        component: ArticleComponent,
+        resolve: {
+            article: ArticleResolver
+            // user: ArticleUserResolver
+        }
     }
 ];
 var AppRoutingModule = (function () {

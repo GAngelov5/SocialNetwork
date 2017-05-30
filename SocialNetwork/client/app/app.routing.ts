@@ -17,7 +17,7 @@ import { ArticleResolver } from './components/articles/article-resolver.service'
 // import { ArticleUserResolver } from './components/articles/article-user-resolver.service';
 
 const appRoutes: Routes = [
-    { path: '', component: ArticleComponent, canActivate: [AuthGuard] },
+    { path: '', component: ArticlesComponent, canActivate: [AuthGuard] },
     { path: 'users', component: UsersComponent },
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },

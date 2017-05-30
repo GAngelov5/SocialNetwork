@@ -22,7 +22,7 @@ var articles = require('./routes/articles');
 
 var app = express();
 
-app.use(cors())
+app.use(cors({origin: "http://localhost:8080", credentials: true}))
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');

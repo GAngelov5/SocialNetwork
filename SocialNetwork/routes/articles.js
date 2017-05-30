@@ -31,7 +31,7 @@ router.post('/article', function(req, res, next) {
         publisher: req.body.publisher,
         published_at: + new Date(),
         content: req.body.content,
-        vote: 0,
+        votes: [],
         category: req.body.category       
     });
     newArticle.save((err, article) => {
@@ -41,8 +41,8 @@ router.post('/article', function(req, res, next) {
 });
 
 router.put('/article', function(req, res, next) {
-    console.log("vlizam li ?")
     var article = req.body;
+    console.log(article);
     var updatedArticle = {};
 
     if (article.title) {
@@ -55,10 +55,13 @@ router.put('/article', function(req, res, next) {
     if (article.publisher) {
         updatedArticle.publisher = article.publisher;
     }
-    console.log(updatedArticle.publisher);
+
+    if (article.votes) {
+        updatedArticle.votes = article.votes;
+    }
+    console.log("------------------------");
     console.log(updatedArticle);
-    console.log("ima li nekoi vkushti ?")
-    Article.findOneAndUpdate({"_id": req.body._id}, {updatedArticle}, (err, article) =>{
+    Article.findOneAndUpdate({"_id": req.body._id}, updatedArticle, (err, article) =>{
         if (err) res.send(err);
         res.json(article);
     })

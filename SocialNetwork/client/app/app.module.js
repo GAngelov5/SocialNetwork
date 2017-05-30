@@ -24,11 +24,13 @@ import { ArticleComponent } from './components/articles/article.component';
 import { AddArticleComponent } from './components/articles/add-article.component';
 import { CategoryComponent } from './components/categories/category.component';
 import { UserArticlesComponent } from './components/articles/user-articles.component';
+import { ArticleContentPipe } from './components/articles/article.pipe';
 import { UserService } from './services/user.service';
 import { ArticleService } from './services/articles.service';
 import { AuthenticationService } from './services/authentication.service';
 import { AuthGuard } from './guards/guard.service';
 import { UserArticlesResolver } from './components/articles/user-articles-resolver.service';
+import { ArticleResolver } from './components/articles/article-resolver.service';
 var AppModule = (function () {
     function AppModule() {
     }
@@ -56,7 +58,8 @@ AppModule = __decorate([
             ArticleComponent,
             AddArticleComponent,
             CategoryComponent,
-            UserArticlesComponent
+            UserArticlesComponent,
+            ArticleContentPipe
         ],
         providers: [
             UserService,
@@ -64,6 +67,7 @@ AppModule = __decorate([
             AuthGuard,
             ArticleService,
             UserArticlesResolver,
+            ArticleResolver,
             { provide: LocationStrategy, useClass: HashLocationStrategy }
         ],
         //Components which are mentioned in router configuration will be automatically 

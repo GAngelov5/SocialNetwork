@@ -3,7 +3,7 @@
 		<div class="col-md-3">
 			<div class="profile-sidebar">
 				<div class="profile-userpic">
-					<img src="https://www.prestashop.com/forums/public/style_images/tctc91_haze/profile/default_large.png" class="img-responsive" alt="">
+					<img src="{{currentUser?.imgSrc}}" class="img-responsive" alt="">
 				</div>
 				<div class="profile-usertitle">
 					<div class="profile-usertitle-name">
@@ -14,17 +14,24 @@
                         {{currentUser?.position ? currentUser?.position: "Position: None"}}
 					</div>
 				</div>
+				<div *ngIf="grantAccess()">
+					<input type="file" ng2FileSelect [uploader]="uploader"/>
+					<button type="button" class="btn btn-success btn-xs"
+							(click)="uploadImage()">
+						<span class="glyphicon glyphicon-upload"></span> Upload
+					</button>
+				</div>
 				<div class="profile-userbuttons">
-					<button type="button" class="btn btn-success btn-sm"
+					<button type="button" class="btn btn-success"
 						*ngIf="!grantAccess()">Follow</button>
-					<button type="button" class="btn btn-danger btn-sm"
+					<button type="button" class="btn btn-danger"
 						*ngIf="!grantAccess()">Message</button>
 				</div>
 				<button class="btn btn-primary" (click)="onClickOveview()">Overview</button>
 				<button *ngIf="grantAccess()" class="btn btn-primary"
-					(click)="onClickAccountSettings()">User Information</button>
+					(click)="onClickAccountSettings()">Information</button>
 				<button *ngIf="grantAccess()" class="btn btn-primary"
-					(click)="onClickPublications()">My Publications</button>
+					(click)="onClickPublications()">Publications</button>
 			</div>
 		</div>
 		<div class="col-md-9">

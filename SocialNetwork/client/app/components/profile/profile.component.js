@@ -81,7 +81,8 @@ var ProfileComponent = (function () {
 ProfileComponent = __decorate([
     Component({
         selector: 'profile',
-        templateUrl: 'profile.component.html'
+        templateUrl: 'profile.component.html',
+        styleUrls: ['profile.component.css']
     }),
     __metadata("design:paramtypes", [UserService,
         AuthenticationService,

@@ -2,10 +2,10 @@ var mongoose = require('mongoose');
 
 var ArticleSchema = mongoose.Schema({
     title: String,
-    publisher: [{type: String, ref: 'User'}],
+    publisher: {type: String, ref: 'User'},
     published_at: String,
     content: String,
-    vote: Number,
+    votes: Array,
     category: String
 });
 

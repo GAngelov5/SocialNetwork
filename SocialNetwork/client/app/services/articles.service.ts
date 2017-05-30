@@ -28,4 +28,11 @@ export class ArticleService {
         return this.http.post('http://localhost:3000/api/articles/article', article)
             .map((res) => res.json())
     }
+
+    updateArticle(article) {
+        var headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        return this.http.put('http://localhost:3000/api/articles/article', article)
+            .map((res) => res.json())
+    }
 }

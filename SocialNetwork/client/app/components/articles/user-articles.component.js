@@ -16,20 +16,9 @@ var UserArticlesComponent = (function () {
         this.router = router;
         this.route.data
             .subscribe(function (data) {
-            var articles = JSON.parse(data['articles']._body);
-            _this.parseArticles(articles);
+            _this.articles = JSON.parse(data['articles']._body);
         });
     }
-    UserArticlesComponent.prototype.parseArticles = function (articles) {
-        this.articles = articles.map(function (article) {
-            var content = article.content.split(". ");
-            if (content.length > 3) {
-                article.content = content.slice(0, 3).join(". ");
-                article.content += "...";
-            }
-            return article;
-        });
-    };
     UserArticlesComponent.prototype.showArticle = function (articleId) {
         this.router.navigate(["/article", articleId]);
     };

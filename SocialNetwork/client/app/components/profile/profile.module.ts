@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule }   from '@angular/common';
 import { ProfileRoutingModule } from './profile-routing.module';
+import { FileUploadModule } from 'ng2-file-upload';
 
 import { ProfileComponent } from './profile.component';
 import { ProfileOverviewComponent } from './profile-overview.component';
@@ -17,7 +18,8 @@ import { PublicationsResolver } from './user-publications-resolver.service';
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
-        ProfileRoutingModule
+        ProfileRoutingModule,
+        FileUploadModule
     ],
     declarations: [
         ProfileComponent,

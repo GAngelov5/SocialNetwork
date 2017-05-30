@@ -5,17 +5,21 @@ import { AuthenticationService } from '../../services/authentication.service';
 import { ArticleService } from '../../services/articles.service';
 
 import { FlashMessagesService } from 'angular2-flash-messages';
+import { FileUploader } from 'ng2-file-upload';
 
 const EDIT_DESCRIPTION = "Successfully edited your profile settings";
+const UPLOAD_API = 'http://localhost:3000/api/users/user/uploadProfileImage'
 
 @Component({
     selector: 'profile',
-    templateUrl: 'profile.component.html'
+    templateUrl: 'profile.component.html',
+    styleUrls: ['profile.component.css']
 })
 export class ProfileComponent implements OnInit {
     currentUser: any;
     selectedTab: String;
     publications: any;
+    uploader: FileUploader;
 
     constructor(private userService:UserService,
                 private authService: AuthenticationService,
@@ -23,6 +27,21 @@ export class ProfileComponent implements OnInit {
                 private route: ActivatedRoute,
                 private router: Router,
                 private flashService: FlashMessagesService) {
+        this.uploader = new FileUploader({url: UPLOAD_API});
+        this.uploader.onCompleteItem = (item, response, status, header) => {
+            if (response) {
+                let user = {
+                    _id: JSON.parse(localStorage.getItem('currentUserId')),
+                    imgSrc: response['imgSrc']
+                }
+                this.userService.updateUser(user).subscribe((data) => {
+                    if (data) {
+                        this.flashService
+                            .show("Profile picture has been changed!", { cssClass: 'alert-success', timeout: 2000 });
+                    }
+                })
+            }
+        }
         this.selectedTab = 'Overview';
         this.publications = [];
     }
@@ -79,6 +98,13 @@ export class ProfileComponent implements OnInit {
     onClickPublications () {
         if (this.selectedTab != 'Publications') {
             this.selectedTab = 'Publications';
+        }
+    }
+
+    uploadImage() {
+        if (this.uploader.queue.length > 0) {
+            let item = this.uploader.queue[0];
+            item.upload();
         }
     }
 

@@ -9,9 +9,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Component } from '@angular/core';
 import { ArticleService } from '../../services/articles.service';
+import { Router } from '@angular/router';
 var ArticlesComponent = (function () {
-    function ArticlesComponent(articlesService) {
+    function ArticlesComponent(articlesService, router) {
         this.articlesService = articlesService;
+        this.router = router;
         this.articles = [];
     }
     ArticlesComponent.prototype.ngOnInit = function () {
@@ -23,14 +25,18 @@ var ArticlesComponent = (function () {
             _this.articles = articles;
         });
     };
+    ArticlesComponent.prototype.viewArticle = function (articleId) {
+        this.router.navigate(['/article', articleId]);
+    };
     return ArticlesComponent;
 }());
 ArticlesComponent = __decorate([
     Component({
         selector: "article-list",
-        templateUrl: "article.component.html"
+        templateUrl: "articles.component.html"
     }),
-    __metadata("design:paramtypes", [ArticleService])
+    __metadata("design:paramtypes", [ArticleService,
+        Router])
 ], ArticlesComponent);
 export { ArticlesComponent };
 //# sourceMappingURL=articles.component.js.map
