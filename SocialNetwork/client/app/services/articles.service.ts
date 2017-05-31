@@ -15,7 +15,8 @@ export class ArticleService {
     }
 
     getArticleById(articleId) {
-        return this.http.get('http://localhost:3000/api/articles/article/' + articleId).map((article) => article.json());
+        return this.http.get('http://localhost:3000/api/articles/article/' + articleId)
+        .map((article) => article.json());
     }
 
     getArticlesForUser(userId) {
@@ -34,5 +35,10 @@ export class ArticleService {
         headers.append('Content-Type', 'application/json');
         return this.http.put('http://localhost:3000/api/articles/article', article)
             .map((res) => res.json())
+    }
+
+    deleteArticle(articleId) {
+        return this.http.delete('http://localhost:3000/api/articles/article/' + articleId)
+        .map((res) => res.json());
     }
 }

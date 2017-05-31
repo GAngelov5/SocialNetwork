@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { AuthenticationService } from '../../services/authentication.service';
 import { ArticleService } from '../../services/articles.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { FileUploader } from 'ng2-file-upload';
@@ -26,16 +27,19 @@ export class ProfileComponent implements OnInit {
                 private articlesService: ArticleService,
                 private route: ActivatedRoute,
                 private router: Router,
-                private flashService: FlashMessagesService) {
+                private flashService: FlashMessagesService,
+                private sanitizer: DomSanitizer) {
         this.uploader = new FileUploader({url: UPLOAD_API});
         this.uploader.onCompleteItem = (item, response, status, header) => {
             if (response) {
                 let user = {
                     _id: JSON.parse(localStorage.getItem('currentUserId')),
-                    imgSrc: response['imgSrc']
+                    imgSrc: JSON.parse(response)['imgSrc']
                 }
-                this.userService.updateUser(user).subscribe((data) => {
-                    if (data) {
+                console.log(user);
+                this.userService.updateUser(user).subscribe((updatedUser) => {
+                    if (updatedUser) {
+                        this.currentUser = updatedUser;
                         this.flashService
                             .show("Profile picture has been changed!", { cssClass: 'alert-success', timeout: 2000 });
                     }
@@ -49,9 +53,9 @@ export class ProfileComponent implements OnInit {
     ngOnInit() {
         this.route.data
             .subscribe((data) => {
-                console.log(data);
                 this.publications = data['userPublications'] ? data['userPublications'] : [];
                 this.currentUser = JSON.parse(data['currentUser']._body);
+                // this.currentUser.imgSrc = this.sanitizer.bypassSecurityTrustUrl(this.currentUser.imgSrc);
             });
         
         let userId = localStorage.getItem('currentUserId');

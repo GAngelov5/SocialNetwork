@@ -6,7 +6,7 @@ var ArticleSchema = mongoose.Schema({
     published_at: String,
     content: String,
     votes: Array,
-    category: String
+    category: {type: String, ref: 'Category'}
 });
 
 var Article = module.exports = mongoose.model("Article", ArticleSchema);

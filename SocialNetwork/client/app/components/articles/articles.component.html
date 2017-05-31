@@ -7,8 +7,9 @@
         <div>{{article.content}}</div>
         <br>
         <div>
-            <span>Rating: {{article.vote}} stars. | </span>
+            <span>Rating: {{article.votes.length }} stars. | </span>
             <span>Published on: {{article.published_at | date:'shortDate'}}</span>
-        </div>        
+        </div>
+        <hr>     
     </div>
 </div>

@@ -59,8 +59,6 @@ router.put('/article', function(req, res, next) {
     if (article.votes) {
         updatedArticle.votes = article.votes;
     }
-    console.log("------------------------");
-    console.log(updatedArticle);
     Article.findOneAndUpdate({"_id": req.body._id}, updatedArticle, (err, article) =>{
         if (err) res.send(err);
         res.json(article);
