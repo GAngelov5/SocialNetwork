@@ -29,23 +29,6 @@ export class ProfileComponent implements OnInit {
                 private router: Router,
                 private flashService: FlashMessagesService,
                 private sanitizer: DomSanitizer) {
-        this.uploader = new FileUploader({url: UPLOAD_API});
-        this.uploader.onCompleteItem = (item, response, status, header) => {
-            if (response) {
-                let user = {
-                    _id: JSON.parse(localStorage.getItem('currentUserId')),
-                    imgSrc: JSON.parse(response)['imgSrc']
-                }
-                console.log(user);
-                this.userService.updateUser(user).subscribe((updatedUser) => {
-                    if (updatedUser) {
-                        this.currentUser = updatedUser;
-                        this.flashService
-                            .show("Profile picture has been changed!", { cssClass: 'alert-success', timeout: 2000 });
-                    }
-                })
-            }
-        }
         this.selectedTab = 'Overview';
         this.publications = [];
     }
@@ -55,7 +38,22 @@ export class ProfileComponent implements OnInit {
             .subscribe((data) => {
                 this.publications = data['userPublications'] ? data['userPublications'] : [];
                 this.currentUser = JSON.parse(data['currentUser']._body);
-                // this.currentUser.imgSrc = this.sanitizer.bypassSecurityTrustUrl(this.currentUser.imgSrc);
+                this.currentUser.imgSrc = "http://localhost:3000/" + this.currentUser.avatarImg.url;
+                this.uploader = new FileUploader({
+                    url: UPLOAD_API,
+                    headers: [{ name: 'user-header', value: this.currentUser._id }]
+                });
+
+                this.uploader.onCompleteItem = (item, response, status, header) => {
+                    response = JSON.parse(response);
+                    if (response) {
+                        this.currentUser = response;
+                        //TODO remove localhost when not using webpack-dev-server 
+                        this.currentUser.imgSrc = "http://localhost:3000/" + this.currentUser.avatarImg.url;                
+                        this.flashService
+                            .show("Profile picture has been changed!", { cssClass: 'alert-success', timeout: 2000 });
+                    }
+                }
             });
         
         let userId = localStorage.getItem('currentUserId');

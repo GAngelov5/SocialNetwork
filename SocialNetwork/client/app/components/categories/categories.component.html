@@ -1,0 +1,24 @@
+<div class="container">
+    <h2>Categories</h2>
+    <button *ngIf="!allowAddCategory" (click)="allowAddCategory = true" class="btn btn-success">Add Category</button>
+    <form *ngIf="allowAddCategory" class="form-group" [formGroup]="addCategoryForm" (ngSubmit)="addCategory()">
+        <div>
+            <label>Title </label>
+            <input class="form-control" type="text" formControlName="title">
+        </div>
+        <div>
+            <label>Description </label>
+            <input class="form-control" type="text" formControlName="description">
+        </div>
+        <button type="submit" class="btn btn-primary">Add</button>
+        <button class="btn btn-primary" (click)="back()">Back</button>
+    </form>
+    <div *ngIf="!allowAddCategory">
+        <div class="boxes" *ngFor="let category of categories">
+            <h4>{{category.name}}</h4>  
+            <div>{{category.description}}</div>
+            <button class="btn btn-warning" (click)="viewCategory(category._id)">View</button>
+        </div>
+    </div>
+
+</div>

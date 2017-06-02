@@ -2,7 +2,7 @@
     <div *ngIf="!editMode">
         <h2>{{article.title}}</h2>
         <h4>Publisher: {{publisher.firstName }} {{publisher.lastName}}</h4>
-        <div><strong>Category: {{article.category}}</strong></div>
+        <div><strong>Category: {{article.category.name}}</strong></div>
         <div>
             {{article.content}}
         </div>

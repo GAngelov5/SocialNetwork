@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "description": "Simple social network with live news and chat between users",
   "scripts": {
-    "start": "tsc && webpack-dev-server --open",
+    "start": "tsc && webpack-dev-server --content-base ../public/",
     "webpack-dev": "set NODE_ENV=development && webpack",
+    "build": "webpack",
     "lite": "lite-server",
     "tsc": "tsc",
     "tsc:w": "tsc -w"

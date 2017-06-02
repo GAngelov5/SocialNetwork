@@ -16,7 +16,10 @@ var UserSchema = mongoose.Schema({
     description: String,
     following: Array,
     messages: Array,
-    imgSrc: String
+    avatarImg: {
+        url: String,
+        filename: String   
+    }
 });
 var User = module.exports = mongoose.model("User", UserSchema);
 
@@ -60,5 +63,6 @@ module.exports.addNewUser = function(newUser, callback) {
 
 module.exports.updateUser = function(user, callback) {
     updatedUser = new User(user);
+    console.log(updatedUser);
     updatedUser.save(callback);
 }

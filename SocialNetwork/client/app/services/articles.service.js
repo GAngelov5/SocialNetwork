@@ -21,7 +21,8 @@ var ArticleService = (function () {
         return this.http.get("http://localhost:3000/api/articles/userArticles/" + userId);
     };
     ArticleService.prototype.getArticleById = function (articleId) {
-        return this.http.get('http://localhost:3000/api/articles/article/' + articleId).map(function (article) { return article.json(); });
+        return this.http.get('http://localhost:3000/api/articles/article/' + articleId)
+            .map(function (article) { return article.json(); });
     };
     ArticleService.prototype.getArticlesForUser = function (userId) {
         return this.getArticlesForUserObservable(userId).map(function (articles) { return articles.json(); });
@@ -36,6 +37,10 @@ var ArticleService = (function () {
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
         return this.http.put('http://localhost:3000/api/articles/article', article)
+            .map(function (res) { return res.json(); });
+    };
+    ArticleService.prototype.deleteArticle = function (articleId) {
+        return this.http.delete('http://localhost:3000/api/articles/article/' + articleId)
             .map(function (res) { return res.json(); });
     };
     return ArticleService;

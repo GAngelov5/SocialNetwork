@@ -8,16 +8,22 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { FormBuilder, Validators } from '@angular/forms';
 import { ArticleService } from '../../services/articles.service';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { CommonMessages } from '../../constants/common.constants';
+import { AuthenticationService } from '../../services/authentication.service';
 var ArticleComponent = (function () {
-    function ArticleComponent(route, articleService, flashService) {
+    function ArticleComponent(route, router, articleService, flashService, authService, formBuilder) {
         var _this = this;
         this.route = route;
+        this.router = router;
         this.articleService = articleService;
         this.flashService = flashService;
+        this.authService = authService;
+        this.formBuilder = formBuilder;
+        this.editMode = false;
         this.route.data.subscribe(function (data) {
             if (data && data['article']) {
                 _this.article = data['article'];
@@ -30,9 +36,17 @@ var ArticleComponent = (function () {
                 }
                 _this.hasVoted = voted && voted.length > 0;
                 _this.vote = voted && voted.length > 0;
+                _this.createEditForm();
             }
         });
     }
+    ArticleComponent.prototype.createEditForm = function () {
+        this.editArticleForm = this.formBuilder.group({
+            title: [this.article.title, Validators.required],
+            category: [this.article.category, Validators.required],
+            content: [this.article.content, Validators.required]
+        });
+    };
     ArticleComponent.prototype.voteForArticle = function () {
         var _this = this;
         var userId = JSON.parse(localStorage.getItem('currentUserId'));
@@ -52,6 +66,39 @@ var ArticleComponent = (function () {
             });
         }
     };
+    ArticleComponent.prototype.editArticle = function (article) {
+        var _this = this;
+        if (this.validateForm()) {
+            this.article.title = this.editArticleForm.get("title").value;
+            this.article.category = this.editArticleForm.get("category").value;
+            this.article.content = this.editArticleForm.get("content").value;
+            this.articleService.updateArticle(this.article).subscribe(function (response) {
+                if (response) {
+                    _this.flashService.show(CommonMessages.SUCCESSFULL_EDIT_ARTICLE, { cssClass: 'alert-success', timeout: 2500 });
+                    _this.editMode = false;
+                }
+            });
+        }
+    };
+    ArticleComponent.prototype.turnOnEditMode = function () {
+        this.editMode = true;
+    };
+    ArticleComponent.prototype.deleteArticle = function (articleId) {
+        var _this = this;
+        this.articleService.deleteArticle(articleId).subscribe(function (data) {
+            if (data) {
+                _this.router.navigate(['/articles', _this.article.publisher._id]);
+            }
+        });
+    };
+    ArticleComponent.prototype.validateForm = function () {
+        var titleStatus = this.editArticleForm.get("title").status;
+        var categoryStatus = this.editArticleForm.get("category").status;
+        var contentStatus = this.editArticleForm.get("content").status;
+        return titleStatus === 'VALID' &&
+            categoryStatus === 'VALID' &&
+            contentStatus === 'VALID';
+    };
     return ArticleComponent;
 }());
 ArticleComponent = __decorate([
@@ -59,8 +106,11 @@ ArticleComponent = __decorate([
         templateUrl: 'article.component.html'
     }),
     __metadata("design:paramtypes", [ActivatedRoute,
+        Router,
         ArticleService,
-        FlashMessagesService])
+        FlashMessagesService,
+        AuthenticationService,
+        FormBuilder])
 ], ArticleComponent);
 export { ArticleComponent };
 //# sourceMappingURL=article.component.js.map

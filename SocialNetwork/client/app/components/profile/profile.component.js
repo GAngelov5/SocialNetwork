@@ -12,16 +12,20 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { AuthenticationService } from '../../services/authentication.service';
 import { ArticleService } from '../../services/articles.service';
+import { DomSanitizer } from '@angular/platform-browser';
 import { FlashMessagesService } from 'angular2-flash-messages';
+import { FileUploader } from 'ng2-file-upload';
 var EDIT_DESCRIPTION = "Successfully edited your profile settings";
+var UPLOAD_API = 'http://localhost:3000/api/users/user/uploadProfileImage';
 var ProfileComponent = (function () {
-    function ProfileComponent(userService, authService, articlesService, route, router, flashService) {
+    function ProfileComponent(userService, authService, articlesService, route, router, flashService, sanitizer) {
         this.userService = userService;
         this.authService = authService;
         this.articlesService = articlesService;
         this.route = route;
         this.router = router;
         this.flashService = flashService;
+        this.sanitizer = sanitizer;
         this.selectedTab = 'Overview';
         this.publications = [];
     }
@@ -29,9 +33,22 @@ var ProfileComponent = (function () {
         var _this = this;
         this.route.data
             .subscribe(function (data) {
-            console.log(data);
             _this.publications = data['userPublications'] ? data['userPublications'] : [];
             _this.currentUser = JSON.parse(data['currentUser']._body);
+            _this.currentUser.imgSrc = _this.currentUser.avatarImg.url + _this.currentUser.avatarImg.filename;
+            _this.uploader = new FileUploader({
+                url: UPLOAD_API,
+                headers: [{ name: 'user-header', value: _this.currentUser._id }]
+            });
+            _this.uploader.onCompleteItem = function (item, response, status, header) {
+                response = JSON.parse(response);
+                if (response) {
+                    _this.currentUser = response;
+                    _this.currentUser.imgSrc = _this.currentUser.avatarImg.url + _this.currentUser.avatarImg.filename;
+                    _this.flashService
+                        .show("Profile picture has been changed!", { cssClass: 'alert-success', timeout: 2000 });
+                }
+            };
         });
         var userId = localStorage.getItem('currentUserId');
     };
@@ -76,6 +93,12 @@ var ProfileComponent = (function () {
             this.selectedTab = 'Publications';
         }
     };
+    ProfileComponent.prototype.uploadImage = function () {
+        if (this.uploader.queue.length > 0) {
+            var item = this.uploader.queue[0];
+            item.upload();
+        }
+    };
     return ProfileComponent;
 }());
 ProfileComponent = __decorate([
@@ -89,7 +112,8 @@ ProfileComponent = __decorate([
         ArticleService,
         ActivatedRoute,
         Router,
-        FlashMessagesService])
+        FlashMessagesService,
+        DomSanitizer])
 ], ProfileComponent);
 export { ProfileComponent };
 //# sourceMappingURL=profile.component.js.map

@@ -3,10 +3,11 @@ var router = express.Router();
 var jwt = require('jsonwebtoken');
 
 var Article = require('../models/article');
+var Category = require('../models/category')
 
 router.get('/', function(req, res, next) {
     Article.findAllArticles((err, articles) => {
-        if (err) return console.error(err);
+        if (err) res.send(err);
         res.json(articles);
     });
 });
@@ -35,14 +36,23 @@ router.post('/article', function(req, res, next) {
         category: req.body.category       
     });
     newArticle.save((err, article) => {
-        if(err) res.sendStatus(404);
-        res.json(article);
+        if(err) {
+            res.sendStatus(404);
+        } 
+        else {
+            Category.updateCategoryByQuery({"_id": newArticle.category}, {$push: {"articles": article._id }}, (err, data) => {
+                if (err) res.send(err);
+                if (data) {
+                   res.json(article); 
+                }
+            });
+        }
+        
     })
 });
 
 router.put('/article', function(req, res, next) {
     var article = req.body;
-    console.log(article);
     var updatedArticle = {};
 
     if (article.title) {

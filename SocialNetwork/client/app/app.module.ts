@@ -1,3 +1,4 @@
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
@@ -17,8 +18,10 @@ import { UsersComponent } from './components/users/users.component';
 import { ArticlesComponent } from './components/articles/articles.component';
 import { ArticleComponent } from './components/articles/article.component';
 import { AddArticleComponent } from './components/articles/add-article.component';
+import { CategoriesComponent } from './components/categories/categories.component';
 import { CategoryComponent } from './components/categories/category.component';
 import { UserArticlesComponent } from './components/articles/user-articles.component';
+import { ViewArticlesComponent } from './components/articles/view-articles.component';
 
 import { ArticleContentPipe } from './components/articles/article.pipe';
 
@@ -28,6 +31,9 @@ import { AuthenticationService }  from './services/authentication.service';
 import { AuthGuard } from './guards/guard.service';
 import { UserArticlesResolver } from './components/articles/user-articles-resolver.service';
 import { ArticleResolver } from './components/articles/article-resolver.service';
+import { CategoryService } from './services/category.service';
+import { CategoryResolver } from './components/categories/category-resolver.service';
+import { CategoriesResolver } from './components/categories/categories-resolver.service';
 
 @NgModule({
     imports: [
@@ -37,7 +43,7 @@ import { ArticleResolver } from './components/articles/article-resolver.service'
         ReactiveFormsModule,
         ProfileModule,
         AppRoutingModule,
-        FlashMessagesModule
+        FlashMessagesModule,
     ],
     declarations: [
         AppComponent,
@@ -49,8 +55,10 @@ import { ArticleResolver } from './components/articles/article-resolver.service'
         ArticlesComponent,
         ArticleComponent,
         AddArticleComponent,
+        CategoriesComponent,
         CategoryComponent,
         UserArticlesComponent,
+        ViewArticlesComponent,
         ArticleContentPipe
     ],
     providers: [
@@ -60,6 +68,9 @@ import { ArticleResolver } from './components/articles/article-resolver.service'
         ArticleService,
         UserArticlesResolver,
         ArticleResolver,
+        CategoryService,
+        CategoryResolver,
+        CategoriesResolver,
         {provide: LocationStrategy, useClass: HashLocationStrategy}
     ],
     //Components which are mentioned in router configuration will be automatically 

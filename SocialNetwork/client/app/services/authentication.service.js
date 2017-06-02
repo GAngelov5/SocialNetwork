@@ -24,7 +24,6 @@ var AuthenticationService = (function () {
         console.log("da");
         return this.http.post('http://localhost:3000/api/users/authenticate', bodyString, { headers: headers })
             .map(function (res) {
-            console.log("ne");
             var response = res.json();
             if (response && response.token) {
                 localStorage.setItem('currentUserId', JSON.stringify(response.user.id));

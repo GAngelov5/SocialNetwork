@@ -16,7 +16,6 @@ export class AuthenticationService {
         console.log("da");
         return this.http.post('http://localhost:3000/api/users/authenticate', bodyString, {headers: headers})
             .map(res => {
-                console.log("ne");
                 let response = res.json();
                 if (response && response.token) {
                     localStorage.setItem('currentUserId', JSON.stringify(response.user.id));

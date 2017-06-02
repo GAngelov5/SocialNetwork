@@ -1,2 +1,10 @@
-<div>Categories</div>
-<ul></ul>
+<div class="container">
+    <h3>{{category.name}}</h3>
+    <i>{{category.description}}</i>
+    <hr>
+    <h3> Related Articles </h3>
+    <div *ngIf="category.articles.length == 0">No related articles!</div>
+    <view-article-list *ngIf="category.articles.length > 0" [articles]="category.articles">
+    </view-article-list>
+    
+</div>

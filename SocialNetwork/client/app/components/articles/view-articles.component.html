@@ -1,0 +1,15 @@
+<div style="margin: auto;
+    border: 3px solid #73AD21;
+    padding: 10px;">
+    <div *ngFor="let article of articles" (click)="viewArticle(article._id)">
+        <h3>{{article.title}}</h3>
+        <div><i>Category {{article.category.name}}</i></div><br>
+        <div>{{article.content | sliceArticleContent}}</div>
+        <br>
+        <div>
+            <span>Rating: {{article.votes.length }} stars. | </span>
+            <span>Published on: {{article.published_at | date:'shortDate'}}</span>
+        </div>
+        <hr>     
+    </div>
+</div>

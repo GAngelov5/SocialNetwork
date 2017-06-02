@@ -4,6 +4,7 @@ var dbConfig = require('../config/db_config');
 var jwt = require('jsonwebtoken');
 var multer = require('multer');
 var path = require('path');
+var fs = require('fs');
 
 var User = require('../models/user');
 
@@ -36,7 +37,10 @@ router.post('/user', function(req, res, next) {
         company: '',
         position: '',
         description: '',
-        imgSrc: "http://localhost:3000/default_user.png"
+        avatarImg: {
+            url: '/assets/',
+            filename: 'default_user.png'   
+        }
     };
     User.addNewUser(newUser, (err, user) => {
         if(err) res.sendStatus(404);
@@ -128,7 +132,6 @@ router.put('/user/:id', function(req, res, next) {
             user.phone = updatedUser.phone || user.phone;
             user.company = updatedUser.company || user.company;
             user.position = updatedUser.position || user.position;
-            user.imgSrc = updatedUser.imgSrc || user.imgSrc;
 
             User.updateUser(user, (err, updateUser) => {
                 if (err) res.send(err);
@@ -138,20 +141,44 @@ router.put('/user/:id', function(req, res, next) {
     });
 });
 
+var uploadPath = 'uploads/';
 var storage = multer.diskStorage({
     destination: (req, file, next) => {
-        next(null, path.join(__dirname + '/../uploads/'))
+        next(null, uploadPath);
     },
     filename: (req, file, next) => {
-        next(null, file.fieldname + "-" + Date.now() + ".jpg")
+        next(null, file.fieldname + "-" + req.headers['user-header'] + "-" + Date.now() + ".jpg")
     }
 })
 
 var upload = multer({storage: storage});
 
-router.post('/user/uploadProfileImage', upload.single("file"), function(req, res, next) {
-    if (req.file) { 
-        res.send({imgSrc: "http://localhost:3000/" + req.file.filename}) 
+function checkUploadPath(req, res, next) {
+    uploadPath = uploadPath + req.headers['user-header'];
+    if(fs.exists(uploadPath)) {
+        next();
+    } else {
+        console.log("path -----------" + uploadPath);
+        fs.mkdir(uploadPath, (err) => {
+            if (err) console.log("error when creating folder!")
+            next();
+        })
+    }
+}
+
+router.post('/user/uploadProfileImage', checkUploadPath, upload.single("file"), function(req, res, next) {
+    if (req.file) {
+        User.findUserById({"_id": req.headers['user-header']}, (err, user) => {
+            if (user) {
+                user.avatarImg.url = req.file.destination;
+                user.avatarImg.filename = req.file.filename;
+                User.updateUser(user, (err, updatedUser) => {
+                    if (err) {
+                        res.send(err);}
+                    res.json(updatedUser);
+                });
+            }
+        });
     }
 });
 

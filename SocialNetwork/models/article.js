@@ -12,14 +12,21 @@ var ArticleSchema = mongoose.Schema({
 var Article = module.exports = mongoose.model("Article", ArticleSchema);
 
 module.exports.findAllArticles = function(callback) {
-     Article.find(callback);
+     Article.find().populate('category').exec(callback);
 }
 
 module.exports.findArticleById = function(id, callback) {
-    Article.findById(id).populate('publisher').exec(callback);
+    Article.findById(id)
+        .populate('publisher')
+        .populate('category')
+        .exec(callback);
+}
+
+module.exports.findArticlesByCategory = function(categoryId, callback) {
+    Article.find({category: categoryId}, callback);
 }
 
 module.exports.findArticleByPublisherId = function(publisherId, callback) {
     var query = {publisher: publisherId};
-    Article.find(query, callback);
+    Article.find(query).populate('category').exec(callback);
 }

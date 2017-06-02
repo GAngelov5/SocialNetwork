@@ -8,20 +8,28 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, Validators } from '@angular/forms';
 import { CommonMessages } from '../../constants/common.constants';
 import { ArticleService } from '../../services/articles.service';
 import { FlashMessagesService } from 'angular2-flash-messages';
 var AddArticleComponent = (function () {
-    function AddArticleComponent(formBuilder, articleService, flashService, router) {
+    function AddArticleComponent(formBuilder, articleService, flashService, router, route) {
         this.formBuilder = formBuilder;
         this.articleService = articleService;
         this.flashService = flashService;
         this.router = router;
-        this.categories = ['Business', 'Nature', 'Daily', 'Sport'];
+        this.route = route;
         this.createAddArticleForm();
     }
+    AddArticleComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.route.data.subscribe(function (data) {
+            if (data) {
+                _this.categories = data['categories'];
+            }
+        });
+    };
     AddArticleComponent.prototype.createAddArticleForm = function () {
         this.addArticleForm = this.formBuilder.group({
             title: ['', Validators.required],
@@ -80,7 +88,8 @@ AddArticleComponent = __decorate([
     __metadata("design:paramtypes", [FormBuilder,
         ArticleService,
         FlashMessagesService,
-        Router])
+        Router,
+        ActivatedRoute])
 ], AddArticleComponent);
 export { AddArticleComponent };
 //# sourceMappingURL=add-article.component.js.map

@@ -12,13 +12,15 @@ import { ArticlesComponent } from './components/articles/articles.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { CategoriesComponent } from './components/categories/categories.component';
 import { CategoryComponent } from './components/categories/category.component';
 import { AddArticleComponent } from './components/articles/add-article.component';
 import { UserArticlesComponent } from './components/articles/user-articles.component';
 import { AuthGuard } from './guards/guard.service';
 import { UserArticlesResolver } from './components/articles/user-articles-resolver.service';
 import { ArticleResolver } from './components/articles/article-resolver.service';
-// import { ArticleUserResolver } from './components/articles/article-user-resolver.service';
+import { CategoryResolver } from './components/categories/category-resolver.service';
+import { CategoriesResolver } from './components/categories/categories-resolver.service';
 var appRoutes = [
     { path: '', component: ArticlesComponent, canActivate: [AuthGuard] },
     { path: 'users', component: UsersComponent },
@@ -26,9 +28,28 @@ var appRoutes = [
     { path: 'register', component: RegisterComponent },
     { path: 'logout', component: LoginComponent },
     { path: 'articles', component: ArticlesComponent },
-    { path: 'categories', component: CategoryComponent },
+    {
+        path: 'categories',
+        component: CategoriesComponent,
+        resolve: {
+            categories: CategoriesResolver
+        }
+    },
+    {
+        path: 'category/:id',
+        component: CategoryComponent,
+        resolve: {
+            category: CategoryResolver
+        }
+    },
     { path: 'profile/:id', component: ProfileComponent },
-    { path: 'addArticle', component: AddArticleComponent },
+    {
+        path: 'addArticle',
+        component: AddArticleComponent,
+        resolve: {
+            categories: CategoriesResolver
+        }
+    },
     {
         path: 'articles/:id',
         component: UserArticlesComponent,

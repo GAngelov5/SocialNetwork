@@ -14,10 +14,9 @@ module.exports = {
     devtool: 'source-map',
     
     output: {
-        path: __dirname + '/.dist/web/jit/',
-        filename: 'js/[name].bundle.js',
-        chunkFilename: 'js/[id].chunk.js',
-        publicPath: 'http://localhost:8080/'
+        path: __dirname + '/../public/',
+        filename: '[name].bundle.js',
+        chunkFilename: '[id].chunk.js',
     },
 
     resolve: {
@@ -58,9 +57,7 @@ module.exports = {
   plugins: [
         new ExtractTextPlugin("[name].css"),
         new HtmlWebpackPlugin({
-            filename: 'index.html',
-            inject: 'body',
-            template: '../views/index.html'
+            template: '../template/index.html'
         }),
         new webpack.ProvidePlugin({
             jQuery: 'jquery',

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommonMessages } from '../../constants/common.constants';
 
@@ -12,14 +12,22 @@ import { FlashMessagesService } from 'angular2-flash-messages';
 })
 export class AddArticleComponent {
     public addArticleForm: FormGroup;
-    public categories: string[];
+    public categories;
 
     constructor(private formBuilder: FormBuilder,
                 private articleService: ArticleService,
                 private flashService: FlashMessagesService,
-                private router: Router) {
-        this.categories = ['Business', 'Nature', 'Daily', 'Sport'];
+                private router: Router,
+                private route: ActivatedRoute) {
         this.createAddArticleForm();
+    }
+
+    ngOnInit() {
+        this.route.data.subscribe((data) => {
+            if (data) {
+                this.categories = data['categories'];
+            }
+        })
     }
 
     createAddArticleForm(): void {
@@ -34,7 +42,7 @@ export class AddArticleComponent {
         if (this.validateForm()) {
             let article = {
                 title: this.addArticleForm.get("title").value,
-                category: this.addArticleForm.get("category").value,
+                category: this.retrieveCategoryId(this.addArticleForm.get("category").value),
                 content: this.addArticleForm.get('content').value,
                 publisher: JSON.parse(localStorage.getItem("currentUserId"))
             }
@@ -59,6 +67,12 @@ export class AddArticleComponent {
             this.flashService.show(multipleMessage.join('\n'),
                 {cssClass: "alert-danger", timeout: 4000});
         }
+    }
+
+    retrieveCategoryId(name) {
+        return this.categories.filter((category) => {
+            return category.name === name;
+        })[0]._id;
     }
 
     validateForm(): boolean {
