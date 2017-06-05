@@ -24,16 +24,20 @@ import { UserArticlesComponent } from './components/articles/user-articles.compo
 import { ViewArticlesComponent } from './components/articles/view-articles.component';
 
 import { ArticleContentPipe } from './components/articles/article.pipe';
+import { FullNamePipe } from './components/users/full-name.pipe';
 
 import { UserService }  from './services/user.service';
 import { ArticleService }  from './services/articles.service';
 import { AuthenticationService }  from './services/authentication.service';
+import { UserManagementService } from './services/user-management.service';
 import { AuthGuard } from './guards/guard.service';
 import { UserArticlesResolver } from './components/articles/user-articles-resolver.service';
 import { ArticleResolver } from './components/articles/article-resolver.service';
 import { CategoryService } from './services/category.service';
 import { CategoryResolver } from './components/categories/category-resolver.service';
 import { CategoriesResolver } from './components/categories/categories-resolver.service';
+import { UsersResolver } from './components/users/users-resolver.service';
+
 
 @NgModule({
     imports: [
@@ -59,18 +63,21 @@ import { CategoriesResolver } from './components/categories/categories-resolver.
         CategoryComponent,
         UserArticlesComponent,
         ViewArticlesComponent,
-        ArticleContentPipe
+        ArticleContentPipe,
+        FullNamePipe
     ],
     providers: [
         UserService,
         AuthenticationService,
         AuthGuard,
         ArticleService,
+        UserManagementService,
         UserArticlesResolver,
         ArticleResolver,
         CategoryService,
         CategoryResolver,
         CategoriesResolver,
+        UsersResolver,
         {provide: LocationStrategy, useClass: HashLocationStrategy}
     ],
     //Components which are mentioned in router configuration will be automatically 

@@ -17,10 +17,18 @@ import { UserArticlesResolver } from './components/articles/user-articles-resolv
 import { ArticleResolver } from './components/articles/article-resolver.service';
 import { CategoryResolver } from './components/categories/category-resolver.service';
 import { CategoriesResolver } from './components/categories/categories-resolver.service';
+import { UsersResolver } from './components/users/users-resolver.service';
 
 const appRoutes: Routes = [
     { path: '', component: ArticlesComponent, canActivate: [AuthGuard] },
-    { path: 'users', component: UsersComponent },
+    { 
+        path: 'users',
+        component: UsersComponent,
+        resolve: {
+            users: UsersResolver
+
+        }
+    },
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
     { path: 'logout', component: LoginComponent },

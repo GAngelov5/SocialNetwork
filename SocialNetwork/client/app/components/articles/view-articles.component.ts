@@ -15,11 +15,6 @@ export class ViewArticlesComponent {
         this.articles = [];
     }
 
-    ngOnInit() {
-        console.log("wuut")
-        console.log(this.articles);
-    }
-
     viewArticle(articleId: string) {
         this.router.navigate(['/article', articleId])
     }

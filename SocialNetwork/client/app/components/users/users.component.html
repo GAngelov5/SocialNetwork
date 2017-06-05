@@ -1,6 +1,23 @@
-<div>
+<div class="container">
     <h3>Authors</h3>
-    <div *ngFor="let user of users">
-        <a [routerLink]="['/profile', user._id]"><span>{{user.username}}</span></a>
+    <hr>
+    <div class="user-row" *ngFor="let user of users">
+        <h4 (click)="viewProfile(user._id)"><strong>{{user | fullName}}</strong></h4>
+        <div *ngIf="user.position && user.company">{{user.position}} at {{user.company}}</div><hr>
+        <div>
+            <span *ngIf="user.description">{{user.description}}</span>
+            <span *ngIf="!user.description"> No available description for this user :(</span>
+        </div>
+        <div><i>Registered on: {{user.registered_at | date: 'shortDate'}}</i></div>
+        <hr>
+        <button *ngIf="!userManagementService.followingCacheMap[user._id]" 
+            class="btn btn-success" (click)="userManagementService.followUser(user._id)">Follow</button>
+        <button *ngIf="userManagementService.followingCacheMap[user._id]" 
+            class="btn btn-success" (click)="userManagementService.unfollowUser(user._id)">Unfollow</button>        
+        <button class="btn btn-danger" (click)="sendMessage()">Message</button>      
+        <button *ngIf="!userManagementService.subscriptionCacheMap[user._id]" 
+            class="btn btn-warning" (click)="userManagementService.subscribe(user._id)">Subscribe</button>
+        <button *ngIf="userManagementService.subscriptionCacheMap[user._id]" 
+            class="btn btn-warning" (click)="userManagementService.unsubscribe(user._id)">Unsubscribe</button>                                           
     </div>
 </div>

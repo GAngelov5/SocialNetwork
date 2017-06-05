@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { AuthenticationService } from '../../services/authentication.service';
 import { ArticleService } from '../../services/articles.service';
-import { DomSanitizer } from '@angular/platform-browser';
+import { UserManagementService } from '../../services/user-management.service';
 
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { FileUploader } from 'ng2-file-upload';
@@ -21,14 +21,16 @@ export class ProfileComponent implements OnInit {
     selectedTab: String;
     publications: any;
     uploader: FileUploader;
+    subCheck: boolean;
+    followCheck: boolean;
 
     constructor(private userService:UserService,
                 private authService: AuthenticationService,
                 private articlesService: ArticleService,
+                private userManagementService: UserManagementService,
                 private route: ActivatedRoute,
                 private router: Router,
-                private flashService: FlashMessagesService,
-                private sanitizer: DomSanitizer) {
+                private flashService: FlashMessagesService) {
         this.selectedTab = 'Overview';
         this.publications = [];
     }
@@ -43,7 +45,13 @@ export class ProfileComponent implements OnInit {
                     url: UPLOAD_API,
                     headers: [{ name: 'user-header', value: this.currentUser._id }]
                 });
-
+                
+                const loggedUserId = JSON.parse(localStorage.getItem("currentUserId"));
+                this.userService.getUser(loggedUserId).subscribe((user) => {
+                    this.followCheck = this.userManagementService.checkFollow(this.currentUser._id, user);
+                    this.subCheck = this.userManagementService.checkSubscription(this.currentUser._id, user);
+                })
+                
                 this.uploader.onCompleteItem = (item, response, status, header) => {
                     response = JSON.parse(response);
                     if (response) {
@@ -108,6 +116,26 @@ export class ProfileComponent implements OnInit {
             let item = this.uploader.queue[0];
             item.upload();
         }
+    }
+
+    follow() {
+        this.userManagementService.followUser(this.currentUser._id);
+        this.followCheck = !this.followCheck;
+    }
+
+    unfollow() {
+        this.userManagementService.unfollowUser(this.currentUser._id);
+        this.followCheck = !this.followCheck;
+    }
+
+    subscribe() {
+        this.userManagementService.subscribe(this.currentUser._id);
+        this.subCheck = !this.subCheck;
+    }
+
+    unsubscribe() {
+        this.userManagementService.unsubscribe(this.currentUser._id);
+        this.subCheck = !this.subCheck;
     }
 
     

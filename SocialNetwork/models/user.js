@@ -14,7 +14,11 @@ var UserSchema = mongoose.Schema({
     email: String,
     password: String,
     description: String,
-    following: Array,
+    registered_at: Date,
+    following: [{type: String, ref: 'User'}],
+    followers: [{type: String, ref: 'User'}],
+    subscribers: [{type: String, ref: 'User'}],
+    subscribedTo: [{type: String, ref: 'User'}],
     messages: Array,
     avatarImg: {
         url: String,
@@ -38,6 +42,7 @@ UserSchema.pre('save', function(next) {
 
 module.exports.comparePassword = function(candidatePassword, actualPassword, cb) {
     bcrypt.compare(candidatePassword, actualPassword, function(err, isMatch) {
+        console.log(isMatch);
         if (err) return cb(err);
         cb(null, isMatch);
     });
@@ -63,6 +68,9 @@ module.exports.addNewUser = function(newUser, callback) {
 
 module.exports.updateUser = function(user, callback) {
     updatedUser = new User(user);
-    console.log(updatedUser);
     updatedUser.save(callback);
+}
+
+module.exports.findUserAndUpdate = (query, update, callback) => {
+    User.findOneAndUpdate(query, update, {new: true}, callback);
 }

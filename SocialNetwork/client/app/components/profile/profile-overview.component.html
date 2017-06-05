@@ -4,7 +4,7 @@
         {{userDescription}}
     </div>
     <div *ngIf="userAccess && !editAllowed">
-        <button (click)="editDescription()"> Edit Description </button>
+        <button class="btn btn-default" (click)="editDescription()"> Edit Description </button>
     </div>
     <div *ngIf="editAllowed">
         <form (ngSubmit)="submitDescription()">

@@ -17,9 +17,15 @@ router.get('/:id', (req, res, next) => {
                     if (err) console.log(err)
                     next();
                 });
-            })
+            });
         }
-    })
-})
+    });
+});
+
+router.get('/', (req, res, next) => {
+    res.sendFile(path.join(__dirname, "../uploads/default_user.png"), (err) => {
+        if (err) console.log(err);
+    });
+});
 
 module.exports = router;

@@ -49,4 +49,28 @@ export class UserService {
         return this.http.post('http://localhost:3000/api/users/changePassword', partialUser, {headers: headers})
             .map(res => res.json());
     }
+
+    public followUser(user) {
+        var headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        return this.http.post('http://localhost:3000/api/users/user/follow', user, {headers: headers}).map(res => res.json());
+    }
+
+    public unfollowUser(user) {
+        var headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        return this.http.post('http://localhost:3000/api/users/user/unfollow', user, {headers: headers}).map(res => res.json());
+    }
+
+    public subscribeUser(user) {
+        var headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        return this.http.post('http://localhost:3000/api/users/user/subscribe', user, {headers: headers}).map(res => res.json());
+    }
+    
+    public unsubscribeUser(user) {
+        var headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        return this.http.post('http://localhost:3000/api/users/user/unsubscribe', user, {headers: headers}).map(res => res.json());
+    }
 }

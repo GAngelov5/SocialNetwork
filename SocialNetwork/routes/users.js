@@ -23,7 +23,7 @@ router.get('/user/:id', function(req, res, next) {
 });
 
 router.post('/user', function(req, res, next) {
-    var newUser = {
+    var newUser = new User({
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         username: req.body.username,
@@ -31,17 +31,20 @@ router.post('/user', function(req, res, next) {
         email: req.body.email,
         position: '',
         following: [],
+        followers: [],
+        subscribers: [],
         messages: [],
         phone: '',
         address: '',
         company: '',
         position: '',
         description: '',
+        registered_at: + new Date(),
         avatarImg: {
-            url: '/assets/',
+            url: 'uploads/',
             filename: 'default_user.png'   
         }
-    };
+    });
     User.addNewUser(newUser, (err, user) => {
         if(err) res.sendStatus(404);
         res.json(user);
@@ -87,7 +90,7 @@ router.post('/authenticate', function(req, res, next) {
                 msg: "User not found"
             });
         }
-    })
+    });
 });
 
 router.post('/changePassword', function(req, res, next) {
@@ -105,7 +108,7 @@ router.post('/changePassword', function(req, res, next) {
                 });
             } else {
                 user.password = req.body.newPassword;
-                User.updateUser(user, (err, user) =>{
+                User.updateUser(user, (err, user) => {
                     if (err) res.send(err);
                     if (user) {
                         return res.json({
@@ -113,7 +116,7 @@ router.post('/changePassword', function(req, res, next) {
                             msg: "Password was changed successfully"
                         });
                     }
-                })
+                });
             }
         })
     })
@@ -132,6 +135,7 @@ router.put('/user/:id', function(req, res, next) {
             user.phone = updatedUser.phone || user.phone;
             user.company = updatedUser.company || user.company;
             user.position = updatedUser.position || user.position;
+            user.description = updatedUser.description || user.description;
 
             User.updateUser(user, (err, updateUser) => {
                 if (err) res.send(err);
@@ -158,7 +162,6 @@ function checkUploadPath(req, res, next) {
     if(fs.exists(uploadPath)) {
         next();
     } else {
-        console.log("path -----------" + uploadPath);
         fs.mkdir(uploadPath, (err) => {
             if (err) console.log("error when creating folder!")
             next();
@@ -180,6 +183,64 @@ router.post('/user/uploadProfileImage', checkUploadPath, upload.single("file"), 
             }
         });
     }
+});
+
+router.post('/user/follow', (req, res, next) => {
+    const userId = req.body.userId;
+    const followingUserId = req.body.followingUser;
+    User.findUserAndUpdate({"_id": userId}, {$push: {"following": followingUserId}}, (err, user) => {
+        if (err) res.send(err);
+        if (user) {
+            User.findUserAndUpdate({"_id": followingUserId}, {$push: {"followers": userId}}, (err, data) => {
+                if (err) res.send(err);
+                res.json(user);
+            });
+        }
+    });
+});
+
+router.post('/user/unfollow', (req, res, next) => {
+    const userId = req.body.userId; 
+    const followingUserId = req.body.followingUser;
+    User.findUserAndUpdate({"_id": userId}, {$pull: {"following": followingUserId}}, (err, user) => {
+        if (err) res.send(err);
+        if (user) {
+            User.findUserAndUpdate({"_id": followingUserId}, {$pull: {"followers": userId}}, (err, data) => {
+                if (err) res.send(err);
+                res.json(user);
+            });
+        }
+    });
+});
+
+router.post('/user/subscribe', (req, res, next) => {
+    const subscribedEmail = req.body.userEmail;
+    const subscriberId = req.body.subscriberId;
+    const userId = req.body.userId;
+    User.findUserAndUpdate({"_id": subscriberId}, {$push: {"subscribers": subscribedEmail}}, (err, data) => {
+        if (err) res.send(err);
+        if (data) {
+            User.findUserAndUpdate({"_id": userId}, {$push: {"subscribedTo": subscriberId}}, (err, data) => {
+                if (err) res.send(err);
+                res.json(data);
+            });
+        }
+    });
+});
+
+router.post('/user/unsubscribe', (req, res, next) => {
+    const subscribedEmail = req.body.userEmail;
+    const subscriberId = req.body.subscriberId;
+    const userId = req.body.userId;
+    User.findUserAndUpdate({"_id": subscriberId}, {$pull: {"subscribers": subscribedEmail}}, (err, data) => {
+        if (err) res.send(err);
+        if (data) {
+            User.findUserAndUpdate({"_id": userId}, {$pull: {"subscribedTo": subscriberId}}, (err, data) => {
+                if (err) res.send(err);
+                res.json(data);
+            });
+        }
+    });
 });
 
 module.exports = router;
