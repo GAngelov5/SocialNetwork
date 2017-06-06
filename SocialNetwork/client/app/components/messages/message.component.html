@@ -1,0 +1,7 @@
+<div class="container">
+    <h3>Send message</h3>
+    <form class="form-group" [formGroup]="messageForm" (ngSubmit)="sendMessage()">
+        <input type="textarea" formControlName = "content">
+        <button class="btn btn-primary" type="submit">Send</button>
+    </form>
+</div>

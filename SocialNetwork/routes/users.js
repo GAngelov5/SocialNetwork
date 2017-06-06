@@ -54,6 +54,7 @@ router.post('/user', function(req, res, next) {
 router.post('/authenticate', function(req, res, next) {
     var username = req.body.username;
     var password = req.body.password;
+    console.log("username: " + username);
     User.findUserByName(username, (err, user) => {
         if (err) throw err;
         if (user) {
@@ -61,7 +62,6 @@ router.post('/authenticate', function(req, res, next) {
                 if (err) {
                     res.sendStatus(404);
                 }
-                console.log(isMatch);
                 if (isMatch) {
                     var token = jwt.sign(user, dbConfig.secret,
                         { expiresIn: 60480});

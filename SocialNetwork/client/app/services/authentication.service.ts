@@ -3,17 +3,18 @@ import { Router } from "@angular/router";
 import { Http, Headers } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { tokenNotExpired } from '../../node_modules/angular2-jwt';
+import * as io from 'socket.io-client';
 
 @Injectable()
 export class AuthenticationService {
-    constructor(private http: Http, private router: Router) {
+    constructor(private http: Http,
+                private router: Router) {
     }
 
     public login(username:string, password:string) {
         let bodyString = JSON.stringify({username: username, password: password }); // Stringify payload
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
-        console.log("da");
         return this.http.post('http://localhost:3000/api/users/authenticate', bodyString, {headers: headers})
             .map(res => {
                 let response = res.json();

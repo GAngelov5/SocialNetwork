@@ -12,20 +12,20 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { AuthenticationService } from '../../services/authentication.service';
 import { ArticleService } from '../../services/articles.service';
-import { DomSanitizer } from '@angular/platform-browser';
+import { UserManagementService } from '../../services/user-management.service';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { FileUploader } from 'ng2-file-upload';
 var EDIT_DESCRIPTION = "Successfully edited your profile settings";
 var UPLOAD_API = 'http://localhost:3000/api/users/user/uploadProfileImage';
 var ProfileComponent = (function () {
-    function ProfileComponent(userService, authService, articlesService, route, router, flashService, sanitizer) {
+    function ProfileComponent(userService, authService, articlesService, userManagementService, route, router, flashService) {
         this.userService = userService;
         this.authService = authService;
         this.articlesService = articlesService;
+        this.userManagementService = userManagementService;
         this.route = route;
         this.router = router;
         this.flashService = flashService;
-        this.sanitizer = sanitizer;
         this.selectedTab = 'Overview';
         this.publications = [];
     }
@@ -35,16 +35,22 @@ var ProfileComponent = (function () {
             .subscribe(function (data) {
             _this.publications = data['userPublications'] ? data['userPublications'] : [];
             _this.currentUser = JSON.parse(data['currentUser']._body);
-            _this.currentUser.imgSrc = _this.currentUser.avatarImg.url + _this.currentUser.avatarImg.filename;
+            _this.currentUser.imgSrc = "http://localhost:3000/" + _this.currentUser.avatarImg.url;
             _this.uploader = new FileUploader({
                 url: UPLOAD_API,
                 headers: [{ name: 'user-header', value: _this.currentUser._id }]
+            });
+            var loggedUserId = JSON.parse(localStorage.getItem("currentUserId"));
+            _this.userService.getUser(loggedUserId).subscribe(function (user) {
+                _this.followCheck = _this.userManagementService.checkFollow(_this.currentUser._id, user);
+                _this.subCheck = _this.userManagementService.checkSubscription(_this.currentUser._id, user);
             });
             _this.uploader.onCompleteItem = function (item, response, status, header) {
                 response = JSON.parse(response);
                 if (response) {
                     _this.currentUser = response;
-                    _this.currentUser.imgSrc = _this.currentUser.avatarImg.url + _this.currentUser.avatarImg.filename;
+                    //TODO remove localhost when not using webpack-dev-server 
+                    _this.currentUser.imgSrc = "http://localhost:3000/" + _this.currentUser.avatarImg.url;
                     _this.flashService
                         .show("Profile picture has been changed!", { cssClass: 'alert-success', timeout: 2000 });
                 }
@@ -99,6 +105,22 @@ var ProfileComponent = (function () {
             item.upload();
         }
     };
+    ProfileComponent.prototype.follow = function () {
+        this.userManagementService.followUser(this.currentUser._id);
+        this.followCheck = !this.followCheck;
+    };
+    ProfileComponent.prototype.unfollow = function () {
+        this.userManagementService.unfollowUser(this.currentUser._id);
+        this.followCheck = !this.followCheck;
+    };
+    ProfileComponent.prototype.subscribe = function () {
+        this.userManagementService.subscribe(this.currentUser._id);
+        this.subCheck = !this.subCheck;
+    };
+    ProfileComponent.prototype.unsubscribe = function () {
+        this.userManagementService.unsubscribe(this.currentUser._id);
+        this.subCheck = !this.subCheck;
+    };
     return ProfileComponent;
 }());
 ProfileComponent = __decorate([
@@ -110,10 +132,10 @@ ProfileComponent = __decorate([
     __metadata("design:paramtypes", [UserService,
         AuthenticationService,
         ArticleService,
+        UserManagementService,
         ActivatedRoute,
         Router,
-        FlashMessagesService,
-        DomSanitizer])
+        FlashMessagesService])
 ], ProfileComponent);
 export { ProfileComponent };
 //# sourceMappingURL=profile.component.js.map

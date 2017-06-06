@@ -17,7 +17,6 @@ var CategoryComponent = (function () {
         var _this = this;
         this.route.data
             .subscribe(function (data) {
-            console.log(data);
             if (data) {
                 _this.category = data['category'];
             }

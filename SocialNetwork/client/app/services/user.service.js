@@ -49,6 +49,26 @@ var UserService = (function () {
         return this.http.post('http://localhost:3000/api/users/changePassword', partialUser, { headers: headers })
             .map(function (res) { return res.json(); });
     };
+    UserService.prototype.followUser = function (user) {
+        var headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        return this.http.post('http://localhost:3000/api/users/user/follow', user, { headers: headers }).map(function (res) { return res.json(); });
+    };
+    UserService.prototype.unfollowUser = function (user) {
+        var headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        return this.http.post('http://localhost:3000/api/users/user/unfollow', user, { headers: headers }).map(function (res) { return res.json(); });
+    };
+    UserService.prototype.subscribeUser = function (user) {
+        var headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        return this.http.post('http://localhost:3000/api/users/user/subscribe', user, { headers: headers }).map(function (res) { return res.json(); });
+    };
+    UserService.prototype.unsubscribeUser = function (user) {
+        var headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        return this.http.post('http://localhost:3000/api/users/user/unsubscribe', user, { headers: headers }).map(function (res) { return res.json(); });
+    };
     return UserService;
 }());
 UserService = __decorate([

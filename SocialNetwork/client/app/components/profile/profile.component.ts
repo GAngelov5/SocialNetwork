@@ -7,6 +7,8 @@ import { UserManagementService } from '../../services/user-management.service';
 
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { FileUploader } from 'ng2-file-upload';
+import * as io from 'socket.io-client';
+
 
 const EDIT_DESCRIPTION = "Successfully edited your profile settings";
 const UPLOAD_API = 'http://localhost:3000/api/users/user/uploadProfileImage'
@@ -136,6 +138,31 @@ export class ProfileComponent implements OnInit {
     unsubscribe() {
         this.userManagementService.unsubscribe(this.currentUser._id);
         this.subCheck = !this.subCheck;
+    }
+
+    onClickMessage() {
+        if (this.selectedTab != 'Message') {
+            this.selectedTab = 'Message';
+        }
+    }
+
+    sendMessage(messageData) {
+        // const message = {
+        //     content: messageData,
+        //     sent_by: JSON.parse(localStorage.getItem("currentUserId")),
+        //     sent_to: this.currentUser._id,
+        //     sent_on: + new Date(),
+        //     read: false
+        // }
+        // var socket = this.socketManager.getSocketManager();
+
+        // socket.emit("new msg to user", message);
+        // socket.on("error in sending message", (err) => {
+        //     this.flashService.show("Error occured " + err, {cssClass: "alert-danger", timeout: 2000});
+        // });
+        // socket.on("message was stored", (data) => {
+        //     this.flashService.show("Message sent!", {cssClass: "alert-danger", timeout: 2000});
+        // });
     }
 
     

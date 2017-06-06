@@ -1,0 +1,14 @@
+<div class="container">
+    <h3>Live Chat</h3>
+    <div class="chat-container">
+        <div *ngFor="let msg of messages">
+            <span>{{msg.sender}}: {{msg.content}}</span>
+        </div>
+    </div>
+    <div class="footer">
+            <form [formGroup]="addMessageForm" (ngSubmit)="addMessage()">
+                <input type="text" formControlName="message">
+                <span><button class="btn bnt-default" type="submit">Send</button></span>
+            </form>
+        </div>
+</div>

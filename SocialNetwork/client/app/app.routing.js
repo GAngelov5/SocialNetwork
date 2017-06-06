@@ -16,18 +16,27 @@ import { CategoriesComponent } from './components/categories/categories.componen
 import { CategoryComponent } from './components/categories/category.component';
 import { AddArticleComponent } from './components/articles/add-article.component';
 import { UserArticlesComponent } from './components/articles/user-articles.component';
+import { MessagesComponent } from './components/messages/messages.component';
 import { AuthGuard } from './guards/guard.service';
 import { UserArticlesResolver } from './components/articles/user-articles-resolver.service';
 import { ArticleResolver } from './components/articles/article-resolver.service';
 import { CategoryResolver } from './components/categories/category-resolver.service';
 import { CategoriesResolver } from './components/categories/categories-resolver.service';
+import { UsersResolver } from './components/users/users-resolver.service';
 var appRoutes = [
     { path: '', component: ArticlesComponent, canActivate: [AuthGuard] },
-    { path: 'users', component: UsersComponent },
+    {
+        path: 'users',
+        component: UsersComponent,
+        resolve: {
+            users: UsersResolver
+        }
+    },
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
     { path: 'logout', component: LoginComponent },
     { path: 'articles', component: ArticlesComponent },
+    { path: 'messages', component: MessagesComponent },
     {
         path: 'categories',
         component: CategoriesComponent,

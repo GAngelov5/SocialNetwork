@@ -14,25 +14,18 @@ var ArticlesComponent = (function () {
     function ArticlesComponent(articlesService, router) {
         this.articlesService = articlesService;
         this.router = router;
-        this.articles = [];
-    }
-    ArticlesComponent.prototype.ngOnInit = function () {
         this.getArticles();
-    };
+    }
     ArticlesComponent.prototype.getArticles = function () {
         var _this = this;
         this.articlesService.getArticles().subscribe(function (articles) {
             _this.articles = articles;
         });
     };
-    ArticlesComponent.prototype.viewArticle = function (articleId) {
-        this.router.navigate(['/article', articleId]);
-    };
     return ArticlesComponent;
 }());
 ArticlesComponent = __decorate([
     Component({
-        selector: "article-list",
         templateUrl: "articles.component.html"
     }),
     __metadata("design:paramtypes", [ArticleService,

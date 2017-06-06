@@ -42,7 +42,7 @@ var AddArticleComponent = (function () {
         if (this.validateForm()) {
             var article = {
                 title: this.addArticleForm.get("title").value,
-                category: this.addArticleForm.get("category").value,
+                category: this.retrieveCategoryId(this.addArticleForm.get("category").value),
                 content: this.addArticleForm.get('content').value,
                 publisher: JSON.parse(localStorage.getItem("currentUserId"))
             };
@@ -66,6 +66,11 @@ var AddArticleComponent = (function () {
             }
             this.flashService.show(multipleMessage.join('\n'), { cssClass: "alert-danger", timeout: 4000 });
         }
+    };
+    AddArticleComponent.prototype.retrieveCategoryId = function (name) {
+        return this.categories.filter(function (category) {
+            return category.name === name;
+        })[0]._id;
     };
     AddArticleComponent.prototype.validateForm = function () {
         var titleStatus = this.addArticleForm.get("title").status;

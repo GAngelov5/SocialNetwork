@@ -24,7 +24,7 @@
 				<div class="profile-userbuttons" *ngIf="!grantAccess()">
 					<button type="button" class="btn btn-success" *ngIf="!followCheck" (click) = "follow()">Follow</button>
 					<button type="button" class="btn btn-success" *ngIf="followCheck" (click) = "unfollow()">Unfollow</button>
-					<button type="button" class="btn btn-danger" *ngIf="!grantAccess()">Message</button>
+					<button type="button" class="btn btn-danger" *ngIf="!grantAccess()" (click) = "onClickMessage()">Message</button>
 				</div>
 				<div class="profile-userbuttons" *ngIf="!grantAccess()">
 					<button type="button" class="btn btn-warning warning-button" *ngIf="!subCheck" (click) = "subscribe()">Subscribe</button>
@@ -53,6 +53,10 @@
 				<profile-publications *ngIf="selectedTab === 'Publications'"
 					[publications]="publications">
 				</profile-publications>
+
+				<message *ngIf="selectedTab === 'Message'"
+					(sendMessageEmitter)="sendMessage($event)">
+				</message>
             </div>
 		</div>
 	</div>
