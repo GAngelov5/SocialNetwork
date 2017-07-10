@@ -17,6 +17,7 @@ import { CategoryComponent } from './components/categories/category.component';
 import { AddArticleComponent } from './components/articles/add-article.component';
 import { UserArticlesComponent } from './components/articles/user-articles.component';
 import { MessagesComponent } from './components/messages/messages.component';
+import { LiveChatComponent } from './components/liveChat/live-chat.component';
 import { AuthGuard } from './guards/guard.service';
 import { UserArticlesResolver } from './components/articles/user-articles-resolver.service';
 import { ArticleResolver } from './components/articles/article-resolver.service';
@@ -36,6 +37,7 @@ var appRoutes = [
     { path: 'register', component: RegisterComponent },
     { path: 'logout', component: LoginComponent },
     { path: 'articles', component: ArticlesComponent },
+    { path: 'liveChat', component: LiveChatComponent },
     { path: 'messages', component: MessagesComponent },
     {
         path: 'categories',

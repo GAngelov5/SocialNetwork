@@ -14,7 +14,7 @@
             class="btn btn-success" (click)="userManagementService.followUser(user._id)">Follow</button>
         <button *ngIf="userManagementService.followingCacheMap[user._id]" 
             class="btn btn-success" (click)="userManagementService.unfollowUser(user._id)">Unfollow</button>        
-        <button class="btn btn-danger" (click)="sendMessage()">Message</button>      
+        <button class="btn btn-danger">Message</button><!-- Add click handler-->
         <button *ngIf="!userManagementService.subscriptionCacheMap[user._id]" 
             class="btn btn-warning" (click)="userManagementService.subscribe(user._id)">Subscribe</button>
         <button *ngIf="userManagementService.subscriptionCacheMap[user._id]" 

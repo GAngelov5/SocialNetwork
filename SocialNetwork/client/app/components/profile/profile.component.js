@@ -121,6 +121,21 @@ var ProfileComponent = (function () {
         this.userManagementService.unsubscribe(this.currentUser._id);
         this.subCheck = !this.subCheck;
     };
+    ProfileComponent.prototype.onClickMessage = function () {
+        if (this.selectedTab != 'Message') {
+            this.selectedTab = 'Message';
+        }
+    };
+    ProfileComponent.prototype.sendMessage = function (messageData) {
+        var message = {
+            content: messageData,
+            sent_by: JSON.parse(localStorage.getItem("currentUserId")),
+            sent_to: this.currentUser._id,
+            sent_on: +new Date(),
+            read: false
+        };
+        //TODO to continue 
+    };
     return ProfileComponent;
 }());
 ProfileComponent = __decorate([

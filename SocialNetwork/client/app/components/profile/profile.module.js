@@ -9,6 +9,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ProfileRoutingModule } from './profile-routing.module';
 import { FileUploadModule } from 'ng2-file-upload';
+import { MessageModule } from '../messages/message.module';
 import { ProfileComponent } from './profile.component';
 import { ProfileOverviewComponent } from './profile-overview.component';
 import { ProfileSettingsComponent } from './profile-settings.component';
@@ -28,7 +29,8 @@ ProfileModule = __decorate([
             FormsModule,
             ReactiveFormsModule,
             ProfileRoutingModule,
-            FileUploadModule
+            FileUploadModule,
+            MessageModule
         ],
         declarations: [
             ProfileComponent,

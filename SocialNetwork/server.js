@@ -23,6 +23,7 @@ var users = require('./routes/users');
 var articles = require('./routes/articles');
 var categories = require('./routes/category');
 var uploads = require('./routes/uploads');
+var messages = require('./routes/messages');
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -50,8 +51,8 @@ app.use('/api/users', users);
 app.use('/api/categories', categories);
 app.use('/api/articles', articles);
 app.use('/uploads', uploads);
+app.use('/api/messages', messages);
 
-var Message = require('./models/message');
 var User = require('./models/user');
 var userMap = {};
 //Sockets
@@ -66,17 +67,6 @@ io.on('connection', (socket) => {
     socket.on("logout", (userId) => {
         userMap[userId] = null;
     })
-
-    socket.on('send user id', (userId) => {
-        Message.getMessagesByQuery({"sent_to": userId, read: false}, (err, data) => {
-            if (err) {
-                socket.emit("error in fetching data", err);
-            }
-            if (data) {
-                socket.emit("no messages found", data);
-            }
-        });
-    });
 
     socket.on('new msg', (data) => {
         if (data) {

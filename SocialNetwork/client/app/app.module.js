@@ -12,6 +12,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { AppRoutingModule } from './app.routing';
 import { ProfileModule } from './components/profile/profile.module';
+import { MessageModule } from './components/messages/message.module';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { FlashMessagesModule } from 'angular2-flash-messages';
 import { AppComponent } from './app.component';
@@ -27,13 +28,15 @@ import { CategoriesComponent } from './components/categories/categories.componen
 import { CategoryComponent } from './components/categories/category.component';
 import { UserArticlesComponent } from './components/articles/user-articles.component';
 import { ViewArticlesComponent } from './components/articles/view-articles.component';
-import { MessagesComponent } from './components/messages/messages.component';
+import { LiveChatComponent } from './components/liveChat/live-chat.component';
 import { ArticleContentPipe } from './components/articles/article.pipe';
 import { FullNamePipe } from './components/users/full-name.pipe';
 import { UserService } from './services/user.service';
 import { ArticleService } from './services/articles.service';
 import { AuthenticationService } from './services/authentication.service';
 import { UserManagementService } from './services/user-management.service';
+import { ChatService } from './services/chat.service';
+import { MessageService } from './services/message.service';
 import { AuthGuard } from './guards/guard.service';
 import { UserArticlesResolver } from './components/articles/user-articles-resolver.service';
 import { ArticleResolver } from './components/articles/article-resolver.service';
@@ -54,6 +57,7 @@ AppModule = __decorate([
             FormsModule,
             ReactiveFormsModule,
             ProfileModule,
+            MessageModule,
             AppRoutingModule,
             FlashMessagesModule,
         ],
@@ -71,7 +75,7 @@ AppModule = __decorate([
             CategoryComponent,
             UserArticlesComponent,
             ViewArticlesComponent,
-            MessagesComponent,
+            LiveChatComponent,
             ArticleContentPipe,
             FullNamePipe
         ],
@@ -81,6 +85,8 @@ AppModule = __decorate([
             AuthGuard,
             ArticleService,
             UserManagementService,
+            ChatService,
+            MessageService,
             UserArticlesResolver,
             ArticleResolver,
             CategoryService,

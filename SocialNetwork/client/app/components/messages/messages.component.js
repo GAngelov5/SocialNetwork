@@ -8,9 +8,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Component } from '@angular/core';
+import * as io from 'socket.io-client';
 var MessagesComponent = (function () {
     function MessagesComponent() {
     }
+    MessagesComponent.prototype.ngOnInit = function () {
+        var socket = io('http://localhost:3000');
+        socket.emit("send user id", JSON.parse(localStorage.getItem("currentUserId")));
+    };
     return MessagesComponent;
 }());
 MessagesComponent = __decorate([

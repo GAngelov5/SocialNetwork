@@ -147,22 +147,15 @@ export class ProfileComponent implements OnInit {
     }
 
     sendMessage(messageData) {
-        // const message = {
-        //     content: messageData,
-        //     sent_by: JSON.parse(localStorage.getItem("currentUserId")),
-        //     sent_to: this.currentUser._id,
-        //     sent_on: + new Date(),
-        //     read: false
-        // }
-        // var socket = this.socketManager.getSocketManager();
+        const message = {
+            content: messageData,
+            sent_by: JSON.parse(localStorage.getItem("currentUserId")),
+            sent_to: this.currentUser._id,
+            sent_on: + new Date(),
+            read: false
+        }
 
-        // socket.emit("new msg to user", message);
-        // socket.on("error in sending message", (err) => {
-        //     this.flashService.show("Error occured " + err, {cssClass: "alert-danger", timeout: 2000});
-        // });
-        // socket.on("message was stored", (data) => {
-        //     this.flashService.show("Message sent!", {cssClass: "alert-danger", timeout: 2000});
-        // });
+        //TODO to continue 
     }
 
     

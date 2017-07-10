@@ -33,6 +33,7 @@ import { ArticleService }  from './services/articles.service';
 import { AuthenticationService }  from './services/authentication.service';
 import { UserManagementService } from './services/user-management.service';
 import { ChatService } from './services/chat.service';
+import { MessageService } from './services/message.service';
 import { AuthGuard } from './guards/guard.service';
 import { UserArticlesResolver } from './components/articles/user-articles-resolver.service';
 import { ArticleResolver } from './components/articles/article-resolver.service';
@@ -78,6 +79,7 @@ import { UsersResolver } from './components/users/users-resolver.service';
         ArticleService,
         UserManagementService,
         ChatService,
+        MessageService,
         UserArticlesResolver,
         ArticleResolver,
         CategoryService,

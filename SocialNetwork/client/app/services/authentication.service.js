@@ -21,7 +21,6 @@ var AuthenticationService = (function () {
         var bodyString = JSON.stringify({ username: username, password: password }); // Stringify payload
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
-        console.log("da");
         return this.http.post('http://localhost:3000/api/users/authenticate', bodyString, { headers: headers })
             .map(function (res) {
             var response = res.json();
@@ -50,7 +49,8 @@ var AuthenticationService = (function () {
 }());
 AuthenticationService = __decorate([
     Injectable(),
-    __metadata("design:paramtypes", [Http, Router])
+    __metadata("design:paramtypes", [Http,
+        Router])
 ], AuthenticationService);
 export { AuthenticationService };
 //# sourceMappingURL=authentication.service.js.map
