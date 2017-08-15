@@ -1,16 +1,18 @@
 import { Component } from '@angular/core';
-import * as io from 'socket.io-client';
+import { Http } from '@angular/http';
+import { MessageService } from '../../services/message.service';
+import { Message } from '../../models/message.model';
 
 @Component({
-    templateUrl: 'messages.component.html'
+    templateUrl: 'messages.component.html',
+    styleUrls: ['messages.component.css']
 })
 export class MessagesComponent {
-    constructor() {
+    private currentSelection: String;
+    private selected: String;
 
-    }
-
-    ngOnInit() {
-        let socket = io('http://localhost:3000');
-        socket.emit("send user id", JSON.parse(localStorage.getItem("currentUserId")));
+    constructor(private http: Http,
+                private messageService: MessageService) {
+        this.selected = 'unread';
     }
 }

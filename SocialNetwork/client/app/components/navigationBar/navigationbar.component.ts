@@ -3,6 +3,9 @@ import { Router } from '@angular/router';
 
 import { AuthenticationService} from '../../services/authentication.service';
 import { UserService } from '../../services/user.service';
+import { MessageService } from '../../services/message.service';
+
+import * as io from 'socket.io-client';
 
 import { Subject } from 'rxjs/Subject';
 
@@ -13,13 +16,17 @@ import { Subject } from 'rxjs/Subject';
 export class NavigationBarComponent {
     username: string;
     currentUserId: string;
+    unreadMessages: number;
+    socket: any;
+
     public static returned: Subject<any> = new Subject();   
 
     constructor(private authService:AuthenticationService,
                 private userService: UserService,
+                private messageService: MessageService,
                 private router: Router) {
 
-        if (localStorage.getItem('currentUserId')) {
+        if (authService.loggedIn() && localStorage.getItem('currentUserId')) {
             this.currentUserId = JSON.parse(localStorage.getItem('currentUserId'));
             this.userService.getUser(this.currentUserId).subscribe(user => {
                 if (user) {
@@ -33,10 +40,38 @@ export class NavigationBarComponent {
         NavigationBarComponent.returned.subscribe(res => {
             if (res) {
                 this.username = res.firstName + " " + res.lastName;
-                 if (localStorage.getItem('currentUserId')) {
+                if (localStorage.getItem('currentUserId')) {
                     this.currentUserId = JSON.parse(localStorage.getItem('currentUserId'));
-                 }
+                }
+
+                this.getMessageStatus();
             }
+        });
+
+        if (this.currentUserId) {
+            this.getMessageStatus();
+        }
+
+        this.listenForMessageUpdates();
+    }
+
+    getMessageStatus() {
+        this.messageService.getUserUnreadMessages(this.currentUserId).subscribe((data) => {
+                    this.unreadMessages = data ? data.length : 0;
+                });
+
+                this.socket = io('http://localhost:3000');
+                this.socket.on("new msg incoming", (data) => {
+                    if (data && this.currentUserId === data.sent_to) {
+                        this.unreadMessages += 1;
+                    }
+                });
+    }
+
+    listenForMessageUpdates() {
+        this.socket = io('http://localhost:3000');
+        this.socket.on("messages size changed", (data) => {
+            this.unreadMessages = data;
         });
     }
 

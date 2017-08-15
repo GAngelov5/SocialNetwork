@@ -4,6 +4,7 @@ import { CommonModule }   from '@angular/common';
 
 import { MessageComponent } from './message.component';
 import { MessagesComponent } from './messages.component';
+import { MessagesContainer } from './msgs-container.component';
 
 import { UserService } from '../../services/user.service';
 
@@ -15,7 +16,8 @@ import { UserService } from '../../services/user.service';
     ],
     declarations: [
         MessageComponent,
-        MessagesComponent
+        MessagesComponent,
+        MessagesContainer
     ],
     exports: [
         MessageComponent

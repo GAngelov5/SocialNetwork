@@ -15,7 +15,7 @@
 					</div>
 				</div>
 				<div *ngIf="grantAccess()">
-					<input type="file" ng2FileSelect [uploader]="uploader" (click)="uploadImage()"/>
+					<input type="file" ng2FileSelect [uploader]="uploader"/>
 					<button type="button" class="btn btn-success"
 							(click)="uploadImage()">
 						<span class="glyphicon glyphicon-upload"></span> Upload
@@ -30,11 +30,13 @@
 					<button type="button" class="btn btn-warning warning-button" *ngIf="!subCheck" (click) = "subscribe()">Subscribe</button>
 					<button type="button" class="btn btn-warning warning-button" *ngIf="subCheck" (click) = "unsubscribe()">Unsubscribe</button>
 				</div>
-				<button class="btn btn-primary" (click)="onClickOveview()">Overview</button>
-				<button *ngIf="grantAccess()" class="btn btn-primary"
-					(click)="onClickAccountSettings()">Information</button>
-				<button *ngIf="grantAccess()" class="btn btn-primary"
-					(click)="onClickPublications()">Publications</button>
+				<div class="profile-userbuttons">
+					<button class="btn btn-primary" (click)="onClickOveview()">Overview</button>
+					<button *ngIf="grantAccess()" class="btn btn-primary"
+						(click)="onClickAccountSettings()">Information</button>
+					<button *ngIf="grantAccess()" class="btn btn-primary"
+						(click)="onClickPublications()">Publications</button>
+				</div>
 			</div>
 		</div>
 		<div class="col-md-9">

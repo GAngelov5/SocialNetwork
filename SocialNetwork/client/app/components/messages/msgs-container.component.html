@@ -1,0 +1,19 @@
+<div *ngIf="messages.length <= 0">
+    No messages
+</div>
+<div *ngIf="messages.length > 0">
+    <div class="message-row" *ngFor="let msg of messages">
+        <div>Sent by: {{msg.sent_by.username}}
+            <span class="checkbox-right" *ngIf="tab === 'unread'">Mark as read: 
+                <input type="checkbox" (click)="readMessage(msg._id)"/>
+            </span>
+        </div>
+        <div>
+            Content: {{msg.content}}
+        </div>
+    </div>
+    <div *ngIf="tab === 'unread'">
+        Confirm checked messages for read:
+        <button class="btn btn-success" (click)="confirmReadMessages()"> Confirm </button>
+    </div>
+</div>

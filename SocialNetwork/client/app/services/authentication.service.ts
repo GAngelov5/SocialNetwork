@@ -7,6 +7,7 @@ import * as io from 'socket.io-client';
 
 @Injectable()
 export class AuthenticationService {
+    private socket: any;
     constructor(private http: Http,
                 private router: Router) {
     }
@@ -21,6 +22,8 @@ export class AuthenticationService {
                 if (response && response.token) {
                     localStorage.setItem('currentUserId', JSON.stringify(response.user.id));
                     localStorage.setItem('user_token', response.token);
+                    this.socket = io('http://localhost:3000')
+                    this.socket.emit("new authentication", (response.user.id));
                 }
                 return response;
         });

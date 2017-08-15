@@ -11,14 +11,17 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../../services/authentication.service';
 import { UserService } from '../../services/user.service';
+import { MessageService } from '../../services/message.service';
+import * as io from 'socket.io-client';
 import { Subject } from 'rxjs/Subject';
 var NavigationBarComponent = NavigationBarComponent_1 = (function () {
-    function NavigationBarComponent(authService, userService, router) {
+    function NavigationBarComponent(authService, userService, messageService, router) {
         var _this = this;
         this.authService = authService;
         this.userService = userService;
+        this.messageService = messageService;
         this.router = router;
-        if (localStorage.getItem('currentUserId')) {
+        if (authService.loggedIn() && localStorage.getItem('currentUserId')) {
             this.currentUserId = JSON.parse(localStorage.getItem('currentUserId'));
             this.userService.getUser(this.currentUserId).subscribe(function (user) {
                 if (user) {
@@ -29,12 +32,25 @@ var NavigationBarComponent = NavigationBarComponent_1 = (function () {
         else {
             this.username = "Guest";
         }
+        this.unreadMessages = 0;
         NavigationBarComponent_1.returned.subscribe(function (res) {
             if (res) {
                 _this.username = res.firstName + " " + res.lastName;
                 if (localStorage.getItem('currentUserId')) {
                     _this.currentUserId = JSON.parse(localStorage.getItem('currentUserId'));
                 }
+                _this.messageService.getUserUnreadMessages(_this.currentUserId).subscribe(function (data) {
+                    console.log('bj');
+                    console.log(data);
+                    _this.unreadMessages = data ? data.length : 0;
+                });
+                _this.socket = io('http://localhost:3000');
+                _this.socket.on("new msg incoming", function (data) {
+                    if (data && _this.currentUserId === data.sent_to) {
+                        console.log("bravo be doide ");
+                        _this.unreadMessages += 1;
+                    }
+                });
             }
         });
     }
@@ -56,6 +72,7 @@ NavigationBarComponent = NavigationBarComponent_1 = __decorate([
     }),
     __metadata("design:paramtypes", [AuthenticationService,
         UserService,
+        MessageService,
         Router])
 ], NavigationBarComponent);
 export { NavigationBarComponent };

@@ -12,12 +12,14 @@ import { Router } from "@angular/router";
 import { Http, Headers } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { tokenNotExpired } from '../../node_modules/angular2-jwt';
+import * as io from 'socket.io-client';
 var AuthenticationService = (function () {
     function AuthenticationService(http, router) {
         this.http = http;
         this.router = router;
     }
     AuthenticationService.prototype.login = function (username, password) {
+        var _this = this;
         var bodyString = JSON.stringify({ username: username, password: password }); // Stringify payload
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
@@ -27,6 +29,8 @@ var AuthenticationService = (function () {
             if (response && response.token) {
                 localStorage.setItem('currentUserId', JSON.stringify(response.user.id));
                 localStorage.setItem('user_token', response.token);
+                _this.socket = io('http://localhost:3000');
+                _this.socket.emit("new authentication", (response.user.id));
             }
             return response;
         });

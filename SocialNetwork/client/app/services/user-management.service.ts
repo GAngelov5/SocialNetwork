@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { UserService } from './user.service';
+import { Router } from '@angular/router';
 
 
 @Injectable()
@@ -7,7 +8,8 @@ export class UserManagementService {
     followingCacheMap = <{string: boolean}> {};
     subscriptionCacheMap = <{string: boolean}> {};
     
-    constructor(private userService: UserService) {
+    constructor(private userService: UserService,
+                private router: Router) {
     }
 
     getFollowingCacheMap() {
@@ -91,5 +93,9 @@ export class UserManagementService {
         });
 
         return subscribed.length > 0;
+    }
+
+    messageUser(userId) {
+        this.router.navigate(['/profile', userId, "Message"]);
     }
 }

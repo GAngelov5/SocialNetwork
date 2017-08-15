@@ -4,6 +4,7 @@ import { UserService } from '../../services/user.service';
 import { AuthenticationService } from '../../services/authentication.service';
 import { ArticleService } from '../../services/articles.service';
 import { UserManagementService } from '../../services/user-management.service';
+import { MessageService } from '../../services/message.service';
 
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { FileUploader } from 'ng2-file-upload';
@@ -25,11 +26,13 @@ export class ProfileComponent implements OnInit {
     uploader: FileUploader;
     subCheck: boolean;
     followCheck: boolean;
+    socket: any;
 
     constructor(private userService:UserService,
                 private authService: AuthenticationService,
                 private articlesService: ArticleService,
                 private userManagementService: UserManagementService,
+                private messageService: MessageService,
                 private route: ActivatedRoute,
                 private router: Router,
                 private flashService: FlashMessagesService) {
@@ -40,6 +43,7 @@ export class ProfileComponent implements OnInit {
     ngOnInit() {
         this.route.data
             .subscribe((data) => {
+                this.selectedTab = data['selectedTab'];
                 this.publications = data['userPublications'] ? data['userPublications'] : [];
                 this.currentUser = JSON.parse(data['currentUser']._body);
                 this.currentUser.imgSrc = "http://localhost:3000/" + this.currentUser.avatarImg.url;
@@ -65,7 +69,6 @@ export class ProfileComponent implements OnInit {
                     }
                 }
             });
-        
         let userId = localStorage.getItem('currentUserId');
     }
 
@@ -155,7 +158,7 @@ export class ProfileComponent implements OnInit {
             read: false
         }
 
-        //TODO to continue 
+        this.messageService.sendMessage(message);
     }
 
     

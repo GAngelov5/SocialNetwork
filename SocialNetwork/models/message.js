@@ -16,9 +16,23 @@ module.exports.getMessages = (callback) => {
 }
 
 module.exports.getMessagesByQuery = (query, callback) => {
-    Message.find(query).exec(callback);
+    Message.find(query).populate('sent_by').exec(callback);
+}
+
+module.exports.bulkUpdate = (messageIds, callback) => {
+    Message.update({ _id: { $in: messageIds }}, { read: true }, { multi: true }, callback);
+}
+
+const updateQuery = (msgId, status) => {
+    return {
+        updateOne: {
+            filter: { _id: msgId },
+            update: { read: status }
+        }
+    } 
 }
 
 module.exports.addNewMessage = (message, callback) => {
-    message.save(callback);
+    newMsg = new Message(message); 
+    newMsg.save(callback);
 }

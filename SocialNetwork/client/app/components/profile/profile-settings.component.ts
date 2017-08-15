@@ -77,7 +77,7 @@ export class ProfileSettingsComponent {
                 id: this.user._id,
                 oldPassword: this.passwordForm.get('oldPassword').value,
                 newPassword: this.passwordForm.get('newPassword').value
-            }
+            };
             this.userService.changeUserPassword(partialUser).subscribe((data) => {
                 if (data.success) {
                     this.flashService.show(data.msg, 

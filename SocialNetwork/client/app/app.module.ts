@@ -1,6 +1,7 @@
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
@@ -46,6 +47,7 @@ import { UsersResolver } from './components/users/users-resolver.service';
 @NgModule({
     imports: [
         BrowserModule,
+        BrowserAnimationsModule,
         HttpModule,
         FormsModule,
         ReactiveFormsModule,

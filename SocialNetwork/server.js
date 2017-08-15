@@ -54,6 +54,7 @@ app.use('/uploads', uploads);
 app.use('/api/messages', messages);
 
 var User = require('./models/user');
+var Message = require('./models/message');
 var userMap = {};
 //Sockets
 io.on('connection', (socket) => {
@@ -66,7 +67,7 @@ io.on('connection', (socket) => {
 
     socket.on("logout", (userId) => {
         userMap[userId] = null;
-    })
+    });
 
     socket.on('new msg', (data) => {
         if (data) {
@@ -79,6 +80,21 @@ io.on('connection', (socket) => {
             })
         }
     });
+
+    socket.on("send pm", (data) => {
+        if (data) {
+            Message.addNewMessage(data, (err, msg) => {
+                if (err) socket.emit("error in saving msg");
+                if (msg) {                 
+                    io.emit("new msg incoming", msg);
+                }
+            })
+        }
+    });
+
+    socket.on("unread messages was marked as read", (data) => {
+        io.emit("messages size changed", data);
+    })
 });
 
 io.on("disconnect", (socket) => {

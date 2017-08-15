@@ -13,6 +13,7 @@ import { ProfilePublicationsComponent } from './profile-publications.component';
 import { UserService } from '../../services/user.service';
 import { ProfileResolver } from './profile-resolver.service';
 import { PublicationsResolver } from './user-publications-resolver.service';
+import { SelectedTabResolver } from './selected-tab-resolver.service';
 
 @NgModule({
     imports: [
@@ -29,6 +30,6 @@ import { PublicationsResolver } from './user-publications-resolver.service';
         ProfileSettingsComponent,
         ProfilePublicationsComponent
     ],
-    providers: [UserService, ProfileResolver, PublicationsResolver]
+    providers: [UserService, ProfileResolver, PublicationsResolver, SelectedTabResolver]
 })
 export class ProfileModule { }

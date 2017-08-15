@@ -26,3 +26,9 @@ img.cropped {
 warning-button {
     margin-left: 10px;
 }
+
+.profile-userbuttons button {
+    display: block;
+    max-width: 150px;
+    width: 100%;
+}

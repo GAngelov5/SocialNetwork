@@ -13,16 +13,18 @@ import { UserService } from '../../services/user.service';
 import { AuthenticationService } from '../../services/authentication.service';
 import { ArticleService } from '../../services/articles.service';
 import { UserManagementService } from '../../services/user-management.service';
+import { MessageService } from '../../services/message.service';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { FileUploader } from 'ng2-file-upload';
 var EDIT_DESCRIPTION = "Successfully edited your profile settings";
 var UPLOAD_API = 'http://localhost:3000/api/users/user/uploadProfileImage';
 var ProfileComponent = (function () {
-    function ProfileComponent(userService, authService, articlesService, userManagementService, route, router, flashService) {
+    function ProfileComponent(userService, authService, articlesService, userManagementService, messageService, route, router, flashService) {
         this.userService = userService;
         this.authService = authService;
         this.articlesService = articlesService;
         this.userManagementService = userManagementService;
+        this.messageService = messageService;
         this.route = route;
         this.router = router;
         this.flashService = flashService;
@@ -134,7 +136,7 @@ var ProfileComponent = (function () {
             sent_on: +new Date(),
             read: false
         };
-        //TODO to continue 
+        this.messageService.sendMessage(message);
     };
     return ProfileComponent;
 }());
@@ -148,6 +150,7 @@ ProfileComponent = __decorate([
         AuthenticationService,
         ArticleService,
         UserManagementService,
+        MessageService,
         ActivatedRoute,
         Router,
         FlashMessagesService])

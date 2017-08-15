@@ -7,9 +7,8 @@ require("@angular/common");
 require("@angular/http");
 require("@angular/router");
 require("@angular/forms");
+require("@angular/animations");
 // RxJS
 require("rxjs");
-require("../bower_components/jquery/dist/jquery");
-require("../bower_components/bootstrap/dist/js/bootstrap.js");
-require("../bower_components/bootstrap/dist/css/bootstrap.css");
-//# sourceMappingURL=vendor.js.map
+require("jquery/dist/jquery");
+require("bootstrap/dist/js/bootstrap");

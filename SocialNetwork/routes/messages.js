@@ -31,10 +31,49 @@ router.post('/message', (req, res, next) => {
 
 router.get('/:id', (req, res, next) => {
     const query = {
-        _id: req.params.id
+        sent_to: req.params.id
     }
     Message.getMessagesByQuery(query, (err, data) => {
+        if (err) res.send(err);
+        if (data) {
+            res.json(data);
+        }
+    });
+});
 
+router.post('/update', (req, res, next) => {
+    const messageIds = req.body;
+    Message.bulkUpdate(messageIds, (err, data) => {       
+        if (err) res.send(err);
+        if (data) {
+            res.send(data);
+        }
+    });
+});
+
+router.get('/unread/:id', (req, res, next) => {
+    const query = {
+        sent_to: req.params.id,
+        read: false
+    }
+    Message.getMessagesByQuery(query, (err, data) => {
+        if (err) res.send(err);
+        if (data) {
+            res.json(data);
+        }
+    });
+});
+
+router.get('/read/:id', (req, res, next) => {
+    const query = {
+        sent_to: req.params.id,
+        read: true
+    }
+    Message.getMessagesByQuery(query, (err, data) => {
+        if (err) res.send(err);
+        if (data) {
+            res.json(data);
+        }
     });
 });
 

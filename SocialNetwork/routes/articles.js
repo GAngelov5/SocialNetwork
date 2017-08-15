@@ -14,7 +14,7 @@ router.get('/', function(req, res, next) {
 
 router.get('/article/:id', function(req, res, next) {
     Article.findArticleById({"_id": req.params.id}, (err, article) => {
-        if (err) console.error(err);
+        if (err) res.sendStatus(404);
         res.json(article);
     })
 });
