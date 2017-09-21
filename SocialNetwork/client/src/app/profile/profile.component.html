@@ -1,0 +1,65 @@
+<div class="container">
+    <div class="row profile">
+		<div class="col-md-3">
+			<div class="profile-sidebar">
+				<div class="profile-userpic">
+					<img [src]="currentUser?.imgSrc" class="cropped" alt="">					
+				</div>
+				<div class="profile-usertitle">
+					<div class="profile-usertitle-name">
+                        <span><strong>{{currentUser?.firstName}} </strong></span>
+                        <span><strong>{{currentUser?.lastName}}</strong></span>
+					</div>
+					<div class="profile-usertitle-job">
+                        {{currentUser?.position ? currentUser?.position: "Position: None"}}
+					</div>
+				</div>
+				<div *ngIf="grantAccess()">
+					<input type="file" ng2FileSelect [uploader]="uploader"/>
+					<button type="button" class="btn btn-success"
+							(click)="uploadImage()">
+						<span class="glyphicon glyphicon-upload"></span> Upload
+					</button>
+				</div>
+				<div class="profile-userbuttons" *ngIf="!grantAccess()">
+					<button type="button" class="btn btn-success" *ngIf="!followCheck" (click) = "follow()">Follow</button>
+					<button type="button" class="btn btn-success" *ngIf="followCheck" (click) = "unfollow()">Unfollow</button>
+					<button type="button" class="btn btn-danger" *ngIf="!grantAccess()" (click) = "onClickMessage()">Message</button>
+				</div>
+				<div class="profile-userbuttons" *ngIf="!grantAccess()">
+					<button type="button" class="btn btn-warning warning-button" *ngIf="!subCheck" (click) = "subscribe()">Subscribe</button>
+					<button type="button" class="btn btn-warning warning-button" *ngIf="subCheck" (click) = "unsubscribe()">Unsubscribe</button>
+				</div>
+				<div class="profile-userbuttons">
+					<button class="btn btn-primary" (click)="onClickOveview()">Overview</button>
+					<button *ngIf="grantAccess()" class="btn btn-primary"
+						(click)="onClickAccountSettings()">Information</button>
+					<button *ngIf="grantAccess()" class="btn btn-primary"
+						(click)="onClickPublications()">Publications</button>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-9">
+            <div class="profile-content">
+                <profile-overview *ngIf="selectedTab === 'Overview'" 
+					[access]="grantAccess()"
+					[description]="currentUser.description"
+					(descriptionEmitter)="submitDescription($event)">
+				</profile-overview>
+
+				<profile-settings *ngIf="selectedTab === 'AccSettings'" 
+					[user]="currentUser"
+					(profileEmitter)="editProfile($event)">
+				</profile-settings>
+
+				<profile-publications *ngIf="selectedTab === 'Publications'"
+					[publications]="publications">
+				</profile-publications>
+
+				<send-message *ngIf="selectedTab === 'Message'"
+					(sendMessageEmitter)="sendMessage($event)">
+				</send-message>
+            </div>
+		</div>
+	</div>
+</div>

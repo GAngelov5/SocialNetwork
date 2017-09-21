@@ -63,8 +63,6 @@ io.on('connection', (socket) => {
         socket.emit("new socket id", socket.id);
     });
 
-    socket.on('disconnect', function(){ console.log('user disconnected'); });
-
     socket.on("logout", (userId) => {
         userMap[userId] = null;
     });

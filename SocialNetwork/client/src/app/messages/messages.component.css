@@ -1,0 +1,9 @@
+.active {
+    color: #f48942
+}
+
+.tab {
+    display: block;
+    margin: 20px 20px 20px 0;
+    cursor: pointer;    
+}

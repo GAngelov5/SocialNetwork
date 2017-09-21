@@ -1,0 +1,11 @@
+.message-row {
+    border: solid 2px lightgrey;
+    margin: 10px 0 10px 0;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.checkbox-right {
+    float: right;
+    margin-right: 20px;
+}

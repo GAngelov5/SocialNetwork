@@ -6,15 +6,15 @@ let path = require('path');
 
 module.exports = {
     entry: {
-        'polyfills': './app/polyfills.ts',
-        'vendor': './app/vendor.ts',
-        'app': './app/main.ts'
+        'polyfills': './src/polyfills.ts',
+        'vendor': './src/vendor.ts',
+        'app': './src/main.ts'
     },
 
     devtool: 'source-map',
     
     output: {
-        path: __dirname + '/../public/',
+        path: __dirname + '/build/',
         filename: '[name].bundle.js',
         chunkFilename: '[id].chunk.js',
     },
@@ -43,12 +43,12 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        exclude: path.resolve(__dirname, "app"),
+        exclude: path.resolve(__dirname, "src/app"),
         use: ExtractTextPlugin.extract({ fallback: 'style-loader', use: 'css-loader?sourceMap' })
       },
       {
         test: /\.css$/,
-        include:  path.resolve(__dirname, "app"),
+        include:  path.resolve(__dirname, "src/app"),
         use: 'raw-loader'
       }
     ]

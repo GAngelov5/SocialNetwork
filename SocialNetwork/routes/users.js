@@ -5,20 +5,25 @@ var jwt = require('jsonwebtoken');
 var multer = require('multer');
 var path = require('path');
 var fs = require('fs');
+var passport = require('passport');
 
 var User = require('../models/user');
 
-router.get('/', function(req, res, next) {
+router.get('/', passport.authenticate('jwt', { session: false }), function(req, res, next) {
     User.findAllUsers((err, users) => {
         if (err) return console.error(err);
         res.json(users);
     });
 }); 
 
-router.get('/user/:id', function(req, res, next) {
+router.get('/user/:id', passport.authenticate('jwt', { session: false }), function(req, res, next) {
     User.findUserById({"_id": req.params.id}, (err, user) => {
-        if (err) console.error(err);
-        res.json(user);
+        if (err) res.send(err);
+        if (user) {
+            return res.json(user);
+        } else {
+            return res.sendStatus(400);
+        }
     })
 });
 
@@ -54,7 +59,6 @@ router.post('/user', function(req, res, next) {
 router.post('/authenticate', function(req, res, next) {
     var username = req.body.username;
     var password = req.body.password;
-    console.log("username: " + username);
     User.findUserByName(username, (err, user) => {
         if (err) throw err;
         if (user) {
@@ -93,7 +97,7 @@ router.post('/authenticate', function(req, res, next) {
     });
 });
 
-router.post('/changePassword', function(req, res, next) {
+router.post('/changePassword', passport.authenticate('jwt', { session: false }), function(req, res, next) {
     var userId = req.body.id;
     User.findUserById({"_id": userId}, (err, user) => {
         if (err) console.error(err);
@@ -122,7 +126,7 @@ router.post('/changePassword', function(req, res, next) {
     })
 });
 
-router.put('/user/:id', function(req, res, next) {
+router.put('/user/:id', passport.authenticate('jwt', { session: false }), function(req, res, next) {
     var updatedUser = req.body;
     User.findUserById({"_id": updatedUser._id}, (err, user) => {
         if (err) res.send(err);
@@ -169,7 +173,11 @@ function checkUploadPath(req, res, next) {
     }
 }
 
-router.post('/user/uploadProfileImage', checkUploadPath, upload.single("file"), function(req, res, next) {
+router.post('/user/uploadProfileImage', 
+            passport.authenticate('jwt', { session: false }),
+            checkUploadPath,
+            upload.single("file"),
+            function(req, res, next) {
     if (req.file) {
         User.findUserById({"_id": req.headers['user-header']}, (err, user) => {
             if (user) {
@@ -185,7 +193,7 @@ router.post('/user/uploadProfileImage', checkUploadPath, upload.single("file"), 
     }
 });
 
-router.post('/user/follow', (req, res, next) => {
+router.post('/user/follow', passport.authenticate('jwt', { session: false }), (req, res, next) => {
     const userId = req.body.userId;
     const followingUserId = req.body.followingUser;
     User.findUserAndUpdate({"_id": userId}, {$push: {"following": followingUserId}}, (err, user) => {
@@ -199,7 +207,7 @@ router.post('/user/follow', (req, res, next) => {
     });
 });
 
-router.post('/user/unfollow', (req, res, next) => {
+router.post('/user/unfollow', passport.authenticate('jwt', { session: false }), (req, res, next) => {
     const userId = req.body.userId; 
     const followingUserId = req.body.followingUser;
     User.findUserAndUpdate({"_id": userId}, {$pull: {"following": followingUserId}}, (err, user) => {
@@ -213,7 +221,7 @@ router.post('/user/unfollow', (req, res, next) => {
     });
 });
 
-router.post('/user/subscribe', (req, res, next) => {
+router.post('/user/subscribe', passport.authenticate('jwt', { session: false }), (req, res, next) => {
     const subscribedEmail = req.body.userEmail;
     const subscriberId = req.body.subscriberId;
     const userId = req.body.userId;
@@ -228,7 +236,7 @@ router.post('/user/subscribe', (req, res, next) => {
     });
 });
 
-router.post('/user/unsubscribe', (req, res, next) => {
+router.post('/user/unsubscribe', passport.authenticate('jwt', { session: false }), (req, res, next) => {
     const subscribedEmail = req.body.userEmail;
     const subscriberId = req.body.subscriberId;
     const userId = req.body.userId;

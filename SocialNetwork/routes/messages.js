@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
+var passport = require('passport');
 
 const Message = require('../models/message');
 
-router.get("/", (req, res, next) => {
+router.get("/", passport.authenticate('jwt', { session: false }), (req, res, next) => {
     Message.getMessages((err, data) => {
         if (err) res.send(err);
         if (data) {
@@ -12,7 +13,7 @@ router.get("/", (req, res, next) => {
     });
 });
 
-router.post('/message', (req, res, next) => {
+router.post('/message', passport.authenticate('jwt', { session: false }), (req, res, next) => {
     const newMessage = null;
     if (req.body) {
         newMessage = new Message(req.body);
@@ -29,7 +30,7 @@ router.post('/message', (req, res, next) => {
     }
 });
 
-router.get('/:id', (req, res, next) => {
+router.get('/:id', passport.authenticate('jwt', { session: false }), (req, res, next) => {
     const query = {
         sent_to: req.params.id
     }
@@ -41,7 +42,7 @@ router.get('/:id', (req, res, next) => {
     });
 });
 
-router.post('/update', (req, res, next) => {
+router.post('/update', passport.authenticate('jwt', { session: false }), (req, res, next) => {
     const messageIds = req.body;
     Message.bulkUpdate(messageIds, (err, data) => {       
         if (err) res.send(err);
@@ -51,7 +52,7 @@ router.post('/update', (req, res, next) => {
     });
 });
 
-router.get('/unread/:id', (req, res, next) => {
+router.get('/unread/:id', passport.authenticate('jwt', { session: false }), (req, res, next) => {
     const query = {
         sent_to: req.params.id,
         read: false
@@ -64,7 +65,7 @@ router.get('/unread/:id', (req, res, next) => {
     });
 });
 
-router.get('/read/:id', (req, res, next) => {
+router.get('/read/:id', passport.authenticate('jwt', { session: false }), (req, res, next) => {
     const query = {
         sent_to: req.params.id,
         read: true
