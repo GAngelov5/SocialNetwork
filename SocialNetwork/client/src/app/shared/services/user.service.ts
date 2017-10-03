@@ -13,7 +13,8 @@ export class UserService {
     }
 
     public getUsers() {
-        return this.http.get<User[]>('http://localhost:3000/api/users');
+        return this.http.get<User[]>('http://localhost:3000/api/users')
+            .catch(err => Observable.of(null));
     }
 
     public createUser(user) {

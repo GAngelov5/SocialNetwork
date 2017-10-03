@@ -8,7 +8,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Injectable } from '@angular/core';
-import { Http, Headers } from '@angular/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import * as io from 'socket.io-client';
 var MessageService = (function () {
     function MessageService(http) {
@@ -20,27 +20,22 @@ var MessageService = (function () {
         this.socket.emit("send pm", message);
     };
     MessageService.prototype.getUserUnreadMessages = function (userId) {
-        return this.http.get('http://localhost:3000/api/messages/unread/' + userId)
-            .map(function (messages) { return messages.json(); });
+        return this.http.get('http://localhost:3000/api/messages/unread/' + userId);
     };
     MessageService.prototype.getUserReadMessages = function (userId) {
-        return this.http.get('http://localhost:3000/api/messages/read/' + userId)
-            .map(function (messages) { return messages.json(); });
+        return this.http.get('http://localhost:3000/api/messages/read/' + userId);
     };
     MessageService.prototype.getUserMessages = function (userId) {
-        return this.http.get('http://localhost:3000/api/messages/' + userId)
-            .map(function (messages) { return messages.json(); });
+        return this.http.get('http://localhost:3000/api/messages/' + userId);
     };
     MessageService.prototype.updateMessage = function (messageIds) {
-        var headers = new Headers();
-        headers.append('Content-Type', 'application/json');
-        return this.http.post('http://localhost:3000/api/messages/update', messageIds, { headers: headers }).map(function (data) { return data.json(); });
+        return this.http.post('http://localhost:3000/api/messages/update', messageIds, { headers: new HttpHeaders().set('Content-Type', 'application/json') });
     };
     return MessageService;
 }());
 MessageService = __decorate([
     Injectable(),
-    __metadata("design:paramtypes", [Http])
+    __metadata("design:paramtypes", [HttpClient])
 ], MessageService);
 export { MessageService };
 //# sourceMappingURL=message.service.js.map

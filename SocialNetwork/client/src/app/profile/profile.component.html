@@ -15,11 +15,8 @@
 					</div>
 				</div>
 				<div *ngIf="grantAccess()">
-					<input type="file" ng2FileSelect [uploader]="uploader"/>
-					<button type="button" class="btn btn-success"
-							(click)="uploadImage()">
-						<span class="glyphicon glyphicon-upload"></span> Upload
-					</button>
+					<label class="uploadButton" for="fileInput">Upload</label>
+					<input class="hideInput" id="fileInput" type="file" (change)="uploadImage($event)"/>
 				</div>
 				<div class="profile-userbuttons" *ngIf="!grantAccess()">
 					<button type="button" class="btn btn-success" *ngIf="!followCheck" (click) = "follow()">Follow</button>

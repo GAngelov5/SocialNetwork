@@ -8,23 +8,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Rx';
 import { ArticleService } from './articles.service';
 var UserArticlesResolver = (function () {
     function UserArticlesResolver(articleService) {
         this.articleService = articleService;
     }
     UserArticlesResolver.prototype.resolve = function (route) {
-        return this.articleService.getArticlesForUser(route.params['id'])
-            .map(function (articles) {
-            if (articles) {
-                return articles;
-            }
-            return null;
-        })
-            .catch(function (err) {
-            return Observable.of(null);
-        });
+        return this.articleService.getArticlesForUser(route.params['id']);
     };
     return UserArticlesResolver;
 }());

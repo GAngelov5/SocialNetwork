@@ -15,6 +15,7 @@ export interface User {
     registered_at: Date,
     following?: string[],
     followers?: string[],
+    imgSrc?: string,
     subscribers?: string[],
     subscribedTo?: string[],    
     messages?: Message[],

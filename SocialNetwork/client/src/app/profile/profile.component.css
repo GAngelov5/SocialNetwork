@@ -32,3 +32,16 @@ warning-button {
     max-width: 150px;
     width: 100%;
 }
+
+.uploadButton {
+    border: 2px solid green;
+    background-color: green;
+    border-radius: 5px;
+    padding: 5px 15px 5px 15px;
+    color: white;
+}
+
+.hideInput {
+    position: absolute;
+    visibility: hidden;
+}

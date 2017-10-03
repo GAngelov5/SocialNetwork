@@ -26,6 +26,7 @@ import { AppComponent } from './app.component';
 import { UserService }  from './shared/services/user.service';
 import { AuthenticationService }  from './shared/services/authentication.service';
 import { UserManagementService } from './shared/services/user-management.service';
+import { UploadService } from './shared/services/upload.service';
 import { AuthGuard } from './shared/guards/guard.service';
 
 @NgModule({
@@ -52,6 +53,7 @@ import { AuthGuard } from './shared/guards/guard.service';
         AuthenticationService,
         AuthGuard,
         UserManagementService,
+        UploadService,
         { 
             provide: LocationStrategy,
             useClass: HashLocationStrategy

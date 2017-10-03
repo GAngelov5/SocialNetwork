@@ -6,7 +6,7 @@ var passport = require('passport');
 var Article = require('../models/article');
 var Category = require('../models/category')
 
-router.get('/', passport.authenticate('jwt', { session: false }), function(req, res, next) {
+router.get('/', function(req, res, next) {
     Article.findAllArticles((err, articles) => {
         if (err) res.send(err);
         res.json(articles);

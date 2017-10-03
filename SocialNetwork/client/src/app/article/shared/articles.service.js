@@ -17,23 +17,15 @@ var ArticleService = (function () {
     }
     ArticleService.prototype.getArticles = function () {
         return this.http.get("http://localhost:3000/api/articles/")
-            .map(function (articles) {
-            if (articles) {
-                return articles;
-            }
-            return null;
-        })
-            .catch(function (err) {
-            return Observable.of(null);
-        });
-        ;
+            .catch(function (err) { return Observable.of(null); });
     };
     ArticleService.prototype.getArticlesForUser = function (userId) {
         return this.http.get("http://localhost:3000/api/articles/userArticles/" + userId)
             .catch(function (err) { return Observable.of(null); });
     };
     ArticleService.prototype.getArticleById = function (articleId) {
-        return this.http.get('http://localhost:3000/api/articles/article/' + articleId);
+        return this.http.get('http://localhost:3000/api/articles/article/' + articleId)
+            .catch(function (err) { return Observable.of(null); });
     };
     ArticleService.prototype.addArticle = function (article) {
         var headers = new Headers();

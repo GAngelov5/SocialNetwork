@@ -11,13 +11,9 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 var UserArticlesComponent = (function () {
     function UserArticlesComponent(route, router) {
-        var _this = this;
         this.route = route;
         this.router = router;
-        this.route.data
-            .subscribe(function (data) {
-            _this.articles = JSON.parse(data['articles']._body);
-        });
+        this.articles = this.route.snapshot.data['articles'];
     }
     UserArticlesComponent.prototype.showArticle = function (articleId) {
         this.router.navigate(["/article", articleId]);

@@ -35,7 +35,7 @@ var ProfileComponent = (function () {
             .subscribe(function (data) {
             _this.selectedTab = data['selectedTab'];
             _this.publications = data['userPublications'] ? data['userPublications'] : [];
-            _this.currentUser = JSON.parse(data['currentUser']._body);
+            _this.currentUser = data['currentUser'];
             _this.currentUser.imgSrc = "http://localhost:3000/" + _this.currentUser.avatarImg.url;
             _this.uploader = new FileUploader({
                 url: UPLOAD_API,

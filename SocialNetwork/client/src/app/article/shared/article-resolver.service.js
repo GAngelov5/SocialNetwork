@@ -9,22 +9,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Injectable } from '@angular/core';
 import { ArticleService } from './articles.service';
-import { Observable } from 'rxjs/Rx';
 var ArticleResolver = (function () {
     function ArticleResolver(articleService) {
         this.articleService = articleService;
     }
     ArticleResolver.prototype.resolve = function (route) {
-        return this.articleService.getArticleById(route.params['id'])
-            .map(function (article) {
-            if (article) {
-                return article;
-            }
-            return null;
-        })
-            .catch(function (err) {
-            return Observable.of(null);
-        });
+        return this.articleService.getArticleById(route.params['id']);
     };
     return ArticleResolver;
 }());

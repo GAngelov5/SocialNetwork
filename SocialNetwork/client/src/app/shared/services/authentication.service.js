@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Injectable } from '@angular/core';
 import { Router } from "@angular/router";
-import { Http, Headers } from '@angular/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import 'rxjs/add/operator/map';
 import { tokenNotExpired } from '../../../../node_modules/angular2-jwt';
 import * as io from 'socket.io-client';
@@ -21,11 +21,9 @@ var AuthenticationService = (function () {
     AuthenticationService.prototype.login = function (username, password) {
         var _this = this;
         var bodyString = JSON.stringify({ username: username, password: password }); // Stringify payload
-        var headers = new Headers();
-        headers.append('Content-Type', 'application/json');
-        return this.http.post('http://localhost:3000/api/users/authenticate', bodyString, { headers: headers })
+        return this.http.post('http://localhost:3000/api/users/authenticate', bodyString, { headers: new HttpHeaders().set('Content-Type', 'application/json') })
             .map(function (res) {
-            var response = res.json();
+            var response = res;
             if (response && response.token) {
                 localStorage.setItem('currentUserId', JSON.stringify(response.user.id));
                 localStorage.setItem('user_token', response.token);
@@ -38,6 +36,7 @@ var AuthenticationService = (function () {
     AuthenticationService.prototype.logout = function () {
         localStorage.removeItem('currentUserId');
         localStorage.removeItem('user_token');
+        //on logout remove token from backend or blacklist it.
         this.router.navigate(['/']);
     };
     AuthenticationService.prototype.grantAccess = function (userId) {
@@ -56,7 +55,7 @@ var AuthenticationService = (function () {
 }());
 AuthenticationService = __decorate([
     Injectable(),
-    __metadata("design:paramtypes", [Http,
+    __metadata("design:paramtypes", [HttpClient,
         Router])
 ], AuthenticationService);
 export { AuthenticationService };

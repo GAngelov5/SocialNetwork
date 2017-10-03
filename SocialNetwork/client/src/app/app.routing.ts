@@ -23,7 +23,7 @@ import { CategoriesResolver } from './category/shared/categories-resolver.servic
 import { UsersResolver } from './users/shared/users-resolver.service';
 
 const appRoutes: Routes = [
-    { path: '', component: ArticlesComponent, canActivate: [AuthGuard] },
+    { path: '', component: ArticlesComponent},
     { 
         path: 'users',
         component: UsersComponent,
@@ -42,8 +42,16 @@ const appRoutes: Routes = [
             articles: ArticlesResolver
         } 
     },
-    { path: 'liveChat', component: LiveChatComponent },
-    { path: 'messages', component: MessagesComponent },
+    { 
+        path: 'liveChat',
+        component: LiveChatComponent,
+        canActivate: [AuthGuard]
+    },
+    { 
+        path: 'messages',
+        component: MessagesComponent,
+        canActivate: [AuthGuard]
+    },
     { 
         path: 'categories',
         component: CategoriesComponent,

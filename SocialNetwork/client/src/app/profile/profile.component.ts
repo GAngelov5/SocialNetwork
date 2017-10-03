@@ -1,17 +1,18 @@
-import { Component, EventEmitter, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, NgZone } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../shared/services/user.service';
 import { AuthenticationService } from '../shared/services/authentication.service';
 import { UserManagementService } from '../shared/services/user-management.service';
 import { MessageService } from '../messages/shared/message.service';
+import { UploadService } from '../shared/services/upload.service';
+import { CommonMessages } from '../shared/constants/common.constants';
 
 import { FlashMessagesService } from 'angular2-flash-messages';
-import { FileUploader } from 'ng2-file-upload';
 import * as io from 'socket.io-client';
 
+import { User } from '../shared/models/user.interface';
 
 const EDIT_DESCRIPTION = "Successfully edited your profile settings";
-const UPLOAD_API = 'http://localhost:3000/api/users/user/uploadProfileImage'
 
 @Component({
     selector: 'profile',
@@ -19,10 +20,9 @@ const UPLOAD_API = 'http://localhost:3000/api/users/user/uploadProfileImage'
     styleUrls: ['profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-    currentUser: any;
-    selectedTab: String;
+    currentUser: User;
+    selectedTab: string;
     publications: any;
-    uploader: FileUploader;
     subCheck: boolean;
     followCheck: boolean;
     socket: any;
@@ -31,9 +31,11 @@ export class ProfileComponent implements OnInit {
                 private authService: AuthenticationService,
                 private userManagementService: UserManagementService,
                 private messageService: MessageService,
+                private uploadService: UploadService,
                 private route: ActivatedRoute,
                 private router: Router,
-                private flashService: FlashMessagesService) {
+                private flashService: FlashMessagesService,
+                private _ngZone: NgZone) {
         this.selectedTab = 'Overview';
         this.publications = [];
     }
@@ -44,28 +46,16 @@ export class ProfileComponent implements OnInit {
                 this.selectedTab = data['selectedTab'];
                 this.publications = data['userPublications'] ? data['userPublications'] : [];
                 this.currentUser = data['currentUser'];
-                this.currentUser.imgSrc = "http://localhost:3000/" + this.currentUser.avatarImg.url;
-                this.uploader = new FileUploader({
-                    url: UPLOAD_API,
-                    headers: [{ name: 'user-header', value: this.currentUser._id }]
-                });
-                
+                const img = this.currentUser && this.currentUser.avatarImg ? this.currentUser.avatarImg : null;
+                if (img && img.url && img.filename) {
+                    this.currentUser.imgSrc = this._generateUrl(img);
+                }
+                               
                 const loggedUserId = JSON.parse(localStorage.getItem("currentUserId"));
                 this.userService.getUser(loggedUserId).subscribe((user) => {
                     this.followCheck = this.userManagementService.checkFollow(this.currentUser._id, user);
                     this.subCheck = this.userManagementService.checkSubscription(this.currentUser._id, user);
-                })
-                
-                this.uploader.onCompleteItem = (item, response, status, header) => {
-                    response = JSON.parse(response);
-                    if (response) {
-                        this.currentUser = response;
-                        //TODO remove localhost when not using webpack-dev-server 
-                        this.currentUser.imgSrc = "http://localhost:3000/" + this.currentUser.avatarImg.url;                
-                        this.flashService
-                            .show("Profile picture has been changed!", { cssClass: 'alert-success', timeout: 2000 });
-                    }
-                }
+                });
             });
         let userId = localStorage.getItem('currentUserId');
     }
@@ -74,7 +64,7 @@ export class ProfileComponent implements OnInit {
         return this.currentUser && this.authService.grantAccess(this.currentUser._id);
     }
 
-    submitDescription(editedDescription: String) {
+    submitDescription(editedDescription: string) {
         this.currentUser.description = editedDescription;
         this.userService.updateUser(this.currentUser).subscribe((updatedUser) => {
             if (updatedUser) {
@@ -114,11 +104,23 @@ export class ProfileComponent implements OnInit {
         }
     }
 
-    uploadImage() {
-        if (this.uploader.queue.length > 0) {
-            let item = this.uploader.queue[0];
-            item.upload();
+    uploadImage(event) {
+        const image = event.target.files[0];
+        const pattern = new RegExp("image/(jpg|jpeg|png)")
+
+        if (!pattern.test(image.type)) {
+            this.flashService
+                .show(CommonMessages.NON_IMAGE_FILES_WARNING, { cssClass: 'alert-danger', timeout: 2000 });
+            return;
         }
+
+        this.uploadService.uploadImage(image, this.currentUser._id).subscribe(data => {
+            if (data) {
+                this.currentUser.imgSrc = "http://localhost:3000/" + data.imageSrc;
+                this.flashService
+                    .show("Profile picture has been changed!", { cssClass: 'alert-success', timeout: 2000 }); 
+            }
+        });
     }
 
     follow() {
@@ -157,6 +159,10 @@ export class ProfileComponent implements OnInit {
         }
 
         this.messageService.sendMessage(message);
+    }
+
+    _generateUrl(avatarImg: {url: string, filename: string}): string {
+        return 'http://localhost:3000/' + avatarImg.url + '/' + avatarImg.filename;
     }
 
     

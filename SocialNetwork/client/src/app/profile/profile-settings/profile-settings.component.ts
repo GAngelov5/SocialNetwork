@@ -14,7 +14,7 @@ const PASSWORD_MISMATCH = "New password mismatch with the confirm password!";
 })
 export class ProfileSettingsComponent {
     @Input()
-    public user: any;
+    public user: User;
     @Output()
     public profileEmitter = new EventEmitter<any>();
 

@@ -6,7 +6,6 @@ export interface AuthenticatedUser {
     email: string
 }
 
-
 export interface LoginResponse {
     token: string,
     success: boolean,

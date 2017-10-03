@@ -8,6 +8,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ArticleModule } from '../article/article.module';
+import { AddCategoryComponent } from './add-category/add-category.component';
 import { CategoryComponent } from './category/category.component';
 import { CategoriesComponent } from './categories/categories.component';
 import { CategoryService } from './shared/category.service';
@@ -27,6 +28,7 @@ CategoryModule = __decorate([
             ArticleModule
         ],
         declarations: [
+            AddCategoryComponent,
             CategoryComponent,
             CategoriesComponent
         ],

@@ -8,6 +8,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { HttpModule } from '@angular/http';
 import { HomeComponent } from './home.component';
 import { LoginComponent } from './login/login.component';
 import { NavigationBarComponent } from './navigationBar/navigationbar.component';
@@ -25,7 +26,8 @@ HomeModule = __decorate([
             CommonModule,
             FormsModule,
             ReactiveFormsModule,
-            RouterModule
+            RouterModule,
+            HttpModule
         ],
         declarations: [
             HomeComponent,

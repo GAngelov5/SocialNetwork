@@ -11,8 +11,7 @@ export class ArticleService {
     constructor(private http:HttpClient) {}
 
     getArticles(): Observable<any> {
-        return this.http.get<any>("http://localhost:3000/api/articles/")
-            .catch(err => Observable.of(null));
+        return this.http.get<any>("http://localhost:3000/api/articles/");
     }
 
     getArticlesForUser(userId) {

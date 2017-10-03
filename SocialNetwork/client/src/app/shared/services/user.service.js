@@ -8,20 +8,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Injectable } from '@angular/core';
-import { Http, Headers } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Rx';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 var UserService = (function () {
     function UserService(http) {
         this.http = http;
     }
     UserService.prototype.getUsers = function () {
-        return this.http.get('http://localhost:3000/api/users')
-            .map(function (res) { return res.json(); });
+        return this.http.get('http://localhost:3000/api/users');
     };
     UserService.prototype.createUser = function (user) {
-        return this.http.post('http://localhost:3000/api/users/user', user)
-            .map(function (res) { return res.json(); });
+        return this.http.post('http://localhost:3000/api/users/user', user, { headers: new HttpHeaders().set('Content-Type', 'application/json') });
     };
     UserService.prototype.getUser = function (userId) {
         return this.http.get('http://localhost:3000/api/users/user/' + userId)
@@ -38,42 +36,28 @@ var UserService = (function () {
         return users;
     };
     UserService.prototype.updateUser = function (user) {
-        var headers = new Headers();
-        headers.append('Content-Type', 'application/json');
-        return this.http.put('http://localhost:3000/api/users/user/' + user._id, user, { headers: headers })
-            .map(function (res) { return res.json(); });
+        return this.http.put('http://localhost:3000/api/users/user/' + user._id, user);
     };
     UserService.prototype.changeUserPassword = function (partialUser) {
-        var headers = new Headers();
-        headers.append('Content-Type', 'application/json');
-        return this.http.post('http://localhost:3000/api/users/changePassword', partialUser, { headers: headers })
-            .map(function (res) { return res.json(); });
+        return this.http.post('http://localhost:3000/api/users/changePassword', partialUser, { headers: new HttpHeaders().set('Content-Type', 'application/json') });
     };
     UserService.prototype.followUser = function (user) {
-        var headers = new Headers();
-        headers.append('Content-Type', 'application/json');
-        return this.http.post('http://localhost:3000/api/users/user/follow', user, { headers: headers }).map(function (res) { return res.json(); });
+        return this.http.post('http://localhost:3000/api/users/user/follow', user, { headers: new HttpHeaders().set('Content-Type', 'application/json') });
     };
     UserService.prototype.unfollowUser = function (user) {
-        var headers = new Headers();
-        headers.append('Content-Type', 'application/json');
-        return this.http.post('http://localhost:3000/api/users/user/unfollow', user, { headers: headers }).map(function (res) { return res.json(); });
+        return this.http.post('http://localhost:3000/api/users/user/unfollow', user, { headers: new HttpHeaders().set('Content-Type', 'application/json') });
     };
     UserService.prototype.subscribeUser = function (user) {
-        var headers = new Headers();
-        headers.append('Content-Type', 'application/json');
-        return this.http.post('http://localhost:3000/api/users/user/subscribe', user, { headers: headers }).map(function (res) { return res.json(); });
+        return this.http.post('http://localhost:3000/api/users/user/subscribe', user, { headers: new HttpHeaders().set('Content-Type', 'application/json') });
     };
     UserService.prototype.unsubscribeUser = function (user) {
-        var headers = new Headers();
-        headers.append('Content-Type', 'application/json');
-        return this.http.post('http://localhost:3000/api/users/user/unsubscribe', user, { headers: headers }).map(function (res) { return res.json(); });
+        return this.http.post('http://localhost:3000/api/users/user/unsubscribe', user, { headers: new HttpHeaders().set('Content-Type', 'application/json') });
     };
     return UserService;
 }());
 UserService = __decorate([
     Injectable(),
-    __metadata("design:paramtypes", [Http])
+    __metadata("design:paramtypes", [HttpClient])
 ], UserService);
 export { UserService };
 //# sourceMappingURL=user.service.js.map

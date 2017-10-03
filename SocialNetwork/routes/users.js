@@ -149,7 +149,7 @@ router.put('/user/:id', passport.authenticate('jwt', { session: false }), functi
     });
 });
 
-var uploadPath = 'uploads/';
+var uploadPath = '';
 var storage = multer.diskStorage({
     destination: (req, file, next) => {
         next(null, uploadPath);
@@ -162,8 +162,8 @@ var storage = multer.diskStorage({
 var upload = multer({storage: storage});
 
 function checkUploadPath(req, res, next) {
-    uploadPath = uploadPath + req.headers['user-header'];
-    if(fs.exists(uploadPath)) {
+    uploadPath = 'uploads/' + req.headers['user-header'];
+    if(fs.existsSync(uploadPath)) {
         next();
     } else {
         fs.mkdir(uploadPath, (err) => {
@@ -174,7 +174,6 @@ function checkUploadPath(req, res, next) {
 }
 
 router.post('/user/uploadProfileImage', 
-            passport.authenticate('jwt', { session: false }),
             checkUploadPath,
             upload.single("file"),
             function(req, res, next) {
@@ -185,8 +184,11 @@ router.post('/user/uploadProfileImage',
                 user.avatarImg.filename = req.file.filename;
                 User.updateUser(user, (err, updatedUser) => {
                     if (err) {
-                        res.send(err);}
-                    res.json(updatedUser);
+                        res.send(err);
+                    }
+                    if (updatedUser) {
+                        res.json({imageSrc: updatedUser.avatarImg.url + '/' + updatedUser.avatarImg.filename})
+                    }
                 });
             }
         });

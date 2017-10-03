@@ -14,8 +14,16 @@ var ArticlesComponent = (function () {
     function ArticlesComponent(articlesService, route) {
         this.articlesService = articlesService;
         this.route = route;
-        this.articles = this.route.snapshot.data['articles'];
+        this.getArticles();
     }
+    ArticlesComponent.prototype.getArticles = function () {
+        var _this = this;
+        this.articlesService.getArticles().subscribe(function (articles) {
+            if (articles) {
+                _this.articles = articles;
+            }
+        });
+    };
     return ArticlesComponent;
 }());
 ArticlesComponent = __decorate([

@@ -6,7 +6,7 @@ var passport = require('passport');
 
 const User = require('../models/user');
 
-router.get('/:id', (req, res, next) => {
+router.get('/:id/:filename', (req, res, next) => {
     User.findUserById(req.params.id, (err, user) => {
         if (err) res.json("No user found");
         if (user) {
@@ -14,7 +14,7 @@ router.get('/:id', (req, res, next) => {
                 const options = {
                     root: path.join(__dirname, "../" + user.avatarImg.url)
                 }
-                res.sendFile(files[files.length - 1], options, (err) => {
+                res.sendFile(req.params.filename, options, (err) => {
                     if (err) console.log(err)
                     next();
                 });
