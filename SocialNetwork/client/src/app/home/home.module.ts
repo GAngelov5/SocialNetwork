@@ -10,8 +10,6 @@ import { NavigationBarComponent } from './navigationBar/navigationbar.component'
 import { RegisterComponent } from './register/register.component';
 import { LiveChatComponent } from './liveChat/live-chat.component';
 
-import { ChatService } from './shared/chat.service';
-
 @NgModule({
     imports: [
         CommonModule,
@@ -28,7 +26,6 @@ import { ChatService } from './shared/chat.service';
         LiveChatComponent
     ],
     providers: [
-        ChatService
     ],
     exports: [
         HomeComponent,

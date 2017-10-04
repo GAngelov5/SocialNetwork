@@ -5,12 +5,14 @@ import 'rxjs/add/operator/map';
 import { tokenNotExpired } from '../../../../node_modules/angular2-jwt';
 import * as io from 'socket.io-client';
 import { LoginResponse } from '../models/login-response.interface';
+import { ChatService } from './chat.service';
 
 @Injectable()
 export class AuthenticationService {
     private socket: any;
     constructor(private http: HttpClient,
-                private router: Router) {
+                private router: Router,
+                private chatService: ChatService) {
     }
 
     public login(username:string, password:string) {
@@ -22,8 +24,7 @@ export class AuthenticationService {
                 if (response && response.token) {
                     localStorage.setItem('currentUserId', JSON.stringify(response.user.id));
                     localStorage.setItem('user_token', response.token);
-                    this.socket = io('http://localhost:3000')
-                    this.socket.emit("new authentication", (response.user.id));
+                    this.chatService.createIoConnection(response.token);
                 }
                 return response;
         });

@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { ChatService } from '../shared/chat.service';
+import { ChatService } from '../../shared/services/chat.service';
 import * as io from "socket.io-client";
 
 @Component({
-    templateUrl: 'live-chat.component.html'
+    selector: 'live-chat',
+    templateUrl: 'live-chat.component.html',
+    styleUrls: ['live-chat.component.css']
 })
 export class LiveChatComponent {
     private addMessageForm: FormGroup;

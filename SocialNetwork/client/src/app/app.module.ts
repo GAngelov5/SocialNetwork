@@ -27,6 +27,7 @@ import { UserService }  from './shared/services/user.service';
 import { AuthenticationService }  from './shared/services/authentication.service';
 import { UserManagementService } from './shared/services/user-management.service';
 import { UploadService } from './shared/services/upload.service';
+import { ChatService } from './shared/services/chat.service';
 import { AuthGuard } from './shared/guards/guard.service';
 
 @NgModule({
@@ -54,6 +55,7 @@ import { AuthGuard } from './shared/guards/guard.service';
         AuthGuard,
         UserManagementService,
         UploadService,
+        ChatService,
         { 
             provide: LocationStrategy,
             useClass: HashLocationStrategy

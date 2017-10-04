@@ -44,6 +44,9 @@ app.use(passport.session());
 
 require("./config/passport")(passport);
 
+//Sockets
+require('./config/sockets')(io);
+
 app.get('/', function(req, res, next) {
     res.render('public/index.html');
 });
@@ -52,52 +55,6 @@ app.use('/api/categories', categories);
 app.use('/api/articles', articles);
 app.use('/uploads', uploads);
 app.use('/api/messages', messages);
-
-var User = require('./models/user');
-var Message = require('./models/message');
-var userMap = {};
-//Sockets
-io.on('connection', (socket) => {
-    socket.on("new authentication", (userId) => {
-        userMap[userId] = socket.id;
-        socket.emit("new socket id", socket.id);
-    });
-
-    socket.on("logout", (userId) => {
-        userMap[userId] = null;
-    });
-
-    socket.on('new msg', (data) => {
-        if (data) {
-            User.findUserById(data.sender, (err, user) => {
-                if (err) socket.emit("sender not found");
-                if (user) {
-                    data.sender = user.username;
-                    io.emit("receive new msg", data);
-                }
-            })
-        }
-    });
-
-    socket.on("send pm", (data) => {
-        if (data) {
-            Message.addNewMessage(data, (err, msg) => {
-                if (err) socket.emit("error in saving msg");
-                if (msg) {                 
-                    io.emit("new msg incoming", msg);
-                }
-            })
-        }
-    });
-
-    socket.on("unread messages was marked as read", (data) => {
-        io.emit("messages size changed", data);
-    })
-});
-
-io.on("disconnect", (socket) => {
-    console.log("socket disconnected: " + socket.id);
-})
 
 http.listen(3000, function() {
     console.log("Server is started and works on port 3000!");

@@ -46,7 +46,7 @@ router.post('/user', function(req, res, next) {
         description: '',
         registered_at: + new Date(),
         avatarImg: {
-            url: 'uploads/',
+            url: 'uploads',
             filename: 'default_user.png'   
         }
     });
