@@ -10,7 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UserService } from '../../shared/services/user.service';
-var ProfileOverviewComponent = (function () {
+var ProfileOverviewComponent = /** @class */ (function () {
     function ProfileOverviewComponent(route, router, userService) {
         this.route = route;
         this.router = router;
@@ -31,28 +31,28 @@ var ProfileOverviewComponent = (function () {
         this.descriptionEmitter.emit(this.editedDescription);
         this.editDescription();
     };
+    __decorate([
+        Input('access'),
+        __metadata("design:type", Boolean)
+    ], ProfileOverviewComponent.prototype, "userAccess", void 0);
+    __decorate([
+        Input('description'),
+        __metadata("design:type", String)
+    ], ProfileOverviewComponent.prototype, "userDescription", void 0);
+    __decorate([
+        Output(),
+        __metadata("design:type", Object)
+    ], ProfileOverviewComponent.prototype, "descriptionEmitter", void 0);
+    ProfileOverviewComponent = __decorate([
+        Component({
+            selector: "profile-overview",
+            templateUrl: "profile-overview.component.html"
+        }),
+        __metadata("design:paramtypes", [ActivatedRoute,
+            Router,
+            UserService])
+    ], ProfileOverviewComponent);
     return ProfileOverviewComponent;
 }());
-__decorate([
-    Input('access'),
-    __metadata("design:type", Boolean)
-], ProfileOverviewComponent.prototype, "userAccess", void 0);
-__decorate([
-    Input('description'),
-    __metadata("design:type", String)
-], ProfileOverviewComponent.prototype, "userDescription", void 0);
-__decorate([
-    Output(),
-    __metadata("design:type", Object)
-], ProfileOverviewComponent.prototype, "descriptionEmitter", void 0);
-ProfileOverviewComponent = __decorate([
-    Component({
-        selector: "profile-overview",
-        templateUrl: "profile-overview.component.html"
-    }),
-    __metadata("design:paramtypes", [ActivatedRoute,
-        Router,
-        UserService])
-], ProfileOverviewComponent);
 export { ProfileOverviewComponent };
 //# sourceMappingURL=profile-overview.component.js.map

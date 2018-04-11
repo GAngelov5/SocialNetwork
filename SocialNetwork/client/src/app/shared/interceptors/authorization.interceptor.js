@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Injectable, Injector } from '@angular/core';
 import { AuthenticationService } from '../services/authentication.service';
-var HeaderInterceptor = (function () {
+var HeaderInterceptor = /** @class */ (function () {
     function HeaderInterceptor(inj) {
         this.inj = inj;
     }
@@ -22,11 +22,11 @@ var HeaderInterceptor = (function () {
         var authReq = req.clone({ headers: req.headers.set('Authorization', authHeader) });
         return next.handle(authReq);
     };
+    HeaderInterceptor = __decorate([
+        Injectable(),
+        __metadata("design:paramtypes", [Injector])
+    ], HeaderInterceptor);
     return HeaderInterceptor;
 }());
-HeaderInterceptor = __decorate([
-    Injectable(),
-    __metadata("design:paramtypes", [Injector])
-], HeaderInterceptor);
 export { HeaderInterceptor };
 //# sourceMappingURL=authorization.interceptor.js.map

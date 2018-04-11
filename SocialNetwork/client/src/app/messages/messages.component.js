@@ -10,21 +10,21 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { Component } from '@angular/core';
 import { Http } from '@angular/http';
 import { MessageService } from './shared/message.service';
-var MessagesComponent = (function () {
+var MessagesComponent = /** @class */ (function () {
     function MessagesComponent(http, messageService) {
         this.http = http;
         this.messageService = messageService;
         this.selected = 'unread';
     }
+    MessagesComponent = __decorate([
+        Component({
+            templateUrl: 'messages.component.html',
+            styleUrls: ['messages.component.css']
+        }),
+        __metadata("design:paramtypes", [Http,
+            MessageService])
+    ], MessagesComponent);
     return MessagesComponent;
 }());
-MessagesComponent = __decorate([
-    Component({
-        templateUrl: 'messages.component.html',
-        styleUrls: ['messages.component.css']
-    }),
-    __metadata("design:paramtypes", [Http,
-        MessageService])
-], MessagesComponent);
 export { MessagesComponent };
 //# sourceMappingURL=messages.component.js.map

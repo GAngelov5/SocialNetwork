@@ -6,7 +6,7 @@ import { ActivatedRoute } from '@angular/router';
     templateUrl: 'category.component.html'
 })
 export class CategoryComponent {
-    private category;
+    category;
 
     constructor(private route: ActivatedRoute) { }
 

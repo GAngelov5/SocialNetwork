@@ -14,7 +14,7 @@ export class UploadService {
         formData.append('file', image);
         let headers = new HttpHeaders()
             .set('user-header', currentUserId);
-        return this.httpClient.post<Image>('http://localhost:3000/api/users/user/uploadProfileImage',
+        return this.httpClient.post<Image>('/api/users/user/uploadProfileImage',
                                             formData,
                                             {headers: headers})
             .catch((err) => Observable.of(null));

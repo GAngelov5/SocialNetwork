@@ -13,7 +13,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { CommonMessages } from '../../shared/constants/common.constants';
 import { ArticleService } from '../shared/articles.service';
 import { FlashMessagesService } from 'angular2-flash-messages';
-var AddArticleComponent = (function () {
+var AddArticleComponent = /** @class */ (function () {
     function AddArticleComponent(formBuilder, articleService, flashService, router, route) {
         this.formBuilder = formBuilder;
         this.articleService = articleService;
@@ -83,18 +83,18 @@ var AddArticleComponent = (function () {
     AddArticleComponent.prototype.myArticles = function () {
         this.router.navigate(['/articles', JSON.parse(localStorage.getItem("currentUserId"))]);
     };
+    AddArticleComponent = __decorate([
+        Component({
+            selector: 'add-article',
+            templateUrl: 'add-article.component.html'
+        }),
+        __metadata("design:paramtypes", [FormBuilder,
+            ArticleService,
+            FlashMessagesService,
+            Router,
+            ActivatedRoute])
+    ], AddArticleComponent);
     return AddArticleComponent;
 }());
-AddArticleComponent = __decorate([
-    Component({
-        selector: 'add-article',
-        templateUrl: 'add-article.component.html'
-    }),
-    __metadata("design:paramtypes", [FormBuilder,
-        ArticleService,
-        FlashMessagesService,
-        Router,
-        ActivatedRoute])
-], AddArticleComponent);
 export { AddArticleComponent };
 //# sourceMappingURL=add-article.component.js.map

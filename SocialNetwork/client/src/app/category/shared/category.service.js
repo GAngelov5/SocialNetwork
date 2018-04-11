@@ -11,7 +11,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
-var CategoryService = (function () {
+var CategoryService = /** @class */ (function () {
     function CategoryService(http, router) {
         this.http = http;
         this.router = router;
@@ -34,12 +34,12 @@ var CategoryService = (function () {
     CategoryService.prototype.getCategoryById = function (categoryId) {
         return this.http.get('http://localhost:3000/api/categories/' + categoryId);
     };
+    CategoryService = __decorate([
+        Injectable(),
+        __metadata("design:paramtypes", [HttpClient,
+            Router])
+    ], CategoryService);
     return CategoryService;
 }());
-CategoryService = __decorate([
-    Injectable(),
-    __metadata("design:paramtypes", [HttpClient,
-        Router])
-], CategoryService);
 export { CategoryService };
 //# sourceMappingURL=category.service.js.map

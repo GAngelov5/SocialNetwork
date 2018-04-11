@@ -17,39 +17,39 @@ import { ArticleResolver } from './shared/article-resolver.service';
 import { ArticlesResolver } from './shared/articles-resolver.service';
 import { UserArticlesResolver } from './shared/user-articles-resolver.service';
 import { ArticleContentPipe } from './shared/article.pipe';
-var ArticleModule = (function () {
+var ArticleModule = /** @class */ (function () {
     function ArticleModule() {
     }
+    ArticleModule = __decorate([
+        NgModule({
+            imports: [
+                CommonModule,
+                FormsModule,
+                ReactiveFormsModule
+            ],
+            declarations: [
+                AddArticleComponent,
+                ArticleComponent,
+                ArticlesComponent,
+                UserArticlesComponent,
+                ViewArticlesComponent,
+                ArticleContentPipe
+            ],
+            providers: [
+                ArticleService,
+                ArticleResolver,
+                ArticlesResolver,
+                UserArticlesResolver
+            ],
+            exports: [
+                ViewArticlesComponent
+            ],
+            //added to entryComponents, but here we need to add components which will be
+            //called without selector, like components which will be load in third party libraries.
+            entryComponents: [AddArticleComponent],
+        })
+    ], ArticleModule);
     return ArticleModule;
 }());
-ArticleModule = __decorate([
-    NgModule({
-        imports: [
-            CommonModule,
-            FormsModule,
-            ReactiveFormsModule
-        ],
-        declarations: [
-            AddArticleComponent,
-            ArticleComponent,
-            ArticlesComponent,
-            UserArticlesComponent,
-            ViewArticlesComponent,
-            ArticleContentPipe
-        ],
-        providers: [
-            ArticleService,
-            ArticleResolver,
-            ArticlesResolver,
-            UserArticlesResolver
-        ],
-        exports: [
-            ViewArticlesComponent
-        ],
-        //added to entryComponents, but here we need to add components which will be
-        //called without selector, like components which will be load in third party libraries.
-        entryComponents: [AddArticleComponent],
-    })
-], ArticleModule);
 export { ArticleModule };
 //# sourceMappingURL=article.module.js.map

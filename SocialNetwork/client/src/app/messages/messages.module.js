@@ -11,30 +11,30 @@ import { SendMessageComponent } from './send-message/send-message.component';
 import { MessagesComponent } from './messages.component';
 import { MessageContainer } from './message-container/message-container.component';
 import { MessageService } from './shared/message.service';
-var MessagesModule = (function () {
+var MessagesModule = /** @class */ (function () {
     function MessagesModule() {
     }
+    MessagesModule = __decorate([
+        NgModule({
+            imports: [
+                CommonModule,
+                FormsModule,
+                ReactiveFormsModule,
+            ],
+            declarations: [
+                SendMessageComponent,
+                MessagesComponent,
+                MessageContainer
+            ],
+            providers: [
+                MessageService
+            ],
+            exports: [
+                SendMessageComponent
+            ]
+        })
+    ], MessagesModule);
     return MessagesModule;
 }());
-MessagesModule = __decorate([
-    NgModule({
-        imports: [
-            CommonModule,
-            FormsModule,
-            ReactiveFormsModule,
-        ],
-        declarations: [
-            SendMessageComponent,
-            MessagesComponent,
-            MessageContainer
-        ],
-        providers: [
-            MessageService
-        ],
-        exports: [
-            SendMessageComponent
-        ]
-    })
-], MessagesModule);
 export { MessagesModule };
 //# sourceMappingURL=messages.module.js.map

@@ -5,7 +5,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 import { Pipe } from '@angular/core';
-var ArticleContentPipe = (function () {
+var ArticleContentPipe = /** @class */ (function () {
     function ArticleContentPipe() {
     }
     ArticleContentPipe.prototype.transform = function (content) {
@@ -16,10 +16,10 @@ var ArticleContentPipe = (function () {
         }
         return content;
     };
+    ArticleContentPipe = __decorate([
+        Pipe({ name: 'sliceArticleContent' })
+    ], ArticleContentPipe);
     return ArticleContentPipe;
 }());
-ArticleContentPipe = __decorate([
-    Pipe({ name: 'sliceArticleContent' })
-], ArticleContentPipe);
 export { ArticleContentPipe };
 //# sourceMappingURL=article.pipe.js.map

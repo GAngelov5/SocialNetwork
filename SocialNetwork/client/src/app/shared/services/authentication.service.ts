@@ -17,7 +17,7 @@ export class AuthenticationService {
 
     public login(username:string, password:string) {
         let bodyString = JSON.stringify({username: username, password: password }); // Stringify payload
-        return this.http.post<LoginResponse>('http://localhost:3000/api/users/authenticate', bodyString, 
+        return this.http.post<LoginResponse>('/api/users/authenticate', bodyString, 
             { headers: new HttpHeaders().set('Content-Type', 'application/json')})
             .map((res) => {
                 let response = res;

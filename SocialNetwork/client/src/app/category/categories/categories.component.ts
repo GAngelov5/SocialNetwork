@@ -11,8 +11,8 @@ import { Category } from '../shared/category.interface';
     styleUrls: ['./categories.component.css']
 })
 export class CategoriesComponent { 
-    private categories;
-    private allowAddCategory: boolean;
+    categories;
+    allowAddCategory: boolean;
 
     constructor(private route: ActivatedRoute,
                 private router: Router,

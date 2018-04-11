@@ -11,12 +11,12 @@ import { FlashMessagesService } from 'angular2-flash-messages';
     templateUrl: 'article.component.html'
 })
 export class ArticleComponent {
-    private article;
     private publisher;
     private hasVoted: boolean;
     private vote: boolean;
-    private editMode: boolean;
-    private editArticleForm: FormGroup;
+    editMode: boolean;
+    editArticleForm: FormGroup;
+    article;
 
     constructor(private route: ActivatedRoute,
                 private router: Router,

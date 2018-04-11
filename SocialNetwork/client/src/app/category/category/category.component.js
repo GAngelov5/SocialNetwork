@@ -9,20 +9,20 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-var CategoryComponent = (function () {
+var CategoryComponent = /** @class */ (function () {
     function CategoryComponent(route) {
         this.route = route;
     }
     CategoryComponent.prototype.ngOnInit = function () {
         this.category = this.route.snapshot.data['category'];
     };
+    CategoryComponent = __decorate([
+        Component({
+            templateUrl: 'category.component.html'
+        }),
+        __metadata("design:paramtypes", [ActivatedRoute])
+    ], CategoryComponent);
     return CategoryComponent;
 }());
-CategoryComponent = __decorate([
-    Component({
-        templateUrl: 'category.component.html'
-    }),
-    __metadata("design:paramtypes", [ActivatedRoute])
-], CategoryComponent);
 export { CategoryComponent };
 //# sourceMappingURL=category.component.js.map

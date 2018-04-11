@@ -10,7 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { ArticleService } from '../shared/articles.service';
-var ViewArticlesComponent = (function () {
+var ViewArticlesComponent = /** @class */ (function () {
     function ViewArticlesComponent(articlesService, router) {
         this.articlesService = articlesService;
         this.router = router;
@@ -19,19 +19,19 @@ var ViewArticlesComponent = (function () {
     ViewArticlesComponent.prototype.viewArticle = function (articleId) {
         this.router.navigate(['/article', articleId]);
     };
+    __decorate([
+        Input(),
+        __metadata("design:type", Object)
+    ], ViewArticlesComponent.prototype, "articles", void 0);
+    ViewArticlesComponent = __decorate([
+        Component({
+            selector: "view-article-list",
+            templateUrl: "view-articles.component.html"
+        }),
+        __metadata("design:paramtypes", [ArticleService,
+            Router])
+    ], ViewArticlesComponent);
     return ViewArticlesComponent;
 }());
-__decorate([
-    Input(),
-    __metadata("design:type", Object)
-], ViewArticlesComponent.prototype, "articles", void 0);
-ViewArticlesComponent = __decorate([
-    Component({
-        selector: "view-article-list",
-        templateUrl: "view-articles.component.html"
-    }),
-    __metadata("design:paramtypes", [ArticleService,
-        Router])
-], ViewArticlesComponent);
 export { ViewArticlesComponent };
 //# sourceMappingURL=view-articles.component.js.map

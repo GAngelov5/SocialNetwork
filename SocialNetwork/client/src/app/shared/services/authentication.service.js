@@ -12,11 +12,12 @@ import { Router } from "@angular/router";
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import 'rxjs/add/operator/map';
 import { tokenNotExpired } from '../../../../node_modules/angular2-jwt';
-import * as io from 'socket.io-client';
-var AuthenticationService = (function () {
-    function AuthenticationService(http, router) {
+import { ChatService } from './chat.service';
+var AuthenticationService = /** @class */ (function () {
+    function AuthenticationService(http, router, chatService) {
         this.http = http;
         this.router = router;
+        this.chatService = chatService;
     }
     AuthenticationService.prototype.login = function (username, password) {
         var _this = this;
@@ -27,8 +28,7 @@ var AuthenticationService = (function () {
             if (response && response.token) {
                 localStorage.setItem('currentUserId', JSON.stringify(response.user.id));
                 localStorage.setItem('user_token', response.token);
-                _this.socket = io('http://localhost:3000');
-                _this.socket.emit("new authentication", (response.user.id));
+                _this.chatService.createIoConnection(response.token);
             }
             return response;
         });
@@ -51,12 +51,13 @@ var AuthenticationService = (function () {
     AuthenticationService.prototype.loggedIn = function () {
         return tokenNotExpired("user_token");
     };
+    AuthenticationService = __decorate([
+        Injectable(),
+        __metadata("design:paramtypes", [HttpClient,
+            Router,
+            ChatService])
+    ], AuthenticationService);
     return AuthenticationService;
 }());
-AuthenticationService = __decorate([
-    Injectable(),
-    __metadata("design:paramtypes", [HttpClient,
-        Router])
-], AuthenticationService);
 export { AuthenticationService };
 //# sourceMappingURL=authentication.service.js.map

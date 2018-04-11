@@ -11,13 +11,12 @@ import { Injectable } from '@angular/core';
 import { Headers } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Rx';
-var ArticleService = (function () {
+var ArticleService = /** @class */ (function () {
     function ArticleService(http) {
         this.http = http;
     }
     ArticleService.prototype.getArticles = function () {
-        return this.http.get("http://localhost:3000/api/articles/")
-            .catch(function (err) { return Observable.of(null); });
+        return this.http.get("http://localhost:3000/api/articles/");
     };
     ArticleService.prototype.getArticlesForUser = function (userId) {
         return this.http.get("http://localhost:3000/api/articles/userArticles/" + userId)
@@ -40,11 +39,11 @@ var ArticleService = (function () {
     ArticleService.prototype.deleteArticle = function (articleId) {
         return this.http.delete('http://localhost:3000/api/articles/article/' + articleId);
     };
+    ArticleService = __decorate([
+        Injectable(),
+        __metadata("design:paramtypes", [HttpClient])
+    ], ArticleService);
     return ArticleService;
 }());
-ArticleService = __decorate([
-    Injectable(),
-    __metadata("design:paramtypes", [HttpClient])
-], ArticleService);
 export { ArticleService };
 //# sourceMappingURL=articles.service.js.map

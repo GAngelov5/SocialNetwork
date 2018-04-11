@@ -8,7 +8,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Injectable } from '@angular/core';
-var SelectedTabResolver = (function () {
+var SelectedTabResolver = /** @class */ (function () {
     function SelectedTabResolver() {
     }
     SelectedTabResolver.prototype.resolve = function (route) {
@@ -19,11 +19,11 @@ var SelectedTabResolver = (function () {
             return 'Overview';
         }
     };
+    SelectedTabResolver = __decorate([
+        Injectable(),
+        __metadata("design:paramtypes", [])
+    ], SelectedTabResolver);
     return SelectedTabResolver;
 }());
-SelectedTabResolver = __decorate([
-    Injectable(),
-    __metadata("design:paramtypes", [])
-], SelectedTabResolver);
 export { SelectedTabResolver };
 //# sourceMappingURL=selected-tab-resolver.service.js.map

@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-var AuthGuard = (function () {
+var AuthGuard = /** @class */ (function () {
     function AuthGuard(router) {
         this.router = router;
     }
@@ -20,11 +20,11 @@ var AuthGuard = (function () {
         this.router.navigate(['/login'], { queryParams: { returnUrl: state.url } });
         return false;
     };
+    AuthGuard = __decorate([
+        Injectable(),
+        __metadata("design:paramtypes", [Router])
+    ], AuthGuard);
     return AuthGuard;
 }());
-AuthGuard = __decorate([
-    Injectable(),
-    __metadata("design:paramtypes", [Router])
-], AuthGuard);
 export { AuthGuard };
 //# sourceMappingURL=guard.service.js.map

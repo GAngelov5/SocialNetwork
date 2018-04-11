@@ -10,26 +10,26 @@ import { CommonModule } from '@angular/common';
 import { UsersComponent } from './users.component';
 import { FullNamePipe } from './shared/full-name.pipe';
 import { UsersResolver } from './shared/users-resolver.service';
-var UserModule = (function () {
+var UserModule = /** @class */ (function () {
     function UserModule() {
     }
+    UserModule = __decorate([
+        NgModule({
+            imports: [
+                CommonModule,
+                FormsModule,
+                ReactiveFormsModule
+            ],
+            declarations: [
+                UsersComponent,
+                FullNamePipe
+            ],
+            providers: [
+                UsersResolver
+            ]
+        })
+    ], UserModule);
     return UserModule;
 }());
-UserModule = __decorate([
-    NgModule({
-        imports: [
-            CommonModule,
-            FormsModule,
-            ReactiveFormsModule
-        ],
-        declarations: [
-            UsersComponent,
-            FullNamePipe
-        ],
-        providers: [
-            UsersResolver
-        ]
-    })
-], UserModule);
 export { UserModule };
 //# sourceMappingURL=users.module.js.map

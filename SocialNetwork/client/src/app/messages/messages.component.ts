@@ -9,7 +9,7 @@ import { Message } from '../shared/models/message.interface';
 })
 export class MessagesComponent {
     private currentSelection: String;
-    private selected: String;
+    selected: String;
 
     constructor(private http: Http,
                 private messageService: MessageService) {

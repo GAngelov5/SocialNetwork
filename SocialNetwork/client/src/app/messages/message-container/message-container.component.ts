@@ -9,7 +9,7 @@ import * as io from 'socket.io-client';
     styleUrls: ['message-container.component.css']
 })
 export class MessageContainer {
-    private messages: Message[];
+    messages: Message[];
     @Input()
     tab: String;
     socket: any;

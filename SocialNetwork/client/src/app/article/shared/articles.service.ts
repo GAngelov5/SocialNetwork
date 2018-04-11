@@ -11,32 +11,32 @@ export class ArticleService {
     constructor(private http:HttpClient) {}
 
     getArticles(): Observable<any> {
-        return this.http.get<any>("http://localhost:3000/api/articles/");
+        return this.http.get<any>("/api/articles/");
     }
 
     getArticlesForUser(userId) {
-        return this.http.get("http://localhost:3000/api/articles/userArticles/" + userId)
+        return this.http.get("/api/articles/userArticles/" + userId)
             .catch((err) => Observable.of(null));
     }
 
     getArticleById(articleId) {
-        return this.http.get('http://localhost:3000/api/articles/article/' + articleId)
+        return this.http.get('/api/articles/article/' + articleId)
             .catch((err) => Observable.of(null));
     }
 
     addArticle(article) {
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
-        return this.http.post('http://localhost:3000/api/articles/article', article);
+        return this.http.post('/api/articles/article', article);
     }
 
     updateArticle(article) {
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
-        return this.http.put('http://localhost:3000/api/articles/article', article);
+        return this.http.put('/api/articles/article', article);
     }
 
     deleteArticle(articleId) {
-        return this.http.delete<Article>('http://localhost:3000/api/articles/article/' + articleId);
+        return this.http.delete<Article>('/api/articles/article/' + articleId);
     }
 }

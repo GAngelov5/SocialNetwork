@@ -7,7 +7,7 @@ import { ArticleService} from '../shared/articles.service';
     templateUrl: "articles.component.html"
 })
 export class ArticlesComponent {
-    private articles; 
+    articles = []; 
 
     constructor(private articlesService: ArticleService,
                 private route: ActivatedRoute) {

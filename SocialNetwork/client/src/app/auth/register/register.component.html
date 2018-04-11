@@ -1,0 +1,29 @@
+<div class="col-md-6 col-md-offset-3">
+    <h2>Register</h2>
+    <form name="form" [formGroup]="registerForm">
+        <div class="form-group">
+            <input type="text" class="form-control" name="firstName" formControlName="firstName" placeholder="First name"/>
+            <div *ngIf="registerForm.hasError('required')" class="help-block">First Name is required</div>
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control" name="lastName" formControlName="lastName" placeholder="Last name"/>
+            <div *ngIf="registerForm.hasError('required')" class="help-block">Last Name is required</div>
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control" name="username" formControlName="username" placeholder="Username"/>
+            <div *ngIf="registerForm.hasError('required')" class="help-block">Username is required</div>
+        </div>
+        <div class="form-group">
+            <input type="password" class="form-control" name="password" formControlName="password" placeholder="Password"/>
+            <div *ngIf="registerForm.hasError('required')" class="help-block">Password is required</div>
+        </div>
+        <div class="form-group">
+            <input type="email" class="form-control" name="email" formControlName="email" placeholder="Email"/>
+            <div *ngIf="registerForm.hasError('required')" class="help-block">Email is required</div>
+        </div>
+        <div class="form-group">
+            <button [disabled]="loading" class="btn btn-primary" (click)="register()">Register</button>
+            <a [routerLink]="['/login']" class="btn btn-link">Cancel</a>
+        </div>
+    </form>
+</div>

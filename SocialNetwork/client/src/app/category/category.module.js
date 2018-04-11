@@ -14,30 +14,30 @@ import { CategoriesComponent } from './categories/categories.component';
 import { CategoryService } from './shared/category.service';
 import { CategoryResolver } from './shared/category-resolver.service';
 import { CategoriesResolver } from './shared/categories-resolver.service';
-var CategoryModule = (function () {
+var CategoryModule = /** @class */ (function () {
     function CategoryModule() {
     }
+    CategoryModule = __decorate([
+        NgModule({
+            imports: [
+                CommonModule,
+                FormsModule,
+                ReactiveFormsModule,
+                ArticleModule
+            ],
+            declarations: [
+                AddCategoryComponent,
+                CategoryComponent,
+                CategoriesComponent
+            ],
+            providers: [
+                CategoryService,
+                CategoryResolver,
+                CategoriesResolver
+            ]
+        })
+    ], CategoryModule);
     return CategoryModule;
 }());
-CategoryModule = __decorate([
-    NgModule({
-        imports: [
-            CommonModule,
-            FormsModule,
-            ReactiveFormsModule,
-            ArticleModule
-        ],
-        declarations: [
-            AddCategoryComponent,
-            CategoryComponent,
-            CategoriesComponent
-        ],
-        providers: [
-            CategoryService,
-            CategoryResolver,
-            CategoriesResolver
-        ]
-    })
-], CategoryModule);
 export { CategoryModule };
 //# sourceMappingURL=category.module.js.map

@@ -10,7 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ArticleService } from '../shared/articles.service';
-var ArticlesComponent = (function () {
+var ArticlesComponent = /** @class */ (function () {
     function ArticlesComponent(articlesService, route) {
         this.articlesService = articlesService;
         this.route = route;
@@ -24,14 +24,14 @@ var ArticlesComponent = (function () {
             }
         });
     };
+    ArticlesComponent = __decorate([
+        Component({
+            templateUrl: "articles.component.html"
+        }),
+        __metadata("design:paramtypes", [ArticleService,
+            ActivatedRoute])
+    ], ArticlesComponent);
     return ArticlesComponent;
 }());
-ArticlesComponent = __decorate([
-    Component({
-        templateUrl: "articles.component.html"
-    }),
-    __metadata("design:paramtypes", [ArticleService,
-        ActivatedRoute])
-], ArticlesComponent);
 export { ArticlesComponent };
 //# sourceMappingURL=articles.component.js.map

@@ -10,7 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import * as io from 'socket.io-client';
-var MessageService = (function () {
+var MessageService = /** @class */ (function () {
     function MessageService(http) {
         this.http = http;
     }
@@ -31,11 +31,11 @@ var MessageService = (function () {
     MessageService.prototype.updateMessage = function (messageIds) {
         return this.http.post('http://localhost:3000/api/messages/update', messageIds, { headers: new HttpHeaders().set('Content-Type', 'application/json') });
     };
+    MessageService = __decorate([
+        Injectable(),
+        __metadata("design:paramtypes", [HttpClient])
+    ], MessageService);
     return MessageService;
 }());
-MessageService = __decorate([
-    Injectable(),
-    __metadata("design:paramtypes", [HttpClient])
-], MessageService);
 export { MessageService };
 //# sourceMappingURL=message.service.js.map

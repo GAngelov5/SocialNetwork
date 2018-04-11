@@ -9,18 +9,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Injectable } from '@angular/core';
 import { ArticleService } from './articles.service';
-var UserArticlesResolver = (function () {
+var UserArticlesResolver = /** @class */ (function () {
     function UserArticlesResolver(articleService) {
         this.articleService = articleService;
     }
     UserArticlesResolver.prototype.resolve = function (route) {
         return this.articleService.getArticlesForUser(route.params['id']);
     };
+    UserArticlesResolver = __decorate([
+        Injectable(),
+        __metadata("design:paramtypes", [ArticleService])
+    ], UserArticlesResolver);
     return UserArticlesResolver;
 }());
-UserArticlesResolver = __decorate([
-    Injectable(),
-    __metadata("design:paramtypes", [ArticleService])
-], UserArticlesResolver);
 export { UserArticlesResolver };
 //# sourceMappingURL=user-articles-resolver.service.js.map

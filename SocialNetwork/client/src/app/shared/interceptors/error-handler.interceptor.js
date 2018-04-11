@@ -11,7 +11,7 @@ import { Injectable } from '@angular/core';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
-var ErrorHandlerInterceptor = (function () {
+var ErrorHandlerInterceptor = /** @class */ (function () {
     function ErrorHandlerInterceptor(router) {
         this.router = router;
     }
@@ -30,11 +30,11 @@ var ErrorHandlerInterceptor = (function () {
             }
         });
     };
+    ErrorHandlerInterceptor = __decorate([
+        Injectable(),
+        __metadata("design:paramtypes", [Router])
+    ], ErrorHandlerInterceptor);
     return ErrorHandlerInterceptor;
 }());
-ErrorHandlerInterceptor = __decorate([
-    Injectable(),
-    __metadata("design:paramtypes", [Router])
-], ErrorHandlerInterceptor);
 export { ErrorHandlerInterceptor };
 //# sourceMappingURL=error-handler.interceptor.js.map

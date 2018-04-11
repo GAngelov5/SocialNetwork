@@ -10,7 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { Injectable } from '@angular/core';
 import { UserService } from './user.service';
 import { Router } from '@angular/router';
-var UserManagementService = (function () {
+var UserManagementService = /** @class */ (function () {
     function UserManagementService(userService, router) {
         this.userService = userService;
         this.router = router;
@@ -97,12 +97,12 @@ var UserManagementService = (function () {
     UserManagementService.prototype.messageUser = function (userId) {
         this.router.navigate(['/profile', userId, "Message"]);
     };
+    UserManagementService = __decorate([
+        Injectable(),
+        __metadata("design:paramtypes", [UserService,
+            Router])
+    ], UserManagementService);
     return UserManagementService;
 }());
-UserManagementService = __decorate([
-    Injectable(),
-    __metadata("design:paramtypes", [UserService,
-        Router])
-], UserManagementService);
 export { UserManagementService };
 //# sourceMappingURL=user-management.service.js.map

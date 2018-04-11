@@ -14,7 +14,7 @@ import { ArticleService } from '../shared/articles.service';
 import { CommonMessages } from '../../shared/constants/common.constants';
 import { AuthenticationService } from '../../shared/services/authentication.service';
 import { FlashMessagesService } from 'angular2-flash-messages';
-var ArticleComponent = (function () {
+var ArticleComponent = /** @class */ (function () {
     function ArticleComponent(route, router, articleService, flashService, authService, formBuilder) {
         this.route = route;
         this.router = router;
@@ -96,18 +96,18 @@ var ArticleComponent = (function () {
             categoryStatus === 'VALID' &&
             contentStatus === 'VALID';
     };
+    ArticleComponent = __decorate([
+        Component({
+            templateUrl: 'article.component.html'
+        }),
+        __metadata("design:paramtypes", [ActivatedRoute,
+            Router,
+            ArticleService,
+            FlashMessagesService,
+            AuthenticationService,
+            FormBuilder])
+    ], ArticleComponent);
     return ArticleComponent;
 }());
-ArticleComponent = __decorate([
-    Component({
-        templateUrl: 'article.component.html'
-    }),
-    __metadata("design:paramtypes", [ActivatedRoute,
-        Router,
-        ArticleService,
-        FlashMessagesService,
-        AuthenticationService,
-        FormBuilder])
-], ArticleComponent);
 export { ArticleComponent };
 //# sourceMappingURL=article.component.js.map

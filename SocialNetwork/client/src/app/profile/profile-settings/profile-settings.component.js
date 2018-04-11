@@ -12,7 +12,7 @@ import { FormBuilder } from '@angular/forms';
 import { UserService } from '../../shared/services/user.service';
 import { FlashMessagesService } from 'angular2-flash-messages';
 var PASSWORD_MISMATCH = "New password mismatch with the confirm password!";
-var ProfileSettingsComponent = (function () {
+var ProfileSettingsComponent = /** @class */ (function () {
     function ProfileSettingsComponent(userService, flashService, formBuilder) {
         this.userService = userService;
         this.flashService = flashService;
@@ -79,24 +79,24 @@ var ProfileSettingsComponent = (function () {
             });
         }
     };
+    __decorate([
+        Input(),
+        __metadata("design:type", Object)
+    ], ProfileSettingsComponent.prototype, "user", void 0);
+    __decorate([
+        Output(),
+        __metadata("design:type", Object)
+    ], ProfileSettingsComponent.prototype, "profileEmitter", void 0);
+    ProfileSettingsComponent = __decorate([
+        Component({
+            selector: "profile-settings",
+            templateUrl: "profile-settings.component.html"
+        }),
+        __metadata("design:paramtypes", [UserService,
+            FlashMessagesService,
+            FormBuilder])
+    ], ProfileSettingsComponent);
     return ProfileSettingsComponent;
 }());
-__decorate([
-    Input(),
-    __metadata("design:type", Object)
-], ProfileSettingsComponent.prototype, "user", void 0);
-__decorate([
-    Output(),
-    __metadata("design:type", Object)
-], ProfileSettingsComponent.prototype, "profileEmitter", void 0);
-ProfileSettingsComponent = __decorate([
-    Component({
-        selector: "profile-settings",
-        templateUrl: "profile-settings.component.html"
-    }),
-    __metadata("design:paramtypes", [UserService,
-        FlashMessagesService,
-        FormBuilder])
-], ProfileSettingsComponent);
 export { ProfileSettingsComponent };
 //# sourceMappingURL=profile-settings.component.js.map

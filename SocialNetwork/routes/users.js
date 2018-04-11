@@ -59,7 +59,10 @@ router.post('/user', function(req, res, next) {
 router.post('/authenticate', function(req, res, next) {
     var username = req.body.username;
     var password = req.body.password;
+    console.log(username)
     User.findUserByName(username, (err, user) => {
+        console.log(user);
+        console.log(err);
         if (err) throw err;
         if (user) {
             User.comparePassword(password, user.password, (err, isMatch) => {

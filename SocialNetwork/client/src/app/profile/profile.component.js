@@ -7,25 +7,27 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Component } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../shared/services/user.service';
 import { AuthenticationService } from '../shared/services/authentication.service';
 import { UserManagementService } from '../shared/services/user-management.service';
 import { MessageService } from '../messages/shared/message.service';
+import { UploadService } from '../shared/services/upload.service';
+import { CommonMessages } from '../shared/constants/common.constants';
 import { FlashMessagesService } from 'angular2-flash-messages';
-import { FileUploader } from 'ng2-file-upload';
 var EDIT_DESCRIPTION = "Successfully edited your profile settings";
-var UPLOAD_API = 'http://localhost:3000/api/users/user/uploadProfileImage';
-var ProfileComponent = (function () {
-    function ProfileComponent(userService, authService, userManagementService, messageService, route, router, flashService) {
+var ProfileComponent = /** @class */ (function () {
+    function ProfileComponent(userService, authService, userManagementService, messageService, uploadService, route, router, flashService, _ngZone) {
         this.userService = userService;
         this.authService = authService;
         this.userManagementService = userManagementService;
         this.messageService = messageService;
+        this.uploadService = uploadService;
         this.route = route;
         this.router = router;
         this.flashService = flashService;
+        this._ngZone = _ngZone;
         this.selectedTab = 'Overview';
         this.publications = [];
     }
@@ -36,26 +38,15 @@ var ProfileComponent = (function () {
             _this.selectedTab = data['selectedTab'];
             _this.publications = data['userPublications'] ? data['userPublications'] : [];
             _this.currentUser = data['currentUser'];
-            _this.currentUser.imgSrc = "http://localhost:3000/" + _this.currentUser.avatarImg.url;
-            _this.uploader = new FileUploader({
-                url: UPLOAD_API,
-                headers: [{ name: 'user-header', value: _this.currentUser._id }]
-            });
+            var img = _this.currentUser && _this.currentUser.avatarImg ? _this.currentUser.avatarImg : null;
+            if (img && img.url && img.filename) {
+                _this.currentUser.imgSrc = _this._generateUrl(img);
+            }
             var loggedUserId = JSON.parse(localStorage.getItem("currentUserId"));
             _this.userService.getUser(loggedUserId).subscribe(function (user) {
                 _this.followCheck = _this.userManagementService.checkFollow(_this.currentUser._id, user);
                 _this.subCheck = _this.userManagementService.checkSubscription(_this.currentUser._id, user);
             });
-            _this.uploader.onCompleteItem = function (item, response, status, header) {
-                response = JSON.parse(response);
-                if (response) {
-                    _this.currentUser = response;
-                    //TODO remove localhost when not using webpack-dev-server 
-                    _this.currentUser.imgSrc = "http://localhost:3000/" + _this.currentUser.avatarImg.url;
-                    _this.flashService
-                        .show("Profile picture has been changed!", { cssClass: 'alert-success', timeout: 2000 });
-                }
-            };
         });
         var userId = localStorage.getItem('currentUserId');
     };
@@ -100,11 +91,22 @@ var ProfileComponent = (function () {
             this.selectedTab = 'Publications';
         }
     };
-    ProfileComponent.prototype.uploadImage = function () {
-        if (this.uploader.queue.length > 0) {
-            var item = this.uploader.queue[0];
-            item.upload();
+    ProfileComponent.prototype.uploadImage = function (event) {
+        var _this = this;
+        var image = event.target.files[0];
+        var pattern = new RegExp("image/(jpg|jpeg|png)");
+        if (!pattern.test(image.type)) {
+            this.flashService
+                .show(CommonMessages.NON_IMAGE_FILES_WARNING, { cssClass: 'alert-danger', timeout: 2000 });
+            return;
         }
+        this.uploadService.uploadImage(image, this.currentUser._id).subscribe(function (data) {
+            if (data) {
+                _this.currentUser.imgSrc = "http://localhost:3000/" + data.imageSrc;
+                _this.flashService
+                    .show("Profile picture has been changed!", { cssClass: 'alert-success', timeout: 2000 });
+            }
+        });
     };
     ProfileComponent.prototype.follow = function () {
         this.userManagementService.followUser(this.currentUser._id);
@@ -137,21 +139,26 @@ var ProfileComponent = (function () {
         };
         this.messageService.sendMessage(message);
     };
+    ProfileComponent.prototype._generateUrl = function (avatarImg) {
+        return 'http://localhost:3000/' + avatarImg.url + '/' + avatarImg.filename;
+    };
+    ProfileComponent = __decorate([
+        Component({
+            selector: 'profile',
+            templateUrl: 'profile.component.html',
+            styleUrls: ['profile.component.css']
+        }),
+        __metadata("design:paramtypes", [UserService,
+            AuthenticationService,
+            UserManagementService,
+            MessageService,
+            UploadService,
+            ActivatedRoute,
+            Router,
+            FlashMessagesService,
+            NgZone])
+    ], ProfileComponent);
     return ProfileComponent;
 }());
-ProfileComponent = __decorate([
-    Component({
-        selector: 'profile',
-        templateUrl: 'profile.component.html',
-        styleUrls: ['profile.component.css']
-    }),
-    __metadata("design:paramtypes", [UserService,
-        AuthenticationService,
-        UserManagementService,
-        MessageService,
-        ActivatedRoute,
-        Router,
-        FlashMessagesService])
-], ProfileComponent);
 export { ProfileComponent };
 //# sourceMappingURL=profile.component.js.map

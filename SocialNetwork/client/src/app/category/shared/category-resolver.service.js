@@ -10,7 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { Injectable } from '@angular/core';
 import { CategoryService } from './category.service';
 import { Observable } from 'rxjs/Rx';
-var CategoryResolver = (function () {
+var CategoryResolver = /** @class */ (function () {
     function CategoryResolver(categoryService) {
         this.categoryService = categoryService;
     }
@@ -26,11 +26,11 @@ var CategoryResolver = (function () {
             return Observable.of(null);
         });
     };
+    CategoryResolver = __decorate([
+        Injectable(),
+        __metadata("design:paramtypes", [CategoryService])
+    ], CategoryResolver);
     return CategoryResolver;
 }());
-CategoryResolver = __decorate([
-    Injectable(),
-    __metadata("design:paramtypes", [CategoryService])
-], CategoryResolver);
 export { CategoryResolver };
 //# sourceMappingURL=category-resolver.service.js.map

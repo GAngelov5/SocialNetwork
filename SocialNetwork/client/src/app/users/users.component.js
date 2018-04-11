@@ -10,7 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UserManagementService } from '../shared/services/user-management.service';
-var UsersComponent = (function () {
+var UsersComponent = /** @class */ (function () {
     function UsersComponent(userManagementService, router, route) {
         var _this = this;
         this.userManagementService = userManagementService;
@@ -42,17 +42,17 @@ var UsersComponent = (function () {
     UsersComponent.prototype.viewProfile = function (userId) {
         this.router.navigate(['/profile', userId]);
     };
+    UsersComponent = __decorate([
+        Component({
+            selector: "list-users",
+            templateUrl: "users.component.html",
+            styleUrls: ['users.component.css']
+        }),
+        __metadata("design:paramtypes", [UserManagementService,
+            Router,
+            ActivatedRoute])
+    ], UsersComponent);
     return UsersComponent;
 }());
-UsersComponent = __decorate([
-    Component({
-        selector: "list-users",
-        templateUrl: "users.component.html",
-        styleUrls: ['users.component.css']
-    }),
-    __metadata("design:paramtypes", [UserManagementService,
-        Router,
-        ActivatedRoute])
-], UsersComponent);
 export { UsersComponent };
 //# sourceMappingURL=users.component.js.map

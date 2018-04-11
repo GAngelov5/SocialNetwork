@@ -11,12 +11,13 @@ import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Rx';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-var UserService = (function () {
+var UserService = /** @class */ (function () {
     function UserService(http) {
         this.http = http;
     }
     UserService.prototype.getUsers = function () {
-        return this.http.get('http://localhost:3000/api/users');
+        return this.http.get('http://localhost:3000/api/users')
+            .catch(function (err) { return Observable.of(null); });
     };
     UserService.prototype.createUser = function (user) {
         return this.http.post('http://localhost:3000/api/users/user', user, { headers: new HttpHeaders().set('Content-Type', 'application/json') });
@@ -53,11 +54,11 @@ var UserService = (function () {
     UserService.prototype.unsubscribeUser = function (user) {
         return this.http.post('http://localhost:3000/api/users/user/unsubscribe', user, { headers: new HttpHeaders().set('Content-Type', 'application/json') });
     };
+    UserService = __decorate([
+        Injectable(),
+        __metadata("design:paramtypes", [HttpClient])
+    ], UserService);
     return UserService;
 }());
-UserService = __decorate([
-    Injectable(),
-    __metadata("design:paramtypes", [HttpClient])
-], UserService);
 export { UserService };
 //# sourceMappingURL=user.service.js.map

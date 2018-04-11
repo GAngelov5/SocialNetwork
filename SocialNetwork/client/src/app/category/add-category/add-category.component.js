@@ -10,7 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { Component, Output, EventEmitter } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
-var AddCategoryComponent = (function () {
+var AddCategoryComponent = /** @class */ (function () {
     function AddCategoryComponent(formBuilder, router) {
         this.formBuilder = formBuilder;
         this.router = router;
@@ -30,19 +30,19 @@ var AddCategoryComponent = (function () {
         };
         this.categoryEmitter.emit(category);
     };
+    __decorate([
+        Output(),
+        __metadata("design:type", Object)
+    ], AddCategoryComponent.prototype, "categoryEmitter", void 0);
+    AddCategoryComponent = __decorate([
+        Component({
+            selector: 'add-category',
+            templateUrl: 'add-category.component.html'
+        }),
+        __metadata("design:paramtypes", [FormBuilder,
+            Router])
+    ], AddCategoryComponent);
     return AddCategoryComponent;
 }());
-__decorate([
-    Output(),
-    __metadata("design:type", Object)
-], AddCategoryComponent.prototype, "categoryEmitter", void 0);
-AddCategoryComponent = __decorate([
-    Component({
-        selector: 'add-category',
-        templateUrl: 'add-category.component.html'
-    }),
-    __metadata("design:paramtypes", [FormBuilder,
-        Router])
-], AddCategoryComponent);
 export { AddCategoryComponent };
 //# sourceMappingURL=add-category.component.js.map

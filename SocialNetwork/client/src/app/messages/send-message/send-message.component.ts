@@ -8,7 +8,7 @@ import { FormGroup, FormBuilder} from '@angular/forms';
 export class SendMessageComponent {
     @Output()
     private sendMessageEmitter = new EventEmitter<any>();
-    private messageForm: FormGroup;
+    messageForm: FormGroup;
 
     constructor(private formBuilder: FormBuilder) {
         this.messageForm = this.createMessageForm();

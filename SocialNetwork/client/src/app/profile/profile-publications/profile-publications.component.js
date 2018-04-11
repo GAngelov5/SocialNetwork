@@ -10,7 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { Component, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ArticleService } from '../../article/shared/articles.service';
-var ProfilePublicationsComponent = (function () {
+var ProfilePublicationsComponent = /** @class */ (function () {
     function ProfilePublicationsComponent(route, router, articleService) {
         this.route = route;
         this.router = router;
@@ -19,20 +19,20 @@ var ProfilePublicationsComponent = (function () {
     ProfilePublicationsComponent.prototype.navigatToAddArticle = function () {
         this.router.navigate(['/addArticle']);
     };
+    __decorate([
+        Input(),
+        __metadata("design:type", Object)
+    ], ProfilePublicationsComponent.prototype, "publications", void 0);
+    ProfilePublicationsComponent = __decorate([
+        Component({
+            selector: "profile-publications",
+            templateUrl: "profile-publications.component.html"
+        }),
+        __metadata("design:paramtypes", [ActivatedRoute,
+            Router,
+            ArticleService])
+    ], ProfilePublicationsComponent);
     return ProfilePublicationsComponent;
 }());
-__decorate([
-    Input(),
-    __metadata("design:type", Object)
-], ProfilePublicationsComponent.prototype, "publications", void 0);
-ProfilePublicationsComponent = __decorate([
-    Component({
-        selector: "profile-publications",
-        templateUrl: "profile-publications.component.html"
-    }),
-    __metadata("design:paramtypes", [ActivatedRoute,
-        Router,
-        ArticleService])
-], ProfilePublicationsComponent);
 export { ProfilePublicationsComponent };
 //# sourceMappingURL=profile-publications.component.js.map

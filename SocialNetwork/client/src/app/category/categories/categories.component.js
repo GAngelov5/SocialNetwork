@@ -11,7 +11,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CategoryService } from '../shared/category.service';
 import { FlashMessagesService } from 'angular2-flash-messages';
-var CategoriesComponent = (function () {
+var CategoriesComponent = /** @class */ (function () {
     function CategoriesComponent(route, router, categoryService, flashService) {
         this.route = route;
         this.router = router;
@@ -36,18 +36,18 @@ var CategoriesComponent = (function () {
             }
         });
     };
+    CategoriesComponent = __decorate([
+        Component({
+            selector: 'categories',
+            templateUrl: 'categories.component.html',
+            styleUrls: ['./categories.component.css']
+        }),
+        __metadata("design:paramtypes", [ActivatedRoute,
+            Router,
+            CategoryService,
+            FlashMessagesService])
+    ], CategoriesComponent);
     return CategoriesComponent;
 }());
-CategoriesComponent = __decorate([
-    Component({
-        selector: 'categories',
-        templateUrl: 'categories.component.html',
-        styleUrls: ['./categories.component.css']
-    }),
-    __metadata("design:paramtypes", [ActivatedRoute,
-        Router,
-        CategoryService,
-        FlashMessagesService])
-], CategoriesComponent);
 export { CategoriesComponent };
 //# sourceMappingURL=categories.component.js.map

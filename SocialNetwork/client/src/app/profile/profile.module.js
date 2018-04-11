@@ -17,33 +17,33 @@ import { ProfilePublicationsComponent } from './profile-publications/profile-pub
 import { ProfileResolver } from './shared/profile-resolver.service';
 import { PublicationsResolver } from './shared/user-publications-resolver.service';
 import { SelectedTabResolver } from './shared/selected-tab-resolver.service';
-var ProfileModule = (function () {
+var ProfileModule = /** @class */ (function () {
     function ProfileModule() {
     }
+    ProfileModule = __decorate([
+        NgModule({
+            imports: [
+                CommonModule,
+                FormsModule,
+                ReactiveFormsModule,
+                ProfileRoutingModule,
+                FileUploadModule,
+                MessagesModule
+            ],
+            declarations: [
+                ProfileComponent,
+                ProfileOverviewComponent,
+                ProfileSettingsComponent,
+                ProfilePublicationsComponent
+            ],
+            providers: [
+                ProfileResolver,
+                PublicationsResolver,
+                SelectedTabResolver
+            ]
+        })
+    ], ProfileModule);
     return ProfileModule;
 }());
-ProfileModule = __decorate([
-    NgModule({
-        imports: [
-            CommonModule,
-            FormsModule,
-            ReactiveFormsModule,
-            ProfileRoutingModule,
-            FileUploadModule,
-            MessagesModule
-        ],
-        declarations: [
-            ProfileComponent,
-            ProfileOverviewComponent,
-            ProfileSettingsComponent,
-            ProfilePublicationsComponent
-        ],
-        providers: [
-            ProfileResolver,
-            PublicationsResolver,
-            SelectedTabResolver
-        ]
-    })
-], ProfileModule);
 export { ProfileModule };
 //# sourceMappingURL=profile.module.js.map

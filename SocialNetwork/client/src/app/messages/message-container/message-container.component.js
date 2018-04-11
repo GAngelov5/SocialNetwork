@@ -10,7 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { Component, Input } from '@angular/core';
 import { MessageService } from '../shared/message.service';
 import * as io from 'socket.io-client';
-var MessageContainer = (function () {
+var MessageContainer = /** @class */ (function () {
     function MessageContainer(messageService) {
         this.messageService = messageService;
         this.messages = [];
@@ -56,19 +56,19 @@ var MessageContainer = (function () {
             });
         }
     };
+    __decorate([
+        Input(),
+        __metadata("design:type", String)
+    ], MessageContainer.prototype, "tab", void 0);
+    MessageContainer = __decorate([
+        Component({
+            selector: "message-container",
+            templateUrl: 'message-container.component.html',
+            styleUrls: ['message-container.component.css']
+        }),
+        __metadata("design:paramtypes", [MessageService])
+    ], MessageContainer);
     return MessageContainer;
 }());
-__decorate([
-    Input(),
-    __metadata("design:type", String)
-], MessageContainer.prototype, "tab", void 0);
-MessageContainer = __decorate([
-    Component({
-        selector: "message-container",
-        templateUrl: 'message-container.component.html',
-        styleUrls: ['message-container.component.css']
-    }),
-    __metadata("design:paramtypes", [MessageService])
-], MessageContainer);
 export { MessageContainer };
 //# sourceMappingURL=message-container.component.js.map

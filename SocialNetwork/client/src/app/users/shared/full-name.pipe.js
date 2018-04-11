@@ -5,16 +5,16 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 import { Pipe } from '@angular/core';
-var FullNamePipe = (function () {
+var FullNamePipe = /** @class */ (function () {
     function FullNamePipe() {
     }
     FullNamePipe.prototype.transform = function (content) {
         return content.firstName + " " + content.lastName;
     };
+    FullNamePipe = __decorate([
+        Pipe({ name: "fullName" })
+    ], FullNamePipe);
     return FullNamePipe;
 }());
-FullNamePipe = __decorate([
-    Pipe({ name: "fullName" })
-], FullNamePipe);
 export { FullNamePipe };
 //# sourceMappingURL=full-name.pipe.js.map

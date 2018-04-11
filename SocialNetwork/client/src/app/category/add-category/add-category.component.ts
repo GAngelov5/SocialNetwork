@@ -11,7 +11,7 @@ import { Category } from '../shared/category.interface';
 export class AddCategoryComponent {
     @Output()
     public categoryEmitter = new EventEmitter<Category>();
-    private addCategoryForm: FormGroup;    
+    addCategoryForm: FormGroup;    
 
     constructor(private formBuilder: FormBuilder,
                 private router: Router) {
@@ -31,5 +31,9 @@ export class AddCategoryComponent {
             description: this.addCategoryForm.get("description").value
         }
         this.categoryEmitter.emit(category);
+    }
+
+    back() {
+        
     }
 }

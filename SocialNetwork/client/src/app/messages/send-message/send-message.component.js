@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Component, Output, EventEmitter } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-var SendMessageComponent = (function () {
+var SendMessageComponent = /** @class */ (function () {
     function SendMessageComponent(formBuilder) {
         this.formBuilder = formBuilder;
         this.sendMessageEmitter = new EventEmitter();
@@ -27,18 +27,18 @@ var SendMessageComponent = (function () {
             this.messageForm.reset();
         }
     };
+    __decorate([
+        Output(),
+        __metadata("design:type", Object)
+    ], SendMessageComponent.prototype, "sendMessageEmitter", void 0);
+    SendMessageComponent = __decorate([
+        Component({
+            selector: 'send-message',
+            templateUrl: 'send-message.component.html'
+        }),
+        __metadata("design:paramtypes", [FormBuilder])
+    ], SendMessageComponent);
     return SendMessageComponent;
 }());
-__decorate([
-    Output(),
-    __metadata("design:type", Object)
-], SendMessageComponent.prototype, "sendMessageEmitter", void 0);
-SendMessageComponent = __decorate([
-    Component({
-        selector: 'send-message',
-        templateUrl: 'send-message.component.html'
-    }),
-    __metadata("design:paramtypes", [FormBuilder])
-], SendMessageComponent);
 export { SendMessageComponent };
 //# sourceMappingURL=send-message.component.js.map

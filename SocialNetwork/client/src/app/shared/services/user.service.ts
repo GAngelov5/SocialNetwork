@@ -13,17 +13,17 @@ export class UserService {
     }
 
     public getUsers() {
-        return this.http.get<User[]>('http://localhost:3000/api/users')
+        return this.http.get<User[]>('/api/users')
             .catch(err => Observable.of(null));
     }
 
     public createUser(user) {
-        return this.http.post<User>('http://localhost:3000/api/users/user', user,
+        return this.http.post<User>('/api/users/user', user,
             {headers: new HttpHeaders().set('Content-Type', 'application/json')});
     }
 
     public getUser(userId): Observable<any> {
-        return this.http.get<User>('http://localhost:3000/api/users/user/' + userId)
+        return this.http.get<User>('/api/users/user/' + userId)
             .catch((err) => {
                 return Observable.of(null);
             });
@@ -38,31 +38,31 @@ export class UserService {
     }
 
     public updateUser(user) {
-        return this.http.put<User>('http://localhost:3000/api/users/user/' + user._id, user);
+        return this.http.put<User>('/api/users/user/' + user._id, user);
     }
 
     public changeUserPassword(partialUser) {
-        return this.http.post<ChangedPasswordResponse>('http://localhost:3000/api/users/changePassword', partialUser,
+        return this.http.post<ChangedPasswordResponse>('/api/users/changePassword', partialUser,
             {headers: new HttpHeaders().set('Content-Type', 'application/json')});
     }
 
     public followUser(user) {
-        return this.http.post('http://localhost:3000/api/users/user/follow', user, 
+        return this.http.post('/api/users/user/follow', user, 
             {headers: new HttpHeaders().set('Content-Type', 'application/json')});
     }
 
     public unfollowUser(user) {
-        return this.http.post('http://localhost:3000/api/users/user/unfollow', user, 
+        return this.http.post('/api/users/user/unfollow', user, 
             {headers: new HttpHeaders().set('Content-Type', 'application/json')});
     }
 
     public subscribeUser(user) {
-        return this.http.post('http://localhost:3000/api/users/user/subscribe', user, 
+        return this.http.post('/api/users/user/subscribe', user, 
             {headers: new HttpHeaders().set('Content-Type', 'application/json')});
     }
     
     public unsubscribeUser(user) {
-        return this.http.post('http://localhost:3000/api/users/user/unsubscribe', user, 
+        return this.http.post('/api/users/user/unsubscribe', user, 
             {headers: new HttpHeaders().set('Content-Type', 'application/json')});
     }
 }

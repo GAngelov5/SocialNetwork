@@ -36,7 +36,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
 //delete when in production because now the 2 projects are separeted and run on different servers.
-app.use(cors({origin: "http://localhost:8080", credentials: true}))
+// app.use(cors({origin: "http://localhost:8080", credentials: true}))
 
 //passport
 app.use(passport.initialize());

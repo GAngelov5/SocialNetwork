@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-var UserArticlesComponent = (function () {
+var UserArticlesComponent = /** @class */ (function () {
     function UserArticlesComponent(route, router) {
         this.route = route;
         this.router = router;
@@ -18,15 +18,15 @@ var UserArticlesComponent = (function () {
     UserArticlesComponent.prototype.showArticle = function (articleId) {
         this.router.navigate(["/article", articleId]);
     };
+    UserArticlesComponent = __decorate([
+        Component({
+            selector: 'user-articles',
+            templateUrl: 'user-articles.component.html'
+        }),
+        __metadata("design:paramtypes", [ActivatedRoute,
+            Router])
+    ], UserArticlesComponent);
     return UserArticlesComponent;
 }());
-UserArticlesComponent = __decorate([
-    Component({
-        selector: 'user-articles',
-        templateUrl: 'user-articles.component.html'
-    }),
-    __metadata("design:paramtypes", [ActivatedRoute,
-        Router])
-], UserArticlesComponent);
 export { UserArticlesComponent };
 //# sourceMappingURL=user-articles.component.js.map

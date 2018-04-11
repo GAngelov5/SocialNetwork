@@ -30,16 +30,16 @@ var profileRoutes = [
         }
     }
 ];
-var ProfileRoutingModule = (function () {
+var ProfileRoutingModule = /** @class */ (function () {
     function ProfileRoutingModule() {
     }
+    ProfileRoutingModule = __decorate([
+        NgModule({
+            imports: [RouterModule.forChild(profileRoutes)],
+            exports: [RouterModule]
+        })
+    ], ProfileRoutingModule);
     return ProfileRoutingModule;
 }());
-ProfileRoutingModule = __decorate([
-    NgModule({
-        imports: [RouterModule.forChild(profileRoutes)],
-        exports: [RouterModule]
-    })
-], ProfileRoutingModule);
 export { ProfileRoutingModule };
 //# sourceMappingURL=profile.routing.js.map

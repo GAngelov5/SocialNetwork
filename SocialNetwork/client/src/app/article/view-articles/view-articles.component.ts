@@ -9,7 +9,7 @@ import { ArticleService} from '../shared/articles.service';
 })
 export class ViewArticlesComponent {
     @Input()
-    private articles; 
+    articles; 
 
     constructor(private articlesService: ArticleService,
                 private router: Router) {
