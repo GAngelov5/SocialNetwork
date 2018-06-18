@@ -1,4 +1,8 @@
+import { Article } from "../../shared/models/article.interface";
+
 export interface Category {
-    name: String,
-    description: String
+    _id: string,
+    name: string,
+    description: string,
+    articles: Article[]
 }

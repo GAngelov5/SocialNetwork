@@ -11,7 +11,7 @@ import { Category } from '../shared/category.interface';
     styleUrls: ['./categories.component.css']
 })
 export class CategoriesComponent { 
-    categories;
+    public categories: Category[] = [];
     allowAddCategory: boolean;
 
     constructor(private route: ActivatedRoute,
@@ -22,7 +22,10 @@ export class CategoriesComponent {
     }
 
     ngOnInit() {
-        this.categories = this.route.snapshot.data['categories'];
+        const preloadedCategories = this.route.snapshot.data['categories'];
+        if (preloadedCategories) {
+            this.categories = preloadedCategories;
+        }
     }
 
     viewCategory(categoryId) {
@@ -35,7 +38,6 @@ export class CategoriesComponent {
                 this.categories.push(data);
                 this.allowAddCategory = false;                
                 this.flashService.show("New category added!", {cssClass: "alert-success", timeout: 2500});
-                this.router.navigate(['/categories'])
             }
         })
     }

@@ -1,6 +1,6 @@
 import { Component, Input, Output } from '@angular/core';
 import { Message } from '../../shared/models/message.interface';
-import { MessageService } from '../shared/message.service';
+import { MessageService } from '../../shared/services/message.service';
 import * as io from 'socket.io-client';
 
 @Component({

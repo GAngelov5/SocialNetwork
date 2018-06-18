@@ -3,3 +3,7 @@
     background: #6b6b;
     border-radius: 5px;
 }
+
+.cursor-pointer {
+    cursor: pointer;
+}

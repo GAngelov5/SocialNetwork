@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 
 import { AuthenticationService} from '../shared/services/authentication.service';
 import { UserService } from '../shared/services/user.service';
-import { MessageService } from '../messages/shared/message.service';
+import { MessageService } from '../shared/services/message.service';
 import { ChatService } from '../shared/services/chat.service';
 
 import * as io from 'socket.io-client';
@@ -81,8 +81,8 @@ export class NavigationComponent {
     }
 
     goToProfile() {
-        if (this.currentUserId) {
-            this.router.navigate(['/profile', this.currentUserId]);
+        if (this.authService.loggedIn()) {
+            this.router.navigate(['/profile']);
         }
     }
 }

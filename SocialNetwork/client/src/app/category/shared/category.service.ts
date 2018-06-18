@@ -12,7 +12,7 @@ export class CategoryService {
     }
 
     public getCategories() {
-        return this.http.get<any>('http://localhost:3000/api/categories/')
+        return this.http.get<any>('/api/categories/')
             .map(categories => {
                 if (categories) {
                     return categories;
@@ -25,10 +25,10 @@ export class CategoryService {
     }
 
     public addCategory(category: Category): Observable<any> {
-        return this.http.post<Category>('http://localhost:3000/api/categories/category', category);
+        return this.http.post<Category>('/api/categories/category', category);
     }
 
     public getCategoryById(categoryId: String): Observable<any> {
-        return this.http.get<Category>('http://localhost:3000/api/categories/' + categoryId);
+        return this.http.get<Category>('/api/categories/' + categoryId);
     }
 }

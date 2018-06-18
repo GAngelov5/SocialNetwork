@@ -3,9 +3,10 @@ import { Resolve, Router } from '@angular/router';
 import { CategoryService } from './category.service';
 
 import { Observable } from 'rxjs/Rx';
+import { Category } from './category.interface';
 
 @Injectable()
-export class CategoriesResolver implements Resolve<any> {
+export class CategoriesResolver implements Resolve<Category[]> {
     
     constructor(private categoryService: CategoryService){}
     

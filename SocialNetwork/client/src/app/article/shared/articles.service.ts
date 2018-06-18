@@ -14,13 +14,13 @@ export class ArticleService {
         return this.http.get<any>("/api/articles/");
     }
 
-    getArticlesForUser(userId) {
-        return this.http.get("/api/articles/userArticles/" + userId)
+    getArticlesForUser(userId): Observable<Article[]> {
+        return this.http.get<Article[]>("/api/articles/userArticles/" + userId)
             .catch((err) => Observable.of(null));
     }
 
-    getArticleById(articleId) {
-        return this.http.get('/api/articles/article/' + articleId)
+    getArticleById(articleId): Observable<Article> {
+        return this.http.get<Article>('/api/articles/article/' + articleId)
             .catch((err) => Observable.of(null));
     }
 

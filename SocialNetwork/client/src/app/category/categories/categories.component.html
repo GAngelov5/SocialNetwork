@@ -1,7 +1,7 @@
 <div class="container">
     <h2>Categories</h2>
     <button (click)="allowAddCategory = true" class="btn btn-success">Add Category</button>
-    <add-category *ngIf="allowAddCategory" (categoryEmitter)="addCategory($event)"></add-category>
+    <category-form *ngIf="allowAddCategory" (categoryEmitter)="addCategory($event)"></category-form>
     <div *ngIf="!allowAddCategory">
         <div class="boxes" *ngFor="let category of categories">
             <h4>{{category.name}}</h4>  

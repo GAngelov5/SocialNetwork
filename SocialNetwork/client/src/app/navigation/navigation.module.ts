@@ -6,7 +6,6 @@ import { HttpModule } from '@angular/http';
 import { MatToolbarModule } from '@angular/material';
 
 import { NavigationComponent } from './navigation.component';
-import { LiveChatComponent } from './liveChat/live-chat.component';
 
 @NgModule({
     imports: [
@@ -18,8 +17,7 @@ import { LiveChatComponent } from './liveChat/live-chat.component';
         MatToolbarModule
     ],
     declarations: [
-        NavigationComponent,
-        LiveChatComponent
+        NavigationComponent
     ],
     providers: [
     ],

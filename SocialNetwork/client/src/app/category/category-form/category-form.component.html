@@ -1,0 +1,12 @@
+<form class="form-group" [formGroup]="addCategoryForm" (ngSubmit)="addCategory()">
+    <div>
+        <label>Title </label>
+        <input class="form-control" type="text" formControlName="title">
+    </div>
+    <div>
+        <label>Description </label>
+        <input class="form-control" type="text" formControlName="description">
+    </div>
+    <button type="submit" class="btn btn-primary">Add</button>
+    <button class="btn btn-primary" (click)="back()">Back</button>
+</form>

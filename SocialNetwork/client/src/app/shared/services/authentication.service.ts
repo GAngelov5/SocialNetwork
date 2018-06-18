@@ -50,4 +50,8 @@ export class AuthenticationService {
     public loggedIn() {
         return tokenNotExpired("user_token");
     }
+
+    public getCurrentUserId(): string {
+        return JSON.parse(localStorage.getItem('currentUserId'));
+    }
 }

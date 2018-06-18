@@ -1,0 +1,7 @@
+<div class="container" *ngIf="articles && articles.length">
+    <view-article-list [articles]='articles'></view-article-list>
+</div>
+
+<div class="container" *ngIf="noArticlesAvailable">
+    No articles available
+</div>
